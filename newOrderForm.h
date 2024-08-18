@@ -3,6 +3,8 @@
 #include "classes.h"
 #include "includings.h"
 #include "newOrderForm.cpp"
+#include <msclr/marshal_cppstd.h>
+#include <cmath>
 
 namespace testGUI {
 
@@ -73,6 +75,8 @@ namespace testGUI {
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::RichTextBox^ tbCLientAdress;
 	private: System::Windows::Forms::Label^ label11;
+	private: System::Windows::Forms::RichTextBox^ tbPrice;
+	private: System::Windows::Forms::Label^ label12;
 
 
 
@@ -117,6 +121,8 @@ namespace testGUI {
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->tbCLientAdress = (gcnew System::Windows::Forms::RichTextBox());
 			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->tbPrice = (gcnew System::Windows::Forms::RichTextBox());
+			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -127,7 +133,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->label1->Location = System::Drawing::Point(12, 9);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(1073, 74);
+			this->label1->Size = System::Drawing::Size(1103, 74);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Make New Order";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -196,7 +202,7 @@ namespace testGUI {
 			// 
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnOK->Location = System::Drawing::Point(79, 634);
+			this->btnOK->Location = System::Drawing::Point(79, 692);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(180, 71);
 			this->btnOK->TabIndex = 13;
@@ -208,7 +214,7 @@ namespace testGUI {
 			// 
 			this->btnClear->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnClear->Location = System::Drawing::Point(390, 634);
+			this->btnClear->Location = System::Drawing::Point(390, 692);
 			this->btnClear->Name = L"btnClear";
 			this->btnClear->Size = System::Drawing::Size(180, 71);
 			this->btnClear->TabIndex = 14;
@@ -220,7 +226,7 @@ namespace testGUI {
 			// 
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnExit->Location = System::Drawing::Point(663, 634);
+			this->btnExit->Location = System::Drawing::Point(663, 692);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(180, 71);
 			this->btnExit->TabIndex = 15;
@@ -230,6 +236,8 @@ namespace testGUI {
 			// 
 			// tbErrorDescription
 			// 
+			this->tbErrorDescription->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
 			this->tbErrorDescription->Location = System::Drawing::Point(286, 465);
 			this->tbErrorDescription->Name = L"tbErrorDescription";
 			this->tbErrorDescription->Size = System::Drawing::Size(612, 44);
@@ -242,7 +250,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->label8->Location = System::Drawing::Point(19, 301);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(213, 46);
+			this->label8->Size = System::Drawing::Size(261, 46);
 			this->label8->TabIndex = 17;
 			this->label8->Text = L"Phone Number:";
 			// 
@@ -258,6 +266,8 @@ namespace testGUI {
 			// 
 			// tbClientName
 			// 
+			this->tbClientName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbClientName->Location = System::Drawing::Point(286, 105);
 			this->tbClientName->Name = L"tbClientName";
 			this->tbClientName->Size = System::Drawing::Size(612, 44);
@@ -266,6 +276,8 @@ namespace testGUI {
 			// 
 			// tbClientSurname
 			// 
+			this->tbClientSurname->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbClientSurname->Location = System::Drawing::Point(286, 155);
 			this->tbClientSurname->Name = L"tbClientSurname";
 			this->tbClientSurname->Size = System::Drawing::Size(612, 44);
@@ -274,6 +286,8 @@ namespace testGUI {
 			// 
 			// tbDeviceName
 			// 
+			this->tbDeviceName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbDeviceName->Location = System::Drawing::Point(286, 205);
 			this->tbDeviceName->Name = L"tbDeviceName";
 			this->tbDeviceName->Size = System::Drawing::Size(612, 44);
@@ -282,6 +296,8 @@ namespace testGUI {
 			// 
 			// tbDeviceModel
 			// 
+			this->tbDeviceModel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbDeviceModel->Location = System::Drawing::Point(286, 255);
 			this->tbDeviceModel->Name = L"tbDeviceModel";
 			this->tbDeviceModel->Size = System::Drawing::Size(612, 44);
@@ -290,6 +306,8 @@ namespace testGUI {
 			// 
 			// tbPhoneNumber
 			// 
+			this->tbPhoneNumber->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbPhoneNumber->Location = System::Drawing::Point(286, 301);
 			this->tbPhoneNumber->Name = L"tbPhoneNumber";
 			this->tbPhoneNumber->Size = System::Drawing::Size(612, 44);
@@ -298,6 +316,8 @@ namespace testGUI {
 			// 
 			// tbEmail
 			// 
+			this->tbEmail->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbEmail->Location = System::Drawing::Point(286, 347);
 			this->tbEmail->Name = L"tbEmail";
 			this->tbEmail->Size = System::Drawing::Size(612, 44);
@@ -306,6 +326,8 @@ namespace testGUI {
 			// 
 			// tbEmployeeId
 			// 
+			this->tbEmployeeId->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbEmployeeId->Location = System::Drawing::Point(286, 515);
 			this->tbEmployeeId->Name = L"tbEmployeeId";
 			this->tbEmployeeId->Size = System::Drawing::Size(612, 44);
@@ -314,6 +336,8 @@ namespace testGUI {
 			// 
 			// tbCategory
 			// 
+			this->tbCategory->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbCategory->Location = System::Drawing::Point(286, 565);
 			this->tbCategory->Name = L"tbCategory";
 			this->tbCategory->Size = System::Drawing::Size(612, 44);
@@ -332,6 +356,8 @@ namespace testGUI {
 			// 
 			// tbCLientAdress
 			// 
+			this->tbCLientAdress->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->tbCLientAdress->Location = System::Drawing::Point(286, 403);
 			this->tbCLientAdress->Name = L"tbCLientAdress";
 			this->tbCLientAdress->Size = System::Drawing::Size(612, 44);
@@ -342,18 +368,40 @@ namespace testGUI {
 			// 
 			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label11->Location = System::Drawing::Point(14, 403);
+			this->label11->Location = System::Drawing::Point(12, 406);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(288, 50);
 			this->label11->TabIndex = 29;
 			this->label11->Text = L"Client Adress:";
+			// 
+			// tbPrice
+			// 
+			this->tbPrice->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->tbPrice->Location = System::Drawing::Point(286, 624);
+			this->tbPrice->Name = L"tbPrice";
+			this->tbPrice->Size = System::Drawing::Size(612, 44);
+			this->tbPrice->TabIndex = 32;
+			this->tbPrice->Text = L"";
+			// 
+			// label12
+			// 
+			this->label12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->label12->Location = System::Drawing::Point(19, 624);
+			this->label12->Name = L"label12";
+			this->label12->Size = System::Drawing::Size(240, 50);
+			this->label12->TabIndex = 31;
+			this->label12->Text = L"Price";
 			// 
 			// newOrderForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(921, 745);
+			this->ClientSize = System::Drawing::Size(951, 775);
+			this->Controls->Add(this->tbPrice);
+			this->Controls->Add(this->label12);
 			this->Controls->Add(this->tbCLientAdress);
 			this->Controls->Add(this->label11);
 			this->Controls->Add(this->tbCategory);
@@ -388,22 +436,225 @@ namespace testGUI {
 
 //ok button
 private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 	//get data from textboxes
 	String^ clientName = tbClientName->Text;
 	String^ clientSurname = tbClientSurname->Text;
 	String^ deviceName = tbDeviceName->Text;
 	String^ deviceModel = tbDeviceModel->Text;
 	String^ errorDescription = tbErrorDescription->Text;
-	String^ employeeID = tbEmployeeId->Text;
+	String^ employeeStringID = tbEmployeeId->Text;
 	String^ phoneNumber = tbPhoneNumber->Text;
 	String^ email = tbEmail->Text;
+	String^ category = tbCategory->Text;
+	String^ clientAdress = tbCLientAdress->Text;
+	String^ priceStr = tbPrice->Text;
+	String^ query;
 
+	int^ clientId{};
+	int employeeId{};
+	int deviceId{};
+	
+	double price{};
 	//check if all textboxes are filled
 	//check if name,surname,device name, device model are text type variabels
 	//check if phonenumber is integer of length 9 digits
 	//check if email is email type -> +[@]+[.]+ (regex)
 
+	if (clientName == "" || clientSurname == "" || deviceName == "" || deviceModel == "" || errorDescription == "" ||
+		employeeStringID == "" || phoneNumber == "" || email == "" || category == "" || clientAdress == "") {
+		
+		MessageBox::Show("Please fill all textboxes", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if(!isText(clientName)) {
+		MessageBox::Show("Client name should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if (!isText(clientSurname)) {
+		MessageBox::Show("Client surname should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if (!isText(deviceName)) {
+		MessageBox::Show("Device name should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if (!isText(errorDescription)) {
+		MessageBox::Show("Error description should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if (!isText(category)) {
+		MessageBox::Show("Category should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if (!isEmail(email)) {
+		MessageBox::Show("Email should be email type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if (isNumber(phoneNumber)) {
+		MessageBox::Show("Phone number should be integer", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	
+	{	// checking if number is 9 digit length
+		string text{ msclr::interop::marshal_as<string>(phoneNumber) };
+		if (text.length() != 9) {
+			MessageBox::Show("Phone number should be 9 digits", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+	}
 
+	if (employeeIDExist(employeeStringID)) {
+		MessageBox::Show("Employee ID should be integer or does not exist", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	else {
+		employeeId = Convert::ToInt32(employeeStringID);
+	}
+
+	if (!isMoney(priceStr)) {
+		MessageBox::Show("Price should be float type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	else {
+		price = Convert::ToSingle(priceStr);
+		price = round(price * 100) / 100;	//rounding to 2 decimal places
+	}
+
+	try{
+		String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
+		SqlConnection conn{strConn};
+		conn.Open();
+
+		if (clientExist(0, clientName, clientSurname, "")) {
+
+
+			query =  "SELECT ClientId From CLients Where ClientName = @name AND ClientSurname = @surname AND ClientEmail = @email";
+
+			SqlCommand cmd_get_Id{ query,% conn };
+			cmd_get_Id.Parameters->AddWithValue("@name", clientName);
+			cmd_get_Id.Parameters->AddWithValue("@surname", clientSurname);
+			cmd_get_Id.Parameters->AddWithValue("@email", email);
+
+			SqlDataReader^ reader = cmd_get_Id.ExecuteReader();
+
+			if (reader->Read()) {
+				clientId = reader->GetInt32(0);
+			}
+			
+			reader->Close();
+
+		}else{
+			query = "INSERT INTO Clients(ClientName,ClientSurname,ClientPhone,ClientEmail,ClientAdress) VALUES(@clientName,@clientSurname,@clientPhone,@clientemail,@clientAdress)";	//insert new client
+
+			SqlCommand cmd_insert_client{ query,% conn };
+			cmd_insert_client.Parameters->AddWithValue("@clientName",clientName);
+			cmd_insert_client.Parameters->AddWithValue("@clientSurname",clientSurname);
+			cmd_insert_client.Parameters->AddWithValue("@clientPhone",phoneNumber);
+			cmd_insert_client.Parameters->AddWithValue("@clientEmail",email);
+			cmd_insert_client.Parameters->AddWithValue("@clientAdress",clientAdress);
+
+			cmd_insert_client.ExecuteNonQuery();
+
+			query = "SELECT ClientId From Clients Where ClientName = @name AND ClientSurname = @surname AND ClientEmail = @email";
+			SqlCommand cmd_get_Id{ query,% conn };
+			cmd_get_Id.Parameters->AddWithValue("@name", clientName);
+			cmd_get_Id.Parameters->AddWithValue("@surname", clientSurname);
+			cmd_get_Id.Parameters->AddWithValue("@email", email);
+
+			SqlDataReader^ reader = cmd_get_Id.ExecuteReader();
+
+				if (reader->Read()) {
+					clientId = reader->GetInt32(0);
+				}
+				reader->Close();
+
+		}
+
+		if (!deviceExist(deviceName, deviceModel)) {
+			int quantity{};
+			query = "SELECT DeviceId From Devices Where DeviceName = @deviceName AND DeviceModel = @deviceModel";
+			SqlCommand cmd_get_deviceId{ query,% conn };
+			cmd_get_deviceId.Parameters->AddWithValue("@deviceName", deviceName);
+			cmd_get_deviceId.Parameters->AddWithValue("@deviceModel", deviceModel);
+
+			SqlDataReader^ reader = cmd_get_deviceId.ExecuteReader();
+
+			if (reader->Read()) {
+				deviceId = reader->GetInt32(0);
+			}
+			reader->Close();
+
+			//update qunaity of device by 1
+
+			query = "Select Quantity From Devices Where DeviceId = @Id";
+			SqlCommand cmd_get_quantity{ query,% conn };
+			cmd_get_quantity.Parameters->AddWithValue("@Id", deviceId);
+			
+			reader = cmd_get_quantity.ExecuteReader();
+			
+			if (reader->Read()) {
+				quantity = reader->GetInt32(0);
+			}
+			reader->Close();
+
+			query = "UPDATE Devices set Quantity = @quantity WHERE DeviceId = @Id";
+			SqlCommand cmd_update_quantity{ query,% conn };
+			cmd_update_quantity.Parameters->AddWithValue("@quantity", ++quantity);
+
+			cmd_update_quantity.ExecuteNonQuery();
+
+		}
+		else {
+			//insert into devices
+			// 
+			// get device Id
+
+			query = "Insert into Devices(ClientId,DeviceName,DeviceModel,DeviceCategory,Quantity) VALUES(@clientId,@deviceName,@deviceModel,@category,@Quantity)";
+			SqlCommand cmd_insert_device{ query,% conn };
+
+			cmd_insert_device.Parameters->AddWithValue("@clientId", clientId);
+			cmd_insert_device.Parameters->AddWithValue("@deviceName", deviceName);
+			cmd_insert_device.Parameters->AddWithValue("@deviceModel", deviceModel);
+			cmd_insert_device.Parameters->AddWithValue("@category", category);
+			cmd_insert_device.Parameters->AddWithValue("@Quantity", 1);
+
+			cmd_insert_device.ExecuteNonQuery();
+
+			query = "SELECT DeviceId From Devices Where DeviceName = @deviceName AND DeviceModel = @deviceModel and ClientId = @clientId";
+			SqlCommand cmd_get_device_id{query,%conn};
+			cmd_get_device_id.Parameters->AddWithValue("@deviceName",deviceName);
+			cmd_get_device_id.Parameters->AddWithValue("@deviceModel",deviceModel);
+			cmd_get_device_id.Parameters->AddWithValue("@clientId",clientId);
+
+			SqlDataReader^ reader = cmd_get_device_id.ExecuteReader();
+
+				if (reader->Read()) {
+					deviceId = reader->GetInt32(0);
+				}
+				reader->Close();	
+		}
+		// inserting order
+		
+		query = "Insert into orders(clientId,EmployeeId,DeviceId,OrderStatus,OrderDate,OrderPrice,Description) VALUES (@clientId,@EmployeeId,@DeviceId,@OrderStatus,@OrderDate,@OrderPrice,@Description)";//insert int orders
+		SqlCommand cmd_insert_order{ query,% conn };
+		cmd_insert_order.Parameters->AddWithValue("@clientId", clientId);
+		cmd_insert_order.Parameters->AddWithValue("@EmployeeId", employeeId);
+		cmd_insert_order.Parameters->AddWithValue("@DeviceId", deviceId);
+		cmd_insert_order.Parameters->AddWithValue("@OrderStatus", Convert::ToString("In progress"));
+		cmd_insert_order.Parameters->AddWithValue("@OrderDate", getData());
+		cmd_insert_order.Parameters->AddWithValue("@OrderPrice", price);
+		cmd_insert_order.Parameters->AddWithValue("@Description", errorDescription);
+
+		cmd_insert_order.ExecuteNonQuery();
+
+		conn.Close();
+	}
+	catch (Exception^ en) {
+		MessageBox::Show(en->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	this->Close();
 }
 
 //clear button
@@ -415,17 +666,16 @@ private: System::Void btnClear_Click(System::Object^ sender, System::EventArgs^ 
 	tbErrorDescription->Clear();
 	tbEmployeeId->Clear();
 	tbPhoneNumber->Clear();
+	tbDeviceModel->Clear();
 	tbEmail->Clear();
 	tbCategory->Clear();
 	tbCLientAdress->Clear();
-
+	tbPrice->Clear();
 }
 
 //exit button
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
 }
-
-
 };
 }

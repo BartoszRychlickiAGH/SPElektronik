@@ -1,85 +1,120 @@
 #include "Includings.h"
+#include "classes.h"
+#include <memory>
 
 static void clearDataGridView(DataGridView^ dataView) {
 	dataView->Columns->Clear();
 	dataView->Rows->Clear();
 }
 
-static void configureDataGrid_Orders(DataGridView^ dataView,String^ s) {
-	
+static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
+
 	clearDataGridView(dataView);
-	String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
-	SqlConnection conn{ strConn };
-	conn.Open();
-	String^ query{};
-	
-	 // Orders
-	DataGridViewColumn^ column_Order_Id = gcnew DataGridViewTextBoxColumn();
-	column_Order_Id->Name = "Order ID";
-	column_Order_Id->HeaderText = "Order ID";
-	dataView->Columns->Add(column_Order_Id);
+	try {
 
-	DataGridViewColumn^ column_Client_Id_Orders = gcnew DataGridViewTextBoxColumn();
-	column_Client_Id_Orders->Name = "Client ID";
-	column_Client_Id_Orders->HeaderText = "Client ID";
-	dataView->Columns->Add(column_Client_Id_Orders);
+		String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
+		SqlConnection conn{ strConn };
+		conn.Open();
+		String^ query{ "SELECT OrderId,ClientId,EmployeeId,DeviceId,OrderStatus,OrderDate,OrderPrice,Description FROM Orders" };
 
-	DataGridViewColumn^ column_Employee_Id = gcnew DataGridViewTextBoxColumn();
-	column_Employee_Id->Name = "Employee ID";
-	column_Employee_Id->HeaderText = "Employee ID";
-	dataView->Columns->Add(column_Employee_Id);
+		SqlCommand cmd{ query,% conn };
+
+		SqlDataReader^ reader = cmd.ExecuteReader();
+
+		DataGridViewColumn^ column_Order_Id = gcnew DataGridViewTextBoxColumn();
+		column_Order_Id->Name = "Order ID";
+		column_Order_Id->HeaderText = "Order ID";
+		column_Order_Id->ValueType = System::Int32::typeid;
+		dataView->Columns->Add(column_Order_Id);
+
+		DataGridViewColumn^ column_Client_Id_Orders = gcnew DataGridViewTextBoxColumn();
+		column_Client_Id_Orders->Name = "Client ID";
+		column_Client_Id_Orders->HeaderText = "Client ID";
+		column_Client_Id_Orders->ValueType = System::Int32::typeid;
+		dataView->Columns->Add(column_Client_Id_Orders);
+
+		DataGridViewColumn^ column_Employee_Id = gcnew DataGridViewTextBoxColumn();
+		column_Employee_Id->Name = "Employee ID";
+		column_Employee_Id->HeaderText = "Employee ID";
+		column_Employee_Id->ValueType = System::Int32::typeid;
+		dataView->Columns->Add(column_Employee_Id);
 
 
-	DataGridViewColumn^ column_Device_Id_Orders = gcnew DataGridViewTextBoxColumn();
-	column_Device_Id_Orders->Name = "Device ID";
-	column_Device_Id_Orders->HeaderText = "Device ID";
-	dataView->Columns->Add(column_Device_Id_Orders);
+		DataGridViewColumn^ column_Device_Id_Orders = gcnew DataGridViewTextBoxColumn();
+		column_Device_Id_Orders->Name = "Device ID";
+		column_Device_Id_Orders->HeaderText = "Device ID";
+		column_Device_Id_Orders->ValueType = System::Int32::typeid;
+		dataView->Columns->Add(column_Device_Id_Orders);
 
-	DataGridViewColumn^ column_Order_Status = gcnew DataGridViewTextBoxColumn();
-	column_Order_Status->Name = "Order Status";
-	column_Order_Status->HeaderText = "Order Status";
-	dataView->Columns->Add(column_Order_Status);
+		DataGridViewColumn^ column_Order_Status = gcnew DataGridViewTextBoxColumn();
+		column_Order_Status->Name = "Order Status";
+		column_Order_Status->HeaderText = "Order Status";
+		column_Order_Status->ValueType = System::String::typeid;
+		dataView->Columns->Add(column_Order_Status);
 
-	DataGridViewColumn^ column_Order_Date = gcnew DataGridViewTextBoxColumn();
-	column_Order_Date->Name = "Order Date";
-	column_Order_Date->HeaderText = "Order Date";
-	dataView->Columns->Add(column_Order_Date);
+		DataGridViewColumn^ column_Order_Date = gcnew DataGridViewTextBoxColumn();
+		column_Order_Date->Name = "Order Date";
+		column_Order_Date->HeaderText = "Order Date";
+		column_Order_Date->ValueType = System::String::typeid;
+		dataView->Columns->Add(column_Order_Date);
 
-	DataGridViewColumn^ column_Order_Price = gcnew DataGridViewTextBoxColumn();
-	column_Order_Price->Name = "Order Price";
-	column_Order_Price->HeaderText = "Order Price";
-	dataView->Columns->Add(column_Order_Price);
+		DataGridViewColumn^ column_Order_Price = gcnew DataGridViewTextBoxColumn();
+		column_Order_Price->Name = "Order Price";
+		column_Order_Price->HeaderText = "Order Price";
+		column_Order_Price->ValueType = System::Single::typeid;
+		dataView->Columns->Add(column_Order_Price);
 
-	DataGridViewColumn^ column_Description = gcnew DataGridViewTextBoxColumn();
-	column_Description->Name = "Description";
-	column_Description->HeaderText = "Description";
-	dataView->Columns->Add(column_Description);
+		DataGridViewColumn^ column_Description = gcnew DataGridViewTextBoxColumn();
+		column_Description->Name = "Description";
+		column_Description->HeaderText = "Description";
+		column_Description->ValueType = System::String::typeid;
+		dataView->Columns->Add(column_Description);
 
-	query = "SELECT * FROM Orders"; // modify to allow searching via texbox in MyForm
-	
+		// modify to allow searching via texbox in MyForm
 
-	SqlCommand cmd{ query,% conn };
 
-	SqlDataReader^ reader = cmd.ExecuteReader();
-	int i;
-	while (reader->Read()) {
-		i = 0;
-		for (int j = 0; j <= i - 1; j++) {
-			reader->Read();
+		int i{ 0 };
+		while (reader->Read()) {
+			i = 0;
+			for (int j = 0; j <= i - 1; j++) {
+				reader->Read();
+			}
+			++i;
+
+			int orderID = reader->GetInt32(0);
+			int clientID = reader->GetInt32(1);
+			int employeeID = reader->GetInt32(2);
+			int deviceID = reader->GetInt32(3);
+			String^ orderStatus = reader->GetString(4);
+			String^ orderDate = reader->GetString(5);
+			float orderPrice = reader->GetFloat(6);
+			String^ description = reader->GetString(7);
+
+
+			dataView->Rows->Add(Convert::ToInt32(orderID),Convert::ToInt32(clientID),Convert::ToInt32(employeeID),Convert::ToInt32(deviceID),
+				orderStatus,orderDate,Convert::ToSingle(orderPrice),description);
+
+			/*dataView->Rows->Add(reader->GetInt32(0), reader->GetInt32(1),
+				reader->GetInt32(2), reader->GetInt32(3), reader->GetInt32(4),
+				reader->GetString(5), Convert::ToString(reader->GetFloat(6)), reader->GetString(7));*/
+		
+		
 		}
-		++i;
-
-		dataView->Rows->Add(reader->GetInt32(0), reader->GetInt32(1),
-			reader->GetInt32(2), reader->GetInt32(3), reader->GetString(5), reader->GetString(6)
-			, reader->GetFloat(7), reader->GetString(8));
 
 
 
-	}
+		
+
+	
 	reader->Close();
 	dataView->Update();
 
 	conn.Close();
+	}
+	catch (Exception^ edv) {
+		MessageBox::Show(edv->Message, "Error on tests", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
 }
 
 static void configureDataGrid_Clients(DataGridView^ dataView, String^ s) {
@@ -122,7 +157,7 @@ static void configureDataGrid_Clients(DataGridView^ dataView, String^ s) {
 	dataView->Columns->Add(column_Client_Adress);
 
 
-	query = "SELECT * FROM Clients"; // Client iD like s+"%" or Client name like s+"%" or client surname like s+"%" or  client email like s+"%"
+	query = "SELECT ClientId,ClientName,ClientSurname,ClientPhone,ClientEmail,ClientAdress FROM Clients"; // Client iD like s+"%" or Client name like s+"%" or client surname like s+"%" or  client email like s+"%"
 	SqlCommand cmd{ query,% conn };
 
 	SqlDataReader^ reader = cmd.ExecuteReader();
@@ -135,8 +170,19 @@ static void configureDataGrid_Clients(DataGridView^ dataView, String^ s) {
 		}
 		++i;
 
-		dataView->Rows->Add(reader->GetInt32(0), reader->GetString(1),
-			reader->GetString(2), reader->GetString(3), reader->GetString(5), reader->GetString(6));
+
+		int^ clientID = reader->GetInt32(0);
+		String^ clientName = reader->GetString(1);
+		String^ clientSurname = reader->GetString(2);
+		String^ clientPhone = reader->GetString(3);
+		String^ clientEmail = reader->GetString(4);
+		String^ clientAdress = reader->GetString(5);
+
+		dataView->Rows->Add(clientID, clientName, clientSurname, clientPhone, clientEmail, clientAdress);
+
+
+		/*dataView->Rows->Add(reader->GetInt32(0), reader->GetString(1),
+			reader->GetString(2), reader->GetString(3), reader->GetString(5), reader->GetString(6));*/
 
 	}
 	reader->Close();
@@ -178,8 +224,13 @@ static void configureDataGrid_Devices(DataGridView^ dataView,String^ s) {
 	column_Device_Category->HeaderText = "Device Category";
 	dataView->Columns->Add(column_Device_Category);
 
+	DataGridViewColumn^ column_Device_Quantity = gcnew DataGridViewTextBoxColumn();
+	column_Device_Quantity->Name = "DQuantity";
+	column_Device_Quantity->HeaderText = "Quantity";
+	dataView->Columns->Add(column_Device_Quantity);
 
-	query = "SELECT * FROM Devices"; // device iD like s+"%" or devicename like s+"%"
+
+	query = "SELECT DeviceId,ClientId,DeviceName,DeviceModel,DeviceCategory,Quantity FROM Devices"; // device iD like s+"%" or devicename like s+"%"
 	SqlCommand cmd{ query,% conn };
 
 	SqlDataReader^ reader = cmd.ExecuteReader();
@@ -192,8 +243,15 @@ static void configureDataGrid_Devices(DataGridView^ dataView,String^ s) {
 		}
 		++i;
 
-		dataView->Rows->Add(reader->GetInt32(0), reader->GetInt32(1),
-			reader->GetString(2), reader->GetString(3), reader->GetString(5));
+		int^ deviceId = reader->GetInt32(0);
+		int^ clientId = reader->GetInt32(1);
+		String^ deviceName = reader->GetString(2);
+		String^ deviceModel = reader->GetString(3);
+		String^ deviceCategory = reader->GetString(4);
+		int^ deviceQuantity = reader->GetInt32(5);
+
+
+		dataView->Rows->Add(deviceId,clientId,deviceName,deviceModel,deviceCategory,deviceQuantity);
 
 	}
 	reader->Close();
@@ -251,4 +309,19 @@ static void configureDataGrid_Employees(DataGridView^ dataView,String^ s) {
 	conn.Close();
 
 }
+//need to add configuring datagridViwe with built text searching and checklistbox 
+static void configureCheckListBox_Orders(CheckedListBox^ checklist) {
+	//here will be code to configure checklistbox
+	//for now it will be empty
 
+}
+static void configureCheckListBox_Clients(CheckedListBox^ checklist) {
+	//here will be code to configure checklistbox
+	//for now it will be empty
+
+}
+static void configureCheckListBox_Devices(CheckedListBox^ checklist) {
+	//here will be code to configure checklistbox
+	//for now it will be empty
+
+}

@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="balanceForm.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="ContextMenuStrip.cpp" />
     <ClCompile Include="newOrderForm.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
@@ -139,6 +140,9 @@
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="EditOrder.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="newOrderForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -146,6 +150,9 @@
   <ItemGroup>
     <EmbeddedResource Include="balanceForm.resx">
       <DependentUpon>balanceForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditOrder.resx">
+      <DependentUpon>EditOrder.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
