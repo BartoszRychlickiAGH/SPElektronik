@@ -126,6 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="balanceForm.cpp" />
+    <ClCompile Include="EditClient.cpp" />
+    <ClCompile Include="EditDevice.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="ContextMenuStrip.cpp" />
     <ClCompile Include="newOrderForm.cpp" />
@@ -136,6 +138,12 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="classes.h" />
+    <ClInclude Include="EditClient.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EditDevice.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Includings.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
@@ -150,6 +158,12 @@
   <ItemGroup>
     <EmbeddedResource Include="balanceForm.resx">
       <DependentUpon>balanceForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditClient.resx">
+      <DependentUpon>EditClient.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditDevice.resx">
+      <DependentUpon>EditDevice.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditOrder.resx">
       <DependentUpon>EditOrder.h</DependentUpon>

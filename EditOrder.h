@@ -265,7 +265,6 @@ namespace testGUI {
 				break;
 			}
 		}
-		// error in downloading OrderId
 
 		if (tbStatus->Text != "") {
 			query = "UPDATE Orders SET OrderStatus = @Status WHERE OrderId = @Id";
