@@ -1,6 +1,5 @@
 #pragma once
-
-#include "newOrderForm.cpp"
+#include "includings.h"
 
 namespace testGUI {
 
@@ -170,7 +169,7 @@ namespace testGUI {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(559, 56);
 			this->label2->TabIndex = 16;
-			this->label2->Text = L"Edit Order";
+			this->label2->Text = L"Edit Client";
 			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// label1
@@ -284,31 +283,34 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 
 	for each (DataGridViewCell ^ cell in row->Cells) {
 
-		if (cell->OwningColumn->Name == "Device Id") {
+		if (cell->OwningColumn->Name == "Client ID") {
 			ClientId = Convert::ToInt32(cell->Value);
 			break;
 		}
 	}
 
-	if (tbEmail->Text != "") {
-		MessageBox::Show("Invalid email!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
 	if(tbPhone->Text != "" and tbPhone->TextLength != 9) {
 		MessageBox::Show("Invalid phone number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
 	}
-	if (isNumber(tbPhone->Text)) {
-		MessageBox::Show("Given phone number is not a number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
-	if (!isEmail(tbEmail->Text)) {
-		MessageBox::Show("Wrong email!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	
-	}
+
+	{
+		string check{msclr::interop::marshal_as<string>(tbPhone->Text)};
 
 
+		if (!regex_match(check,regex("[0-9]{9}"))) {
+			MessageBox::Show("Given phone number is not a number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		check = msclr::interop::marshal_as<string>(tbEmail->Text);
+
+		if (!regex_match(check,regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))) {
+			MessageBox::Show("Wrong email!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+
+		}
+	}
 
 	if (tbName->Text != "") {
 		query = "UPDATE Clients SET ClientName = @name WHERE ClientId = @Id";

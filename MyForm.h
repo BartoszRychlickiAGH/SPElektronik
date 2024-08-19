@@ -6,6 +6,7 @@
 #include <vector>
 #include "EditOrder.h"
 #include "EditDevice.h"
+#include "EditClient.h"
 
 
 namespace testGUI {
@@ -200,7 +201,7 @@ namespace testGUI {
 			// dataGridView
 			// 
 			this->dataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView->ContextMenuStrip = this->contextMenuStrip1;
+			this->dataGridView->ContextMenuStrip = nullptr;
 			this->dataGridView->Location = System::Drawing::Point(164, 10);
 			this->dataGridView->Name = L"dataGridView";
 			this->dataGridView->RowHeadersWidth = 51;
@@ -449,6 +450,7 @@ private: System::Void toolStripContainer1_TopToolStripPanel_Click(System::Object
 
 //show all
 private: System::Void usersToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	mode = "clients";
 
 	configureDataGrid_Clients(this->dataGridView,tbSearch->Text);
 }
@@ -552,8 +554,8 @@ private: System::Void editToolStripMenuItem_Click(System::Object^ sender, System
 				configureDataGrid_Orders(this->dataGridView, tbSearch->Text);
 			}
 			else if (mode == "clients") {
-				
-				
+				EditClient^ edit = gcnew EditClient(row);
+				edit->ShowDialog();
 
 				configureDataGrid_Clients(this->dataGridView, tbSearch->Text);
 			}
@@ -562,10 +564,6 @@ private: System::Void editToolStripMenuItem_Click(System::Object^ sender, System
 				edit->ShowDialog();
 
 				configureDataGrid_Devices(this->dataGridView, tbSearch->Text);
-			}
-			else if (mode == "employees") {
-				
-				configureDataGrid_Employees(this->dataGridView, tbSearch->Text);
 			}
 		}
 		++i;

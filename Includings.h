@@ -2,6 +2,7 @@
 #include <regex>
 #include <string>
 #include <msclr/marshal.h>
+#include <msclr/marshal_cppstd.h>
 #include <Windows.h>
 
 using namespace System;
