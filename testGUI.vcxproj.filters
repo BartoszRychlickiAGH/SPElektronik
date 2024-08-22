@@ -34,7 +34,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditClient.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderCost.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderCost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

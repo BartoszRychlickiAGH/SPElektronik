@@ -123,12 +123,12 @@ static bool deviceExist(String^ deviceName, String^ deviceModel) {
 	}
 	catch (Exception^ ed) {
 		MessageBox::Show(ed->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		exist = true;
+		return -255;
 	}
 	return exist;
 }
 
-static bool clientExist(int^ iD = 0, String^ name = "", String^ surname = "", String^ email = "") {
+static bool clientExist( String^ name = "", String^ surname = "") {
 
 	try {
 		String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
@@ -137,23 +137,10 @@ static bool clientExist(int^ iD = 0, String^ name = "", String^ surname = "", St
 
 		String^ query;
 		SqlDataReader^ reader;
-		if (iD != 0) {
-			query = "SELECT Count(ClientAdress) From Clients Where CLientId = @ID";
-			SqlCommand cmd{query,%conn};
-			
-			cmd.Parameters->AddWithValue("@ID", iD);
-			
-			reader = cmd.ExecuteReader();
-		}
-		else if (email != "") {
-			query = "SELECT Count(ClientAdress) From Clients Where ClientEmail = @Email";
-			
-			SqlCommand cmd{query,%conn};
-			cmd.Parameters->AddWithValue("@Email", email);
 
-			reader = cmd.ExecuteReader();
-		}
-		else if (name != "" && surname != "") {
+		int amount{ 0 };
+
+		if (name != "" && surname != "") {
 			query = "SELECT Count(ClientAdress) From Clients Where ClientName = @Name AND ClientSurname = @Surname";
 			SqlCommand cmd{query,%conn};
 
@@ -163,7 +150,11 @@ static bool clientExist(int^ iD = 0, String^ name = "", String^ surname = "", St
 			reader = cmd.ExecuteReader();
 		}
 		if (reader->Read()) {
-			return !reader->GetInt32(0);
+			amount = reader->GetInt32(0);
+		}
+
+		if (amount == 0) {
+			return false;
 		}
 
 		reader->Close();
@@ -171,7 +162,7 @@ static bool clientExist(int^ iD = 0, String^ name = "", String^ surname = "", St
 	}
 	catch (Exception^ e) {
 		MessageBox::Show(e->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return true;
+		return -255;
 	}
 	return true;
 }

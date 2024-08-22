@@ -1,23 +1,17 @@
 #pragma once
 
-#include "Includings.h"
+
 #include "MyForm.cpp"
 #include "newOrderForm.h"
 #include <vector>
 #include "EditOrder.h"
 #include "EditDevice.h"
 #include "EditClient.h"
-
+#include "balanceForm.h"
 
 namespace testGUI {
 
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
-	using namespace System::Data::SqlClient;
+
 	using std::vector;
 	/// <summary>
 	/// Summary for MyForm
@@ -35,6 +29,7 @@ namespace testGUI {
 			try {
 				
 				configureDataGrid_Orders(this->dataGridView, tbSearch->Text);
+				
 
 			}catch(Exception^ edy) {
 				MessageBox::Show(edy->Message);
@@ -54,7 +49,7 @@ namespace testGUI {
 			}
 		}
 	private: System::Windows::Forms::ToolStripContainer^ toolStripContainer1;
-	private: System::Windows::Forms::CheckedListBox^ filters;
+
 	private: System::Windows::Forms::DataGridView^ dataGridView;
 
 	protected:
@@ -75,13 +70,13 @@ namespace testGUI {
 	private: System::Windows::Forms::ToolStripMenuItem^ ordersToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ usersToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ devicesToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripDropDownButton^ BalanceMenu;
-	private: System::Windows::Forms::ToolStripMenuItem^ dayToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ monthToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ annualToolStripMenuItem;
+
+
+
+
 	private: System::Windows::Forms::ToolStripMenuItem^ employeesToolStripMenuItem;
 	private: System::Windows::Forms::ToolStrip^ toolStrip2;
-	private: System::Windows::Forms::ToolStripLabel^ toolStripLabel1;
+
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator4;
 	private: System::Windows::Forms::ToolStripTextBox^ tbSearch;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator5;
@@ -89,6 +84,9 @@ namespace testGUI {
 	private: System::Windows::Forms::ToolStripMenuItem^ editToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ deleteToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ printFileToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripButton^ btnSearch;
+	private: System::Windows::Forms::ToolStripButton^ BalanceMenu;
+	private: System::Windows::Forms::RichTextBox^ logs;
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -133,17 +131,17 @@ namespace testGUI {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->toolStripContainer1 = (gcnew System::Windows::Forms::ToolStripContainer());
-			this->filters = (gcnew System::Windows::Forms::CheckedListBox());
+			this->logs = (gcnew System::Windows::Forms::RichTextBox());
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
+			this->toolStrip2 = (gcnew System::Windows::Forms::ToolStrip());
+			this->btnSearch = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripSeparator4 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->tbSearch = (gcnew System::Windows::Forms::ToolStripTextBox());
+			this->toolStripSeparator5 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->editToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->deleteToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->printFileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->toolStrip2 = (gcnew System::Windows::Forms::ToolStrip());
-			this->toolStripLabel1 = (gcnew System::Windows::Forms::ToolStripLabel());
-			this->toolStripSeparator4 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->tbSearch = (gcnew System::Windows::Forms::ToolStripTextBox());
-			this->toolStripSeparator5 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->newOrderBtn = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
@@ -153,64 +151,104 @@ namespace testGUI {
 			this->devicesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->employeesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->BalanceMenu = (gcnew System::Windows::Forms::ToolStripDropDownButton());
-			this->dayToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->monthToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->annualToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->BalanceMenu = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->exitBtn = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripContainer1->ContentPanel->SuspendLayout();
 			this->toolStripContainer1->TopToolStripPanel->SuspendLayout();
 			this->toolStripContainer1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
-			this->contextMenuStrip1->SuspendLayout();
 			this->toolStrip2->SuspendLayout();
+			this->contextMenuStrip1->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// toolStripContainer1
 			// 
-			this->toolStripContainer1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+			this->toolStripContainer1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			// 
 			// toolStripContainer1.ContentPanel
 			// 
-			this->toolStripContainer1->ContentPanel->Controls->Add(this->filters);
+			this->toolStripContainer1->ContentPanel->Controls->Add(this->logs);
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->dataGridView);
-			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1076, 522);
+			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1547, 829);
 			this->toolStripContainer1->Location = System::Drawing::Point(12, 12);
 			this->toolStripContainer1->Name = L"toolStripContainer1";
-			this->toolStripContainer1->Size = System::Drawing::Size(1076, 549);
+			this->toolStripContainer1->Size = System::Drawing::Size(1547, 856);
 			this->toolStripContainer1->TabIndex = 0;
 			this->toolStripContainer1->Text = L"toolStripContainer1";
 			// 
 			// toolStripContainer1.TopToolStripPanel
 			// 
-			this->toolStripContainer1->TopToolStripPanel->BackColor = System::Drawing::Color::PaleTurquoise;
+			this->toolStripContainer1->TopToolStripPanel->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip2);
 			this->toolStripContainer1->TopToolStripPanel->Click += gcnew System::EventHandler(this, &MyForm::toolStripContainer1_TopToolStripPanel_Click);
 			// 
-			// filters
+			// logs
 			// 
-			this->filters->FormattingEnabled = true;
-			this->filters->Location = System::Drawing::Point(0, 10);
-			this->filters->Name = L"filters";
-			this->filters->Size = System::Drawing::Size(158, 514);
-			this->filters->TabIndex = 1;
+			this->logs->Location = System::Drawing::Point(0, 10);
+			this->logs->Name = L"logs";
+			this->logs->Size = System::Drawing::Size(214, 816);
+			this->logs->TabIndex = 1;
+			this->logs->Text = L"";
 			// 
 			// dataGridView
 			// 
+			this->dataGridView->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->dataGridView->BackgroundColor = System::Drawing::Color::DarkGray;
 			this->dataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView->ContextMenuStrip = nullptr;
-			this->dataGridView->Location = System::Drawing::Point(164, 10);
+			this->dataGridView->Location = System::Drawing::Point(220, 10);
 			this->dataGridView->Name = L"dataGridView";
 			this->dataGridView->RowHeadersWidth = 51;
 			this->dataGridView->RowTemplate->Height = 24;
-			this->dataGridView->Size = System::Drawing::Size(912, 511);
+			this->dataGridView->Size = System::Drawing::Size(1327, 816);
 			this->dataGridView->TabIndex = 0;
 			this->dataGridView->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip_Hide);
 			this->dataGridView->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip1);
 			this->dataGridView->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip_Hide);
+			// 
+			// toolStrip2
+			// 
+			this->toolStrip2->AutoSize = false;
+			this->toolStrip2->Dock = System::Windows::Forms::DockStyle::None;
+			this->toolStrip2->ImageScalingSize = System::Drawing::Size(20, 20);
+			this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+				this->btnSearch, this->toolStripSeparator4,
+					this->tbSearch, this->toolStripSeparator5
+			});
+			this->toolStrip2->Location = System::Drawing::Point(4, 0);
+			this->toolStrip2->Name = L"toolStrip2";
+			this->toolStrip2->Size = System::Drawing::Size(335, 27);
+			this->toolStrip2->TabIndex = 1;
+			// 
+			// btnSearch
+			// 
+			this->btnSearch->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->btnSearch->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSearch.Image")));
+			this->btnSearch->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->btnSearch->Name = L"btnSearch";
+			this->btnSearch->Size = System::Drawing::Size(60, 24);
+			this->btnSearch->Text = L"Search:";
+			this->btnSearch->Click += gcnew System::EventHandler(this, &MyForm::btnSearch_Click);
+			// 
+			// toolStripSeparator4
+			// 
+			this->toolStripSeparator4->Name = L"toolStripSeparator4";
+			this->toolStripSeparator4->Size = System::Drawing::Size(6, 27);
+			// 
+			// tbSearch
+			// 
+			this->tbSearch->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
+			this->tbSearch->Name = L"tbSearch";
+			this->tbSearch->Size = System::Drawing::Size(180, 27);
+			// 
+			// toolStripSeparator5
+			// 
+			this->toolStripSeparator5->Name = L"toolStripSeparator5";
+			this->toolStripSeparator5->Size = System::Drawing::Size(6, 27);
 			// 
 			// contextMenuStrip1
 			// 
@@ -245,46 +283,9 @@ namespace testGUI {
 			this->printFileToolStripMenuItem->Text = L"Print File";
 			this->printFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::printFileToolStripMenuItem_Click);
 			// 
-			// toolStrip2
-			// 
-			this->toolStrip2->AutoSize = false;
-			this->toolStrip2->Dock = System::Windows::Forms::DockStyle::None;
-			this->toolStrip2->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
-				this->toolStripLabel1,
-					this->toolStripSeparator4, this->tbSearch, this->toolStripSeparator5
-			});
-			this->toolStrip2->Location = System::Drawing::Point(4, 0);
-			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(146, 27);
-			this->toolStrip2->TabIndex = 1;
-			// 
-			// toolStripLabel1
-			// 
-			this->toolStripLabel1->Name = L"toolStripLabel1";
-			this->toolStripLabel1->Size = System::Drawing::Size(56, 24);
-			this->toolStripLabel1->Text = L"Search:";
-			// 
-			// toolStripSeparator4
-			// 
-			this->toolStripSeparator4->Name = L"toolStripSeparator4";
-			this->toolStripSeparator4->Size = System::Drawing::Size(6, 27);
-			// 
-			// tbSearch
-			// 
-			this->tbSearch->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->tbSearch->Name = L"tbSearch";
-			this->tbSearch->Size = System::Drawing::Size(180, 27);
-			// 
-			// toolStripSeparator5
-			// 
-			this->toolStripSeparator5->Name = L"toolStripSeparator5";
-			this->toolStripSeparator5->Size = System::Drawing::Size(6, 27);
-			// 
 			// toolStrip1
 			// 
-			this->toolStrip1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
+			this->toolStrip1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->toolStrip1->AutoSize = false;
 			this->toolStrip1->Dock = System::Windows::Forms::DockStyle::None;
 			this->toolStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
@@ -292,9 +293,9 @@ namespace testGUI {
 				this->newOrderBtn, this->toolStripSeparator1,
 					this->showAllMenu, this->toolStripSeparator2, this->BalanceMenu, this->toolStripSeparator3, this->exitBtn
 			});
-			this->toolStrip1->Location = System::Drawing::Point(693, 9);
+			this->toolStrip1->Location = System::Drawing::Point(1120, 12);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(343, 27);
+			this->toolStrip1->Size = System::Drawing::Size(391, 27);
 			this->toolStrip1->TabIndex = 0;
 			this->toolStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::toolStrip1_ItemClicked);
 			// 
@@ -362,34 +363,13 @@ namespace testGUI {
 			// 
 			// BalanceMenu
 			// 
-			this->BalanceMenu->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
-				this->dayToolStripMenuItem,
-					this->monthToolStripMenuItem, this->annualToolStripMenuItem
-			});
+			this->BalanceMenu->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->BalanceMenu->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"BalanceMenu.Image")));
+			this->BalanceMenu->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->BalanceMenu->Name = L"BalanceMenu";
-			this->BalanceMenu->Size = System::Drawing::Size(75, 24);
+			this->BalanceMenu->Size = System::Drawing::Size(65, 24);
 			this->BalanceMenu->Text = L"Balance";
-			// 
-			// dayToolStripMenuItem
-			// 
-			this->dayToolStripMenuItem->Name = L"dayToolStripMenuItem";
-			this->dayToolStripMenuItem->Size = System::Drawing::Size(138, 26);
-			this->dayToolStripMenuItem->Text = L"Day";
-			this->dayToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::dayToolStripMenuItem_Click);
-			// 
-			// monthToolStripMenuItem
-			// 
-			this->monthToolStripMenuItem->Name = L"monthToolStripMenuItem";
-			this->monthToolStripMenuItem->Size = System::Drawing::Size(138, 26);
-			this->monthToolStripMenuItem->Text = L"Month";
-			this->monthToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::monthToolStripMenuItem_Click);
-			// 
-			// annualToolStripMenuItem
-			// 
-			this->annualToolStripMenuItem->Name = L"annualToolStripMenuItem";
-			this->annualToolStripMenuItem->Size = System::Drawing::Size(138, 26);
-			this->annualToolStripMenuItem->Text = L"Annual";
-			this->annualToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::annualToolStripMenuItem_Click);
+			this->BalanceMenu->Click += gcnew System::EventHandler(this, &MyForm::BalanceMenu_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -410,8 +390,8 @@ namespace testGUI {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::PaleTurquoise;
-			this->ClientSize = System::Drawing::Size(1089, 573);
+			this->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->ClientSize = System::Drawing::Size(1560, 880);
 			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->toolStripContainer1);
 			this->Name = L"MyForm";
@@ -421,9 +401,9 @@ namespace testGUI {
 			this->toolStripContainer1->ResumeLayout(false);
 			this->toolStripContainer1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
-			this->contextMenuStrip1->ResumeLayout(false);
 			this->toolStrip2->ResumeLayout(false);
 			this->toolStrip2->PerformLayout();
+			this->contextMenuStrip1->ResumeLayout(false);
 			this->toolStrip1->ResumeLayout(false);
 			this->toolStrip1->PerformLayout();
 			this->ResumeLayout(false);
@@ -439,6 +419,11 @@ private: System::Void toolStripContainer1_ContentPanel_Load_1(System::Object^ se
 
 //exit button
 private: System::Void exitBtn_Click(System::Object^ sender, System::EventArgs^ e) {
+	logs->Clear();
+	logs->Update();
+
+	tbSearch->Text = "";
+	
 	this->Close();
 }
 
@@ -452,9 +437,17 @@ private: System::Void toolStripContainer1_TopToolStripPanel_Click(System::Object
 private: System::Void usersToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	mode = "clients";
 
+	logs->Clear();
+	logs->Update();
+
+	tbSearch->Text = "";
+
 	configureDataGrid_Clients(this->dataGridView,tbSearch->Text);
+
 }
 private: System::Void newOrderBtn_Click(System::Object^ sender, System::EventArgs^ e) {
+	logs->Text = "";
+	logs->Update();
 	this->Hide();
 
 	newOrderForm newOrder;
@@ -462,19 +455,33 @@ private: System::Void newOrderBtn_Click(System::Object^ sender, System::EventArg
 
 	configureDataGrid_Orders(this->dataGridView,tbSearch->Text);
 	mode = "orders";
-	
+
+	tbSearch->Text = "";
+
 	this->Show();
 
 }
 private: System::Void ordersToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	mode = "orders";
 
+	logs->Clear();
+	logs->Update();
+
+	tbSearch->Text = "";
+
 	configureDataGrid_Orders(this->dataGridView,tbSearch->Text);
+	
 }
 private: System::Void devicesToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	mode = "devices";
 
+	logs->Clear();
+	logs->Update();
+
+	tbSearch->Text = "";
+
 	configureDataGrid_Devices(this->dataGridView,tbSearch->Text);
+	
 }
 
 
@@ -494,6 +501,11 @@ private: System::Void annualToolStripMenuItem_Click(System::Object^ sender, Syst
 private: System::Void employeesToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	mode = "employees";
 
+	logs->Clear();
+	logs->Update();
+
+	tbSearch->Text = "";
+
 	configureDataGrid_Employees(this->dataGridView,tbSearch->Text);
 }
 private: System::Void toolStrip1_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
@@ -501,14 +513,75 @@ private: System::Void toolStrip1_ItemClicked(System::Object^ sender, System::Win
 
 private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	try {
-		if (e->Button == System::Windows::Forms::MouseButtons::Right)
+		if (e->Button == System::Windows::Forms::MouseButtons::Right) {
 			//contextMenuStrip1 = nullptr;
-			
+			logs->Text = "";
+			logs->Update();
 			contextMenuStrip1->Close();
+		}
+
+		// getOrderId if mode == "orders"
+		if (mode == "orders") {
+			int^ orderId{0};
+			//get OrderId
+			if (dataGridView->Rows->Count > 1) {
+				if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+					for each (DataGridViewRow ^ row in dataGridView->Rows) {
+						// Pobierz prostok¹t odpowiadaj¹cy wierszowi
+						System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
+
+						// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
+						if (rect.Contains(e->Location)) {
+							// Wybierz wiersz
+							dataGridView->ClearSelection();
+							row->Selected = true;
+
+							String^ description{ "" };
+
+							for each (DataGridViewCell ^ cell in row->Cells) {
+								if (cell->OwningColumn->Name == "Description") {
+									description = Convert::ToString(cell->Value);
+									break;
+								}
+							}
+
+							String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
+							SqlConnection conn{strConn};
+							conn.Open();
+							String^ query = "SELECT OrderId FROM Orders WHERE Description = @description";
+							SqlCommand cmd{query,% conn};
+							cmd.Parameters->AddWithValue("@description",description);
+
+							SqlDataReader^ reader = cmd.ExecuteReader();
+
+							if (reader->Read()) {
+								orderId = reader->GetInt32(0);
+							}
+							reader->Close();
+
+							configureLogs(logs, orderId);
+							conn.Close();
+						}
+					}
+				}
+				else {
+					logs->Text = "";
+					logs->Update();
+				}
+			}
+			else {
+				logs->Text = "";
+				logs->Update();
+			}
+
+
+			
+		}
 		//system("pause");
 	}
 	catch (Exception^ ec) {
-		//ignore
+		MessageBox::Show(ec->Message,"Error",MessageBoxButtons::OK,MessageBoxIcon::Error);
+		return;
 	}
 }
 
@@ -516,24 +589,24 @@ private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Wind
 public: int index;
 
 private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-	if (e->Button == System::Windows::Forms::MouseButtons::Left)
-	{
-		for each (DataGridViewRow ^ row in dataGridView->Rows)
-		{	
-			// Pobierz prostok¹t odpowiadaj¹cy wierszowi
-			System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
 
-			// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
-			if (rect.Contains(e->Location))
-			{
-				// Wybierz wiersz
-				dataGridView->ClearSelection();
-				row->Selected = true;
+	if (dataGridView->Rows->Count > 1) {
+		if (e->Button == System::Windows::Forms::MouseButtons::Left){
+			for each (DataGridViewRow ^ row in dataGridView->Rows){
+				// Pobierz prostok¹t odpowiadaj¹cy wierszowi
+				System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
 
-				index = row->Index;
-				// Poka¿ ContextMenuStrip w miejscu klikniêcia
-				contextMenuStrip1->Show(dataGridView, e->Location);
-				break;
+				// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
+				if (rect.Contains(e->Location)){
+					// Wybierz wiersz
+					dataGridView->ClearSelection();
+					row->Selected = true;
+
+					index = row->Index;
+					// Poka¿ ContextMenuStrip w miejscu klikniêcia
+					contextMenuStrip1->Show(dataGridView, e->Location);
+					break;
+				}
 			}
 		}
 	}
@@ -541,6 +614,8 @@ private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows:
 
 	   //contextMenuStrip
 private: System::Void editToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) { // edit row
+	logs->Clear();
+	logs->Update();
 
 	int i{0};
 	for each (DataGridViewRow ^ row in dataGridView->Rows) {
@@ -550,21 +625,18 @@ private: System::Void editToolStripMenuItem_Click(System::Object^ sender, System
 			if (mode == "orders") {
 				MyForm1^ edit = gcnew MyForm1(row);
 				edit->ShowDialog();
-
-				configureDataGrid_Orders(this->dataGridView, tbSearch->Text);
 			}
 			else if (mode == "clients") {
 				EditClient^ edit = gcnew EditClient(row);
 				edit->ShowDialog();
 
-				configureDataGrid_Clients(this->dataGridView, tbSearch->Text);
 			}
 			else if (mode == "devices") {
 				EditDevice^ edit = gcnew EditDevice(row);
 				edit->ShowDialog();
 
-				configureDataGrid_Devices(this->dataGridView, tbSearch->Text);
 			}
+			displayGrid(dataGridView, mode, tbSearch->Text);
 		}
 		++i;
 		if (i > index) {
@@ -575,9 +647,230 @@ private: System::Void editToolStripMenuItem_Click(System::Object^ sender, System
 
 
 }
+
+
 private: System::Void deleteToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) { // delete row
+	logs->Clear();
+	logs->Update();
+	int^ ID{};
+	int i{ 0 };
+	String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
+	SqlConnection conn{ strConn };
+	conn.Open();
+	String^ query;
+	DataGridViewRow^ row_get_id;
+	vector<int> IDs;
+
+
+		try {
+		for each (DataGridViewRow ^ row in dataGridView->Rows) {
+			if (index == i) {
+				row_get_id = row;
+				break;
+			}
+			++i;
+			if (i > index) {
+				break;
+			}
+
+		}
+
+		String^ clientName;
+		String^ clientSurname;
+
+		for each (DataGridViewCell ^ cell in row_get_id->Cells) {
+			if (mode == "orders") { // doeasnt have ID
+				if (cell->OwningColumn->Name == "Client Name") {
+					clientName = Convert::ToString(cell->Value);
+				}
+				if (cell->OwningColumn->Name == "Client Surname") {
+					clientSurname = Convert::ToString(cell->Value);
+				}
+			}
+			else if (mode == "clients") {
+				if (cell->OwningColumn->Name == "Client ID") {
+					ID = Convert::ToInt32(cell->Value);
+				}
+			}
+			else if (mode == "devices") {
+				if (cell->OwningColumn->Name == "Device Id") {
+					ID = Convert::ToInt32(cell->Value);
+				}
+
+			}
+			
+		}
+		if (clientName != "" && clientSurname != "" && mode == "orders") { // error below
+			query = "SELECT Orders.OrderId FROM Orders INNER JOIN Clients ON Orders.ClientId = Clients.ClientId WHERE Clients.ClientName = @name AND Clients.ClientSurname = @surname";
+			SqlCommand cmd{query,%conn};
+
+			cmd.Parameters->AddWithValue("@name",clientName);
+			cmd.Parameters->AddWithValue("@surname",clientSurname);
+
+			SqlDataReader^ reader = cmd.ExecuteReader();
+
+			if (reader->Read()) {
+				ID = reader->GetInt32(0);
+			}
+			reader->Close();
+		}
+		
+
+		if (mode == "orders") {
+			int quantity{0};
+			
+			
+			//delete logs attached to exact order
+
+			query = "DELETE FROM logs where OrderId = @ID";
+			SqlCommand cmd_delete_log{query,%conn};
+			cmd_delete_log.Parameters->AddWithValue("@ID", ID);
+
+			cmd_delete_log.ExecuteNonQuery();
+
+			//delete order from odrers
+
+			query = "DELETE FROM Orders WHERE OrderID =@ID ";
+			SqlCommand cmd{query,%conn};
+			cmd.Parameters->AddWithValue("@ID", ID);
+
+			cmd.ExecuteNonQuery();
+
+			//edit quantity of device or delete device
+			query = "SELECT Devices.Quantity from devices INNER JOIN Orders ON Devices.DeviceId = Orders.DeviceId WHERE Orders.OrderID= @id ";
+			
+			SqlCommand cmd_get{query,%conn};
+			cmd_get.Parameters->AddWithValue("@id",ID);
+
+			SqlDataReader^ reader = cmd_get.ExecuteReader();
+
+			if (reader->Read()) {
+				quantity = reader->GetInt32(0);
+			}
+			reader->Close();
+
+			if (quantity > 1) {
+				query = "UPDATE Devices set Devices.Quantity = @quantity WHERE Devices.DeviceId = (SELECT Orders.DeviceID From Orders WHERE Orders.OrderId = @orderId)";
+				SqlCommand cmd_update{query,%conn};
+
+				cmd_update.Parameters->AddWithValue("@quantity",--quantity);
+				cmd_update.Parameters->AddWithValue("@orderId",ID);
+
+				cmd_update.ExecuteNonQuery();
+			}
+			else {
+				query = "DELETE From Devices WHERE Devices.DeviceId = (Select Orders.DeviceId From Orders Where Orders.OrderId = @ID)";
+				SqlCommand cmd_delete{query,%conn};
+				cmd_delete.Parameters->AddWithValue("@ID",ID);
+
+				cmd_delete.ExecuteNonQuery();
+			}
+
+		}
+		else if (mode == "clients") {
+
+			//getting OrderID to delete all logs attached to client's orders - vector of IDs
+			query = "SELECT Orders.OrderId FROM Orders WHERE Orders.ClientId = @ID";
+			SqlCommand cmd_get{ query,% conn };
+			cmd_get.Parameters->AddWithValue("@ID", ID);
+
+			SqlDataReader^ reader = cmd_get.ExecuteReader();
+
+
+			while (reader -> Read()) {
+				IDs.push_back(reader->GetInt32(0));
+			}
+			reader->Close();
+			//delete logs for exact orders from logs table
+
+			query = "DELETE FROM logs Where OrderId = @ID";
+			SqlCommand cmd_delete_log(query, % conn);
+
+			for (int^ i : IDs) {
+				cmd_delete_log.Parameters->AddWithValue("@ID",i);
+				cmd_delete_log.ExecuteNonQuery();
+			}
+
+
+			//delete orders attached to client
+
+			query = "DELETE FROM Orders WHERE ClientId = @Id";
+			SqlCommand cmd_order{query,%conn};
+			cmd_order.Parameters->AddWithValue("@Id",ID);
+
+			cmd_order.ExecuteNonQuery();
+			
+			//delete devices attached to client
+
+			query = "DELETE FROM Devices WHERE ClientId = @ID";
+			SqlCommand cmd_Devices{query,%conn};
+			cmd_Devices.Parameters->AddWithValue("@ID",ID);
+
+			cmd_Devices.ExecuteNonQuery();
+
+			//delete client
+			query = "DELETE FROM Clients WHERE ClientId =@ID ";
+			SqlCommand cmd{ query,% conn };
+			cmd.Parameters->AddWithValue("@ID", ID);
+
+			cmd.ExecuteNonQuery();
+
+
+		}
+		else if (mode == "devices") {
+			//delete logs for exact order from logs table
+			query = "DELETE FROM logs inner join orders on orders.orderId = logs.orderId where DeviceId = @ID";
+			SqlCommand cmd_logs_delete{ query,% conn };
+			cmd_logs_delete.Parameters->AddWithValue("@ID", ID);
+
+			cmd_logs_delete.ExecuteNonQuery();
+
+
+			//delete order attached to device
+			query = "DELETE FROM Orders WHERE DeviceID = @Id";
+			SqlCommand cmd_order{ query,% conn };
+			cmd_order.Parameters->AddWithValue("@Id",ID);
+
+			cmd_order.ExecuteNonQuery();
+
+
+			query = "DELETE FROM Devices WHERE DeviceID =@ID ";
+			SqlCommand cmd{ query,% conn };
+			cmd.Parameters->AddWithValue("@ID", ID);
+
+			cmd.ExecuteNonQuery();
+
+
+		}
+		conn.Close();
+	}
+	catch (Exception^ ed) {
+		MessageBox::Show(ed->Message);
+		return;
+	}
+
+
+	displayGrid(dataGridView, mode,tbSearch->Text);
+
 }
 private: System::Void printFileToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) { // print file
+}
+private: System::Void btnSearch_Click(System::Object^ sender, System::EventArgs^ e) {
+	logs->Clear();
+	logs->Update();
+
+	displayGrid(dataGridView, mode, tbSearch->Text);
+
+}
+private: System::Void BalanceMenu_Click(System::Object^ sender, System::EventArgs^ e) { // blalance
+	logs->Text = "";
+	logs->Update();
+	this->Hide();
+	
+	balanceForm form;
+	form.ShowDialog();
+
+	this->Show();
 }
 };
 }

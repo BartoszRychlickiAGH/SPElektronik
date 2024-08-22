@@ -1,21 +1,16 @@
 #pragma once
 
-#include "classes.h"
-#include "includings.h"
+
+
 #include "newOrderForm.cpp"
 #include <msclr/marshal_cppstd.h>
 #include <cmath>
+#include <vector>
+
 
 namespace testGUI {
 
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
-	using namespace System::Data::SqlClient;
-
+	using std::vector;
 	/// <summary>
 	/// Summary for newOredrForm
 	/// </summary>
@@ -133,7 +128,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->label1->Location = System::Drawing::Point(12, 9);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(1103, 74);
+			this->label1->Size = System::Drawing::Size(1485, 74);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Make New Order";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -182,7 +177,7 @@ namespace testGUI {
 			// 
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label6->Location = System::Drawing::Point(19, 465);
+			this->label6->Location = System::Drawing::Point(14, 465);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(288, 50);
 			this->label6->TabIndex = 5;
@@ -202,9 +197,9 @@ namespace testGUI {
 			// 
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnOK->Location = System::Drawing::Point(79, 692);
+			this->btnOK->Location = System::Drawing::Point(363, 689);
 			this->btnOK->Name = L"btnOK";
-			this->btnOK->Size = System::Drawing::Size(180, 71);
+			this->btnOK->Size = System::Drawing::Size(242, 94);
 			this->btnOK->TabIndex = 13;
 			this->btnOK->Text = L"OK";
 			this->btnOK->UseVisualStyleBackColor = true;
@@ -214,9 +209,9 @@ namespace testGUI {
 			// 
 			this->btnClear->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnClear->Location = System::Drawing::Point(390, 692);
+			this->btnClear->Location = System::Drawing::Point(666, 689);
 			this->btnClear->Name = L"btnClear";
-			this->btnClear->Size = System::Drawing::Size(180, 71);
+			this->btnClear->Size = System::Drawing::Size(242, 94);
 			this->btnClear->TabIndex = 14;
 			this->btnClear->Text = L"Clear";
 			this->btnClear->UseVisualStyleBackColor = true;
@@ -226,9 +221,9 @@ namespace testGUI {
 			// 
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnExit->Location = System::Drawing::Point(663, 692);
+			this->btnExit->Location = System::Drawing::Point(947, 689);
 			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(180, 71);
+			this->btnExit->Size = System::Drawing::Size(242, 94);
 			this->btnExit->TabIndex = 15;
 			this->btnExit->Text = L"Exit";
 			this->btnExit->UseVisualStyleBackColor = true;
@@ -240,7 +235,7 @@ namespace testGUI {
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
 			this->tbErrorDescription->Location = System::Drawing::Point(286, 465);
 			this->tbErrorDescription->Name = L"tbErrorDescription";
-			this->tbErrorDescription->Size = System::Drawing::Size(612, 44);
+			this->tbErrorDescription->Size = System::Drawing::Size(1019, 44);
 			this->tbErrorDescription->TabIndex = 16;
 			this->tbErrorDescription->Text = L"";
 			// 
@@ -270,7 +265,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbClientName->Location = System::Drawing::Point(286, 105);
 			this->tbClientName->Name = L"tbClientName";
-			this->tbClientName->Size = System::Drawing::Size(612, 44);
+			this->tbClientName->Size = System::Drawing::Size(1019, 44);
 			this->tbClientName->TabIndex = 20;
 			this->tbClientName->Text = L"";
 			// 
@@ -280,7 +275,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbClientSurname->Location = System::Drawing::Point(286, 155);
 			this->tbClientSurname->Name = L"tbClientSurname";
-			this->tbClientSurname->Size = System::Drawing::Size(612, 44);
+			this->tbClientSurname->Size = System::Drawing::Size(1019, 44);
 			this->tbClientSurname->TabIndex = 21;
 			this->tbClientSurname->Text = L"";
 			// 
@@ -290,7 +285,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbDeviceName->Location = System::Drawing::Point(286, 205);
 			this->tbDeviceName->Name = L"tbDeviceName";
-			this->tbDeviceName->Size = System::Drawing::Size(612, 44);
+			this->tbDeviceName->Size = System::Drawing::Size(1019, 44);
 			this->tbDeviceName->TabIndex = 22;
 			this->tbDeviceName->Text = L"";
 			// 
@@ -300,7 +295,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbDeviceModel->Location = System::Drawing::Point(286, 255);
 			this->tbDeviceModel->Name = L"tbDeviceModel";
-			this->tbDeviceModel->Size = System::Drawing::Size(612, 44);
+			this->tbDeviceModel->Size = System::Drawing::Size(1019, 44);
 			this->tbDeviceModel->TabIndex = 23;
 			this->tbDeviceModel->Text = L"";
 			// 
@@ -310,7 +305,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbPhoneNumber->Location = System::Drawing::Point(286, 301);
 			this->tbPhoneNumber->Name = L"tbPhoneNumber";
-			this->tbPhoneNumber->Size = System::Drawing::Size(612, 44);
+			this->tbPhoneNumber->Size = System::Drawing::Size(1019, 44);
 			this->tbPhoneNumber->TabIndex = 24;
 			this->tbPhoneNumber->Text = L"";
 			// 
@@ -320,7 +315,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbEmail->Location = System::Drawing::Point(286, 347);
 			this->tbEmail->Name = L"tbEmail";
-			this->tbEmail->Size = System::Drawing::Size(612, 44);
+			this->tbEmail->Size = System::Drawing::Size(1019, 44);
 			this->tbEmail->TabIndex = 25;
 			this->tbEmail->Text = L"";
 			// 
@@ -330,7 +325,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbEmployeeId->Location = System::Drawing::Point(286, 515);
 			this->tbEmployeeId->Name = L"tbEmployeeId";
-			this->tbEmployeeId->Size = System::Drawing::Size(612, 44);
+			this->tbEmployeeId->Size = System::Drawing::Size(1019, 44);
 			this->tbEmployeeId->TabIndex = 26;
 			this->tbEmployeeId->Text = L"";
 			// 
@@ -340,7 +335,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbCategory->Location = System::Drawing::Point(286, 565);
 			this->tbCategory->Name = L"tbCategory";
-			this->tbCategory->Size = System::Drawing::Size(612, 44);
+			this->tbCategory->Size = System::Drawing::Size(1019, 44);
 			this->tbCategory->TabIndex = 28;
 			this->tbCategory->Text = L"";
 			// 
@@ -348,7 +343,7 @@ namespace testGUI {
 			// 
 			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label10->Location = System::Drawing::Point(19, 565);
+			this->label10->Location = System::Drawing::Point(14, 574);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(240, 50);
 			this->label10->TabIndex = 27;
@@ -360,7 +355,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbCLientAdress->Location = System::Drawing::Point(286, 403);
 			this->tbCLientAdress->Name = L"tbCLientAdress";
-			this->tbCLientAdress->Size = System::Drawing::Size(612, 44);
+			this->tbCLientAdress->Size = System::Drawing::Size(1019, 44);
 			this->tbCLientAdress->TabIndex = 30;
 			this->tbCLientAdress->Text = L"";
 			// 
@@ -368,7 +363,7 @@ namespace testGUI {
 			// 
 			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label11->Location = System::Drawing::Point(12, 406);
+			this->label11->Location = System::Drawing::Point(19, 403);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(288, 50);
 			this->label11->TabIndex = 29;
@@ -380,7 +375,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->tbPrice->Location = System::Drawing::Point(286, 624);
 			this->tbPrice->Name = L"tbPrice";
-			this->tbPrice->Size = System::Drawing::Size(612, 44);
+			this->tbPrice->Size = System::Drawing::Size(1019, 44);
 			this->tbPrice->TabIndex = 32;
 			this->tbPrice->Text = L"";
 			// 
@@ -390,7 +385,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->label12->Location = System::Drawing::Point(19, 624);
 			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(240, 50);
+			this->label12->Size = System::Drawing::Size(261, 50);
 			this->label12->TabIndex = 31;
 			this->label12->Text = L"Price";
 			// 
@@ -399,7 +394,7 @@ namespace testGUI {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(951, 775);
+			this->ClientSize = System::Drawing::Size(1333, 852);
 			this->Controls->Add(this->tbPrice);
 			this->Controls->Add(this->label12);
 			this->Controls->Add(this->tbCLientAdress);
@@ -479,10 +474,6 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		MessageBox::Show("Device name should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
 	}
-	if (!isText(errorDescription)) {
-		MessageBox::Show("Error description should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
 	if (!isText(category)) {
 		MessageBox::Show("Category should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
@@ -526,7 +517,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		SqlConnection conn{strConn};
 		conn.Open();
 
-		if (clientExist(0, clientName, clientSurname, "")) {
+		if (clientExist(clientName, clientSurname)) {
 
 
 			query =  "SELECT ClientId From CLients Where ClientName = @name AND ClientSurname = @surname AND ClientEmail = @email";
@@ -571,7 +562,37 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 
 		}
 
-		if (!deviceExist(deviceName, deviceModel)) {
+		bool idInColumn{false};
+		int^ clientId_Devices{0};
+		vector<int> IDs;
+
+
+		if (deviceExist(deviceName, deviceModel)) {
+			query = "SELECT ClientId From Devices Where DeviceName = @name and DeviceModel = @model";
+			SqlCommand cmd_get_clientId{query,%conn};
+
+			cmd_get_clientId.Parameters->AddWithValue("@name", deviceName);
+			cmd_get_clientId.Parameters->AddWithValue("@model",deviceModel);
+
+			SqlDataReader^ reader = cmd_get_clientId.ExecuteReader();
+			int i{ 0 };
+			while (reader->Read()) {
+				IDs.push_back(reader->GetInt32(i));
+				i++;
+			}
+			reader->Close();
+			for (int^ j : IDs) {
+				if (clientId == j) {
+					idInColumn = true;
+				}
+			}
+
+		}
+
+
+
+
+		if (idInColumn) {
 			int quantity{};
 			query = "SELECT DeviceId From Devices Where DeviceName = @deviceName AND DeviceModel = @deviceModel";
 			SqlCommand cmd_get_deviceId{ query,% conn };
@@ -601,6 +622,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 			query = "UPDATE Devices set Quantity = @quantity WHERE DeviceId = @Id";
 			SqlCommand cmd_update_quantity{ query,% conn };
 			cmd_update_quantity.Parameters->AddWithValue("@quantity", ++quantity);
+			cmd_update_quantity.Parameters->AddWithValue("@Id",deviceId);
 
 			cmd_update_quantity.ExecuteNonQuery();
 
@@ -635,20 +657,52 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 				reader->Close();	
 		}
 		// inserting order
-		
+		String^ date = getData();
+		//error in query - addi g null values to command
 		query = "Insert into orders(clientId,EmployeeId,DeviceId,OrderStatus,OrderDate,OrderPrice,Description) VALUES (@clientId,@EmployeeId,@DeviceId,@OrderStatus,@OrderDate,@OrderPrice,@Description)";//insert int orders
 		SqlCommand cmd_insert_order{ query,% conn };
 		cmd_insert_order.Parameters->AddWithValue("@clientId", clientId);
 		cmd_insert_order.Parameters->AddWithValue("@EmployeeId", employeeId);
 		cmd_insert_order.Parameters->AddWithValue("@DeviceId", deviceId);
 		cmd_insert_order.Parameters->AddWithValue("@OrderStatus", Convert::ToString("In progress"));
-		cmd_insert_order.Parameters->AddWithValue("@OrderDate", getData());
+		cmd_insert_order.Parameters->AddWithValue("@OrderDate", date);
 		cmd_insert_order.Parameters->AddWithValue("@OrderPrice", price);
 		cmd_insert_order.Parameters->AddWithValue("@Description", errorDescription);
 
 		cmd_insert_order.ExecuteNonQuery();
 
+		//get OrderId
+		int^ orderId{0};
+
+		query = "SELECT OrderId From Orders Where ClientId = @clientId AND EmployeeId = @EmployeeId AND DeviceId = @DeviceId AND OrderDate = @OrderDate";
+		SqlCommand cmd_get_orderId{ query,% conn };
+		cmd_get_orderId.Parameters->AddWithValue("@clientId", clientId);
+		cmd_get_orderId.Parameters->AddWithValue("@EmployeeId", employeeId);
+		cmd_get_orderId.Parameters->AddWithValue("@DeviceId", deviceId);
+		cmd_get_orderId.Parameters->AddWithValue("@OrderDate", date);
+
+		SqlDataReader^ reader = cmd_get_orderId.ExecuteReader();
+
+		if (reader->Read()) {
+			orderId = reader->GetInt32(0);
+		}
+
+
+		reader->Close();
+		
+
+		// insert into logs - new logs
+		query = "Insert into Logs(OrderId,EmployeeId,Date,Log) VALUES(@OrderId,@EmployeeId,@LogDate,@LogDescription)";
+		SqlCommand cmd_insert_log{ query,% conn };
+		cmd_insert_log.Parameters->AddWithValue("@OrderId", orderId);
+		cmd_insert_log.Parameters->AddWithValue("@EmployeeId", employeeId);
+		cmd_insert_log.Parameters->AddWithValue("@LogDate", date);
+		cmd_insert_log.Parameters->AddWithValue("@LogDescription", "["+Convert::ToString(DateTime::Now)+"] " + "New order added" +"\n");
+
+		cmd_insert_log.ExecuteNonQuery();
+
 		conn.Close();
+
 	}
 	catch (Exception^ en) {
 		MessageBox::Show(en->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
