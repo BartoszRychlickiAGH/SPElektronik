@@ -36,12 +36,14 @@ namespace testGUI {
 		}
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chartBalance;
 	protected:
-	private: System::Windows::Forms::CheckedListBox^ checkedListBox1;
+
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::MonthCalendar^ monthCalendar1;
+	private: System::Windows::Forms::MonthCalendar^ calendar;
+
+
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Button^ btnExit;
+	private: System::Windows::Forms::Button^ btnOK;
 
 
 	private:
@@ -57,16 +59,15 @@ namespace testGUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->chartBalance = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
-			this->checkedListBox1 = (gcnew System::Windows::Forms::CheckedListBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->monthCalendar1 = (gcnew System::Windows::Forms::MonthCalendar());
+			this->calendar = (gcnew System::Windows::Forms::MonthCalendar());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
+			this->btnOK = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chartBalance))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -74,65 +75,42 @@ namespace testGUI {
 			// 
 			this->chartBalance->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			chartArea3->Name = L"ChartArea1";
-			this->chartBalance->ChartAreas->Add(chartArea3);
-			legend3->Name = L"Legend1";
-			this->chartBalance->Legends->Add(legend3);
-			this->chartBalance->Location = System::Drawing::Point(304, 59);
+			chartArea1->Name = L"ChartArea1";
+			this->chartBalance->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chartBalance->Legends->Add(legend1);
+			this->chartBalance->Location = System::Drawing::Point(12, 59);
 			this->chartBalance->Name = L"chartBalance";
 			this->chartBalance->Palette = System::Windows::Forms::DataVisualization::Charting::ChartColorPalette::Excel;
-			series3->ChartArea = L"ChartArea1";
-			series3->Legend = L"Legend1";
-			series3->Name = L"Series1";
-			this->chartBalance->Series->Add(series3);
-			this->chartBalance->Size = System::Drawing::Size(455, 446);
+			series1->ChartArea = L"ChartArea1";
+			series1->Legend = L"Legend1";
+			series1->Name = L"Series1";
+			this->chartBalance->Series->Add(series1);
+			this->chartBalance->Size = System::Drawing::Size(833, 446);
 			this->chartBalance->TabIndex = 0;
 			this->chartBalance->Text = L"chart1";
-			// 
-			// checkedListBox1
-			// 
-			this->checkedListBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->checkedListBox1->FormattingEnabled = true;
-			this->checkedListBox1->Location = System::Drawing::Point(14, 59);
-			this->checkedListBox1->Name = L"checkedListBox1";
-			this->checkedListBox1->Size = System::Drawing::Size(284, 446);
-			this->checkedListBox1->TabIndex = 1;
 			// 
 			// label1
 			// 
 			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 25.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label1->Location = System::Drawing::Point(178, 9);
+			this->label1->Location = System::Drawing::Point(12, 9);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(575, 40);
+			this->label1->Size = System::Drawing::Size(833, 47);
 			this->label1->TabIndex = 2;
 			this->label1->Text = L"Balance";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
-			// label2
+			// calendar
 			// 
-			this->label2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+			this->calendar->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(238)));
-			this->label2->Location = System::Drawing::Point(7, 9);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(353, 40);
-			this->label2->TabIndex = 3;
-			this->label2->Text = L"Filters";
-			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// 
-			// monthCalendar1
-			// 
-			this->monthCalendar1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->monthCalendar1->Location = System::Drawing::Point(771, 58);
-			this->monthCalendar1->Name = L"monthCalendar1";
-			this->monthCalendar1->TabIndex = 5;
-			this->monthCalendar1->DateChanged += gcnew System::Windows::Forms::DateRangeEventHandler(this, &balanceForm::monthCalendar1_DateChanged);
+			this->calendar->Location = System::Drawing::Point(851, 59);
+			this->calendar->Name = L"calendar";
+			this->calendar->TabIndex = 5;
+			this->calendar->DateChanged += gcnew System::Windows::Forms::DateRangeEventHandler(this, &balanceForm::monthCalendar1_DateChanged);
 			// 
 			// label3
 			// 
@@ -140,37 +118,50 @@ namespace testGUI {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label3->Location = System::Drawing::Point(771, 9);
+			this->label3->Location = System::Drawing::Point(851, 10);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(262, 40);
+			this->label3->Size = System::Drawing::Size(262, 46);
 			this->label3->TabIndex = 6;
 			this->label3->Text = L"Choose Date:";
 			this->label3->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// btnExit
 			// 
+			this->btnExit->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 22.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnExit->Location = System::Drawing::Point(796, 402);
+			this->btnExit->Location = System::Drawing::Point(851, 420);
 			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(220, 103);
+			this->btnExit->Size = System::Drawing::Size(262, 85);
 			this->btnExit->TabIndex = 7;
 			this->btnExit->Text = L"Exit";
-			this->btnExit->UseVisualStyleBackColor = true;
+			this->btnExit->UseVisualStyleBackColor = false;
 			this->btnExit->Click += gcnew System::EventHandler(this, &balanceForm::btnExit_Click);
+			// 
+			// btnOK
+			// 
+			this->btnOK->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 22.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->btnOK->Location = System::Drawing::Point(851, 337);
+			this->btnOK->Name = L"btnOK";
+			this->btnOK->Size = System::Drawing::Size(262, 77);
+			this->btnOK->TabIndex = 8;
+			this->btnOK->Text = L"OK";
+			this->btnOK->UseVisualStyleBackColor = false;
+			this->btnOK->Click += gcnew System::EventHandler(this, &balanceForm::btnOK_Click);
 			// 
 			// balanceForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::GradientInactiveCaption;
-			this->ClientSize = System::Drawing::Size(1051, 520);
+			this->ClientSize = System::Drawing::Size(1115, 514);
+			this->Controls->Add(this->btnOK);
 			this->Controls->Add(this->btnExit);
 			this->Controls->Add(this->label3);
-			this->Controls->Add(this->monthCalendar1);
-			this->Controls->Add(this->label2);
+			this->Controls->Add(this->calendar);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->checkedListBox1);
 			this->Controls->Add(this->chartBalance);
 			this->Name = L"balanceForm";
 			this->Text = L"Balance";
@@ -183,6 +174,10 @@ namespace testGUI {
 	}
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+}
+private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
 }
 };
 }

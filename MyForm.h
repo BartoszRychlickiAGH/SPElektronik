@@ -173,10 +173,10 @@ namespace testGUI {
 			// 
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->logs);
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->dataGridView);
-			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1547, 829);
+			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1724, 907);
 			this->toolStripContainer1->Location = System::Drawing::Point(12, 12);
 			this->toolStripContainer1->Name = L"toolStripContainer1";
-			this->toolStripContainer1->Size = System::Drawing::Size(1547, 856);
+			this->toolStripContainer1->Size = System::Drawing::Size(1724, 934);
 			this->toolStripContainer1->TabIndex = 0;
 			this->toolStripContainer1->Text = L"toolStripContainer1";
 			// 
@@ -190,7 +190,7 @@ namespace testGUI {
 			// 
 			this->logs->Location = System::Drawing::Point(0, 10);
 			this->logs->Name = L"logs";
-			this->logs->Size = System::Drawing::Size(214, 816);
+			this->logs->Size = System::Drawing::Size(288, 894);
 			this->logs->TabIndex = 1;
 			this->logs->Text = L"";
 			// 
@@ -200,11 +200,11 @@ namespace testGUI {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->dataGridView->BackgroundColor = System::Drawing::Color::DarkGray;
 			this->dataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView->Location = System::Drawing::Point(220, 10);
+			this->dataGridView->Location = System::Drawing::Point(294, 10);
 			this->dataGridView->Name = L"dataGridView";
 			this->dataGridView->RowHeadersWidth = 51;
 			this->dataGridView->RowTemplate->Height = 24;
-			this->dataGridView->Size = System::Drawing::Size(1327, 816);
+			this->dataGridView->Size = System::Drawing::Size(1430, 894);
 			this->dataGridView->TabIndex = 0;
 			this->dataGridView->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip_Hide);
 			this->dataGridView->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip1);
@@ -221,7 +221,7 @@ namespace testGUI {
 			});
 			this->toolStrip2->Location = System::Drawing::Point(4, 0);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(335, 27);
+			this->toolStrip2->Size = System::Drawing::Size(324, 27);
 			this->toolStrip2->TabIndex = 1;
 			// 
 			// btnSearch
@@ -293,7 +293,7 @@ namespace testGUI {
 				this->newOrderBtn, this->toolStripSeparator1,
 					this->showAllMenu, this->toolStripSeparator2, this->BalanceMenu, this->toolStripSeparator3, this->exitBtn
 			});
-			this->toolStrip1->Location = System::Drawing::Point(1120, 12);
+			this->toolStrip1->Location = System::Drawing::Point(1297, 12);
 			this->toolStrip1->Name = L"toolStrip1";
 			this->toolStrip1->Size = System::Drawing::Size(391, 27);
 			this->toolStrip1->TabIndex = 0;
@@ -391,7 +391,7 @@ namespace testGUI {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->ClientSize = System::Drawing::Size(1560, 880);
+			this->ClientSize = System::Drawing::Size(1737, 958);
 			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->toolStripContainer1);
 			this->Name = L"MyForm";
@@ -510,72 +510,106 @@ private: System::Void employeesToolStripMenuItem_Click(System::Object^ sender, S
 }
 private: System::Void toolStrip1_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
 }
-
+	   public: int index;
 private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	if (mode == "employees") {
+		return;
+	}
 	try {
-		if (e->Button == System::Windows::Forms::MouseButtons::Right) {
-			//contextMenuStrip1 = nullptr;
-			logs->Text = "";
-			logs->Update();
-			contextMenuStrip1->Close();
-		}
-
-		// getOrderId if mode == "orders"
-		if (mode == "orders") {
-			int^ orderId{0};
-			//get OrderId
-			if (dataGridView->Rows->Count > 1) {
-				if (e->Button == System::Windows::Forms::MouseButtons::Left) {
-					for each (DataGridViewRow ^ row in dataGridView->Rows) {
-						// Pobierz prostok¹t odpowiadaj¹cy wierszowi
-						System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
-
-						// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
-						if (rect.Contains(e->Location)) {
-							// Wybierz wiersz
-							dataGridView->ClearSelection();
-							row->Selected = true;
-
-							String^ description{ "" };
-
-							for each (DataGridViewCell ^ cell in row->Cells) {
-								if (cell->OwningColumn->Name == "Description") {
-									description = Convert::ToString(cell->Value);
-									break;
-								}
-							}
-
-							String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
-							SqlConnection conn{strConn};
-							conn.Open();
-							String^ query = "SELECT OrderId FROM Orders WHERE Description = @description";
-							SqlCommand cmd{query,% conn};
-							cmd.Parameters->AddWithValue("@description",description);
-
-							SqlDataReader^ reader = cmd.ExecuteReader();
-
-							if (reader->Read()) {
-								orderId = reader->GetInt32(0);
-							}
-							reader->Close();
-
-							configureLogs(logs, orderId);
-							conn.Close();
-						}
-					}
-				}
-				else {
+		if (dataGridView->Rows->Count > 1) {
+			int amountRows{ dataGridView->Rows->Count - 1};
+			for each (DataGridViewRow ^ row in dataGridView->Rows) {
+				
+				
+				
+				System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
+				if (e->Button == System::Windows::Forms::MouseButtons::Right) {
 					logs->Text = "";
 					logs->Update();
+
+					// Pobierz prostok¹t odpowiadaj¹cy wierszowi
+					// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
+					if (rect.Contains(e->Location)) {
+						// Wybierz wiersz
+						dataGridView->ClearSelection();
+						row->Selected = true;
+						
+						int index_row{ row->Index };
+
+						if (index_row == amountRows) {
+							return;
+						}
+						
+						
+						index = row->Index;
+						// Poka¿ ContextMenuStrip w miejscu klikniêcia
+						contextMenuStrip1->Show(dataGridView, e->Location);
+
+						displayGrid(dataGridView, mode, tbSearch->Text);
+						break;
+					}
+
+				}else if (e->Button == System::Windows::Forms::MouseButtons::Left and rect.Contains(e->Location)) {
+
+					int index_row{ row->Index };
+
+					if (index_row == amountRows) {
+						return;
+					}
+
+					if (mode != "orders") {
+						return;
+					}
+
+					contextMenuStrip1->Hide();
+					String^ Description{ "" };
+					String^ name{""};
+					String^ surname{""};
+					int^ orderId{};
+
+					
+					
+
+					String^ strCOnn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
+					SqlConnection conn{ strCOnn };
+					conn.Open();
+
+
+
+
+					for each (DataGridViewCell ^ cell in row->Cells) {
+
+						if (cell->OwningColumn->Name == "Description") {
+							Description = Convert::ToString(cell->Value);
+						}
+						if (cell->OwningColumn->Name == "Client Name") {
+							name = Convert::ToString(cell->Value);
+						}
+						if (cell->OwningColumn->Name == "Client Surname") {
+							surname = Convert::ToString(cell->Value);
+						}
+					}
+
+					String^ query{ "SELECT OrderId From Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId Where Orders.Description = @des and Clients.ClientName = @name and Clients.ClientSurname =@surname" };
+					SqlCommand cmd{query,%conn};
+						
+					cmd.Parameters->AddWithValue("@des",Description);
+					cmd.Parameters->AddWithValue("@name", name);
+					cmd.Parameters->AddWithValue("@surname", surname);
+
+					SqlDataReader^ reader = cmd.ExecuteReader();
+
+					if (reader->Read()) {
+						orderId = reader->GetInt32(0);
+					}
+					reader->Close();
+
+					configureLogs(logs, orderId);
+
+					conn.Close();
+					break;
 				}
 			}
-			else {
-				logs->Text = "";
-				logs->Update();
-			}
-
-
-			
 		}
 		//system("pause");
 	}
@@ -583,33 +617,135 @@ private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Wind
 		MessageBox::Show(ec->Message,"Error",MessageBoxButtons::OK,MessageBoxIcon::Error);
 		return;
 	}
+
 }
 
 
-public: int index;
 
-private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 
+private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) { // double click -> here status will be changed
+	if (mode != "orders") {
+		return;
+	}
 	if (dataGridView->Rows->Count > 1) {
 		if (e->Button == System::Windows::Forms::MouseButtons::Left){
+			int amountRows{dataGridView->Rows->Count};
 			for each (DataGridViewRow ^ row in dataGridView->Rows){
 				// Pobierz prostok¹t odpowiadaj¹cy wierszowi
 				System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
-
 				// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
 				if (rect.Contains(e->Location)){
-					// Wybierz wiersz
-					dataGridView->ClearSelection();
-					row->Selected = true;
 
-					index = row->Index;
-					// Poka¿ ContextMenuStrip w miejscu klikniêcia
-					contextMenuStrip1->Show(dataGridView, e->Location);
-					break;
+					if (row->Index - 1  == amountRows) {
+						return;
+					}
+					
+					try {
+						// Wybierz wiersz
+						String^ status{ "" };
+						String^ descruption{ "" };
+						String^ name{ "" };
+						String^ surname{ "" };
+						int^ deviceId{ 0 };
+						int^ orderId{0};
+
+						for each (DataGridViewCell ^ cell in row->Cells) {
+							if (cell->OwningColumn->Name == "Client Name") {
+								name = Convert::ToString(cell->Value);
+							}
+							else if (cell->OwningColumn->Name == "Client Surname") {
+								surname = Convert::ToString(cell->Value);
+							}
+							else if (cell->OwningColumn->Name == "Description") {
+								descruption = Convert::ToString(cell->Value);
+							}
+							else if (cell->OwningColumn->Name == "Order Status") {
+								status = Convert::ToString(cell->Value);
+							}
+							else if (cell->OwningColumn->Name == "Device ID") {
+								deviceId = Convert::ToInt32(cell->Value);
+							}
+						}
+
+						//get OrderId
+						String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
+						SqlConnection conn{ strConn };
+						conn.Open();
+
+						String^ query{ "SELECT Orders.OrderId from orders inner join clients on Clients.ClientId = Orders.ClientId WHERE Orders.Description = @des and Clients.ClientName = @name and CLients.ClientSurname = @surname and orders.Deviceid=@ID" };;
+						SqlCommand cmd{ query,% conn };
+						String^ logs{""};
+
+						cmd.Parameters->AddWithValue("@des", descruption);
+						cmd.Parameters->AddWithValue("@name", name);
+						cmd.Parameters->AddWithValue("@surname", surname);
+						cmd.Parameters->AddWithValue("@ID", deviceId);
+
+						SqlDataReader^ reader = cmd.ExecuteReader();
+
+						if (reader->Read()) {
+							orderId = reader->GetInt32(0);
+						}
+						reader->Close();
+
+
+
+						//get log for exact order
+						query = "select Log from Logs where OrderId = @ID";
+
+						SqlCommand cmd_get_logs{ query,% conn };
+						cmd_get_logs.Parameters->AddWithValue("@ID", orderId);
+
+						reader = cmd_get_logs.ExecuteReader();
+
+						if (reader->Read()) {
+							logs = reader->GetString(0);
+						}
+						reader->Close();
+
+
+
+						if (status == "Ready") {
+							query = "UPDATE Orders SET Orders.OrderStatus = 'In progress' WHERE Orders.OrderId = @ID";
+							logs += "[" + Convert::ToString(DateTime::Now) + "] " + "Status changed to:" + "In progress" + ".\n";
+						}
+						else if (status == "In progress") {
+							query = "UPDATE Orders SET Orders.OrderStatus = 'Ready' WHERE Orders.OrderId = @ID";
+							logs += "[" + Convert::ToString(DateTime::Now) + "] " + "Status changed to:" + "Ready" + ".\n";
+						}
+
+						SqlCommand cmd_update_status{query,%conn};
+						cmd_update_status.Parameters->AddWithValue("@ID", orderId);
+
+						cmd_update_status.ExecuteNonQuery();
+
+						query = "UPDATE Logs SET Logs.Log = @logs WHERE Logs.OrderId = @ID";
+						
+						SqlCommand cmd_update_logs{ query,% conn };
+						cmd_update_logs.Parameters->AddWithValue("@logs", logs);
+						cmd_update_logs.Parameters->AddWithValue("@ID", orderId);
+
+						cmd_update_logs.ExecuteNonQuery();
+						if (status == "In progress") {
+							insertIntoEquity(name, surname, orderId);
+						}
+
+
+						conn.Close();
+					}
+					catch (Exception^ el) {
+						MessageBox::Show(el->Message,"Error", MessageBoxButtons::OK,MessageBoxIcon::Error);
+						return;
+					}
+
+
+
 				}
+				break;
 			}
 		}
 	}
+	displayGrid(dataGridView, mode, tbSearch->Text);
 }
 
 	   //contextMenuStrip
@@ -819,9 +955,23 @@ private: System::Void deleteToolStripMenuItem_Click(System::Object^ sender, Syst
 		}
 		else if (mode == "devices") {
 			//delete logs for exact order from logs table
-			query = "DELETE FROM logs inner join orders on orders.orderId = logs.orderId where DeviceId = @ID";
+			int^ orderId{0};
+
+			query = "SELECT Orders.OrderId FROM Orders WHERE Orders.DeviceId = @ID";
+			SqlCommand cmd_getOrder_Id{query,%conn};
+			cmd_getOrder_Id.Parameters->AddWithValue("@ID", ID);
+
+			SqlDataReader^ reader = cmd_getOrder_Id.ExecuteReader();
+
+			if (reader->Read()) {
+				orderId = reader->GetInt32(0);
+			}
+			reader->Close();
+
+			//get orderid with deviceid
+			query = "DELETE FROM Logs  where OrderId = @ID";
 			SqlCommand cmd_logs_delete{ query,% conn };
-			cmd_logs_delete.Parameters->AddWithValue("@ID", ID);
+			cmd_logs_delete.Parameters->AddWithValue("@ID", orderId);
 
 			cmd_logs_delete.ExecuteNonQuery();
 

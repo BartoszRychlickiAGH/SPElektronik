@@ -37,7 +37,7 @@ namespace testGUI {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::RichTextBox^ tbCost;
 	private: System::Windows::Forms::Button^ btnOK;
-	private: System::Windows::Forms::Button^ btnExit;
+
 	protected:
 
 	private:
@@ -56,7 +56,6 @@ namespace testGUI {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->tbCost = (gcnew System::Windows::Forms::RichTextBox());
 			this->btnOK = (gcnew System::Windows::Forms::Button());
-			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -82,32 +81,19 @@ namespace testGUI {
 			// 
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnOK->Location = System::Drawing::Point(20, 169);
+			this->btnOK->Location = System::Drawing::Point(20, 177);
 			this->btnOK->Name = L"btnOK";
-			this->btnOK->Size = System::Drawing::Size(179, 75);
+			this->btnOK->Size = System::Drawing::Size(398, 67);
 			this->btnOK->TabIndex = 2;
 			this->btnOK->Text = L"OK";
 			this->btnOK->UseVisualStyleBackColor = true;
 			this->btnOK->Click += gcnew System::EventHandler(this, &OrderCost::btnOK_Click);
-			// 
-			// btnExit
-			// 
-			this->btnExit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(238)));
-			this->btnExit->Location = System::Drawing::Point(239, 169);
-			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(179, 75);
-			this->btnExit->TabIndex = 3;
-			this->btnExit->Text = L"Exit";
-			this->btnExit->UseVisualStyleBackColor = true;
-			this->btnExit->Click += gcnew System::EventHandler(this, &OrderCost::btnExit_Click);
 			// 
 			// OrderCost
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(430, 256);
-			this->Controls->Add(this->btnExit);
 			this->Controls->Add(this->btnOK);
 			this->Controls->Add(this->tbCost);
 			this->Controls->Add(this->label1);
