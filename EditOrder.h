@@ -5,6 +5,7 @@
 #include "MyForm.cpp"
 
 
+
 namespace testGUI {
 
 	using namespace System;
@@ -286,6 +287,25 @@ namespace testGUI {
 		reader->Close();
 
 
+		//check if date is in correct format
+		if (tbDate->Text != "" && !isDate(tbDate->Text)) {
+			MessageBox::Show("Date must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		//check if price is in correct format
+		if (tbPrice->Text != "" && !isMoney(tbPrice->Text)) {
+			MessageBox::Show("Price must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		//check if status is in correct format
+		if (tbStatus->Text != "" && tbStatus->Text != "Ready" && tbStatus->Text != "In progress") {
+			MessageBox::Show("Status can be only 'Ready' or 'In progress'!!!","Error",MessageBoxButtons::OK,MessageBoxIcon::Error);
+			return;
+		}
+
+
 
 		if (tbStatus->Text != "") {
 			query = "UPDATE Orders SET OrderStatus = @Status WHERE OrderId = @Id";
@@ -324,6 +344,57 @@ namespace testGUI {
 		if (tbStatus->Text == "Ready") {
 			insertIntoEquity(clientName,clientSurname,OrderId);
 		}
+
+
+		//check if order in equity
+
+		query = "SELECT Count(Date) FROM Equity WHERE OrderId = @Id";
+		SqlCommand cmd_check{ query,% conn };
+		cmd_check.Parameters->AddWithValue("@Id", OrderId);
+
+		reader = cmd_check.ExecuteReader();
+
+		int count{ 0 };
+
+		if (reader->Read()) {
+			count = reader->GetInt32(0);
+		}
+		reader->Close();
+
+		
+		if (count == 1) {
+			if (tbPrice->Text != "") {
+				query = "UPDATE Equity SET Price = @Price WHERE OrderId = @Id";
+
+				SqlCommand cmd_equity{ query,% conn };
+				cmd_equity.Parameters->AddWithValue("@Price", Convert::ToSingle(tbPrice->Text));
+				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
+
+				cmd_equity.ExecuteNonQuery();
+			}
+			if (tbDescription->Text != "") {
+				query = "UPDATE Equity SET Description = @Des WHERE OrderId = @Id";
+
+				SqlCommand cmd_equity{ query,% conn };
+				cmd_equity.Parameters->AddWithValue("@Des", tbDescription->Text);
+				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
+
+				cmd_equity.ExecuteNonQuery();
+			}
+			if (tbDate->Text != "") {
+				query = "UPDATE Equity SET Date = @Date WHERE OrderId = @Id";
+
+				SqlCommand cmd_equity{ query,% conn };
+				cmd_equity.Parameters->AddWithValue("@Date", tbDate->Text);
+				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
+
+				cmd_equity.ExecuteNonQuery();
+			}
+		
+		}
+
+
+
 		String^ actuallog{""};
 		
 		//get actual log

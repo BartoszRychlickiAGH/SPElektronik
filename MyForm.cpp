@@ -1,6 +1,6 @@
 #include "Includings.h"
 #include "OrderCost.h"
-
+#include "newOrderForm.cpp"
 
 #pragma once
 //add log to table attached to exact order
@@ -100,7 +100,7 @@ static void insertIntoEquity(String^ clientName,String^clientSurname,int^ OrderI
 		cmd_insert.Parameters->AddWithValue("@ClientAdress", ClientAdress);
 		cmd_insert.Parameters->AddWithValue("@DeviceName", DeviceName);
 		cmd_insert.Parameters->AddWithValue("@DeviceModel", DeviceModel);
-		cmd_insert.Parameters->AddWithValue("@Date", Date);
+		cmd_insert.Parameters->AddWithValue("@Date",getData() );
 		cmd_insert.Parameters->AddWithValue("@Category", Category);
 		cmd_insert.Parameters->AddWithValue("@Price", Price);
 		cmd_insert.Parameters->AddWithValue("@Cost", orderCost);
@@ -251,7 +251,7 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 				orderStatus,orderDate,Convert::ToSingle(orderPrice),description);
 			
 		}
-		if (isReaderEmpty and search != "") {
+		if (isReaderEmpty && search != "") {
 			MessageBox::Show("No data found", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			clearDataGridView(dataView);
 			dataView->Update();
@@ -359,7 +359,7 @@ static void configureDataGrid_Clients(DataGridView^ dataView, String^ s) {
 		dataView->Rows->Add(clientID, clientName, clientSurname, clientPhone, clientEmail, clientAdress);
 
 	}
-	if (isReaderEmpty and s != "") {
+	if (isReaderEmpty && s != "") {
 		MessageBox::Show("No data found", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		clearDataGridView(dataView);
 		dataView->Update();
@@ -442,7 +442,7 @@ static void configureDataGrid_Devices(DataGridView^ dataView,String^ s) {
 		dataView->Rows->Add(deviceId,clientId,deviceName,deviceModel,deviceCategory,deviceQuantity);
 
 	}
-	if (isReaderEmpty and s != "") {
+	if (isReaderEmpty && s != "") {
 		MessageBox::Show("No data found", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		clearDataGridView(dataView);
 		dataView->Update();

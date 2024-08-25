@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <map>
 
+#pragma once
+
 using namespace System;
 using namespace System::Data::SqlClient;
 using namespace System::Windows::Forms;
@@ -217,4 +219,17 @@ static String^ getData() {
 	}
 
 	return date;
+}
+
+static bool isDate(String^ date){
+	string text{msclr::interop::marshal_as<string>(date)};
+    regex regexPattern("^([1-9]|[12][0-9]|3[01])\\.([1-9]|1[0-2])\\.\\d{4}$");
+
+
+	if (regex_match(text, regexPattern)){  // \d{1,2}\.\d{1,2}\.\d{4}
+		return true;
+	}
+
+	return false;
+
 }

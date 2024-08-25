@@ -184,6 +184,7 @@ namespace testGUI {
 			// 
 			this->toolStripContainer1->TopToolStripPanel->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip2);
+			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip1);
 			this->toolStripContainer1->TopToolStripPanel->Click += gcnew System::EventHandler(this, &MyForm::toolStripContainer1_TopToolStripPanel_Click);
 			// 
 			// logs
@@ -221,7 +222,7 @@ namespace testGUI {
 			});
 			this->toolStrip2->Location = System::Drawing::Point(4, 0);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(324, 27);
+			this->toolStrip2->Size = System::Drawing::Size(456, 27);
 			this->toolStrip2->TabIndex = 1;
 			// 
 			// btnSearch
@@ -293,7 +294,7 @@ namespace testGUI {
 				this->newOrderBtn, this->toolStripSeparator1,
 					this->showAllMenu, this->toolStripSeparator2, this->BalanceMenu, this->toolStripSeparator3, this->exitBtn
 			});
-			this->toolStrip1->Location = System::Drawing::Point(1297, 12);
+			this->toolStrip1->Location = System::Drawing::Point(1176, 0);
 			this->toolStrip1->Name = L"toolStrip1";
 			this->toolStrip1->Size = System::Drawing::Size(391, 27);
 			this->toolStrip1->TabIndex = 0;
@@ -392,7 +393,6 @@ namespace testGUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->ClientSize = System::Drawing::Size(1737, 958);
-			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->toolStripContainer1);
 			this->Name = L"MyForm";
 			this->Text = L"Main Interface";
@@ -510,108 +510,115 @@ private: System::Void employeesToolStripMenuItem_Click(System::Object^ sender, S
 }
 private: System::Void toolStrip1_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
 }
-	   public: int index;
+	public: int index{0};
 private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	if (mode == "employees") {
 		return;
 	}
 	try {
 		if (dataGridView->Rows->Count > 1) {
+
 			int amountRows{ dataGridView->Rows->Count - 1};
+
 			for each (DataGridViewRow ^ row in dataGridView->Rows) {
 				
 				
 				
 				System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
-				if (e->Button == System::Windows::Forms::MouseButtons::Right) {
-					logs->Text = "";
-					logs->Update();
+				if(rect.Contains(e->Location)){
+					index = row->Index;
+					if (e->Button == System::Windows::Forms::MouseButtons::Right) {
+						logs->Text = "";
+						logs->Update();
 
-					// Pobierz prostok¹t odpowiadaj¹cy wierszowi
-					// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
-					if (rect.Contains(e->Location)) {
-						// Wybierz wiersz
-						dataGridView->ClearSelection();
-						row->Selected = true;
+					
+
+
+						// Pobierz prostok¹t odpowiadaj¹cy wierszowi
+						// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
+						if (rect.Contains(e->Location)) {
+							// Wybierz wiersz
+							dataGridView->ClearSelection();
+							row->Selected = true;
 						
+							int index_row{ row->Index };
+
+							if (index_row == amountRows) {
+								return;
+							}
+						
+						
+							index = row->Index;
+							// Poka¿ ContextMenuStrip w miejscu klikniêcia
+							contextMenuStrip1->Show(dataGridView, e->Location);
+
+							displayGrid(dataGridView, mode, tbSearch->Text);
+							return;
+						}
+
+					}else if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+
 						int index_row{ row->Index };
 
 						if (index_row == amountRows) {
 							return;
 						}
-						
-						
-						index = row->Index;
-						// Poka¿ ContextMenuStrip w miejscu klikniêcia
-						contextMenuStrip1->Show(dataGridView, e->Location);
 
-						displayGrid(dataGridView, mode, tbSearch->Text);
-						break;
-					}
+						if (mode != "orders") {
+							return;
+						}
 
-				}else if (e->Button == System::Windows::Forms::MouseButtons::Left and rect.Contains(e->Location)) {
-
-					int index_row{ row->Index };
-
-					if (index_row == amountRows) {
-						return;
-					}
-
-					if (mode != "orders") {
-						return;
-					}
-
-					contextMenuStrip1->Hide();
-					String^ Description{ "" };
-					String^ name{""};
-					String^ surname{""};
-					int^ orderId{};
+						contextMenuStrip1->Hide();
+						String^ Description{ "" };
+						String^ name{""};
+						String^ surname{""};
+						int^ orderId{};
 
 					
 					
 
-					String^ strCOnn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
-					SqlConnection conn{ strCOnn };
-					conn.Open();
+						String^ strCOnn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
+						SqlConnection conn{ strCOnn };
+						conn.Open();
 
 
 
 
-					for each (DataGridViewCell ^ cell in row->Cells) {
+						for each (DataGridViewCell ^ cell in row->Cells) {
 
-						if (cell->OwningColumn->Name == "Description") {
-							Description = Convert::ToString(cell->Value);
+							if (cell->OwningColumn->Name == "Description") {
+								Description = Convert::ToString(cell->Value);
+							}
+							if (cell->OwningColumn->Name == "Client Name") {
+								name = Convert::ToString(cell->Value);
+							}
+							if (cell->OwningColumn->Name == "Client Surname") {
+								surname = Convert::ToString(cell->Value);
+							}
 						}
-						if (cell->OwningColumn->Name == "Client Name") {
-							name = Convert::ToString(cell->Value);
-						}
-						if (cell->OwningColumn->Name == "Client Surname") {
-							surname = Convert::ToString(cell->Value);
-						}
-					}
 
-					String^ query{ "SELECT OrderId From Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId Where Orders.Description = @des and Clients.ClientName = @name and Clients.ClientSurname =@surname" };
-					SqlCommand cmd{query,%conn};
+						String^ query{ "SELECT OrderId From Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId Where Orders.Description = @des and Clients.ClientName = @name and Clients.ClientSurname =@surname" };
+						SqlCommand cmd{query,%conn};
 						
-					cmd.Parameters->AddWithValue("@des",Description);
-					cmd.Parameters->AddWithValue("@name", name);
-					cmd.Parameters->AddWithValue("@surname", surname);
+						cmd.Parameters->AddWithValue("@des",Description);
+						cmd.Parameters->AddWithValue("@name", name);
+						cmd.Parameters->AddWithValue("@surname", surname);
 
-					SqlDataReader^ reader = cmd.ExecuteReader();
+						SqlDataReader^ reader = cmd.ExecuteReader();
 
-					if (reader->Read()) {
-						orderId = reader->GetInt32(0);
+						if (reader->Read()) {
+							orderId = reader->GetInt32(0);
+						}
+						reader->Close();
+
+						configureLogs(logs, orderId);
+
+						conn.Close();
+						return;
 					}
-					reader->Close();
-
-					configureLogs(logs, orderId);
-
-					conn.Close();
-					break;
 				}
 			}
 		}
-		//system("pause");
 	}
 	catch (Exception^ ec) {
 		MessageBox::Show(ec->Message,"Error",MessageBoxButtons::OK,MessageBoxIcon::Error);
@@ -629,16 +636,22 @@ private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows:
 	}
 	if (dataGridView->Rows->Count > 1) {
 		if (e->Button == System::Windows::Forms::MouseButtons::Left){
-			int amountRows{dataGridView->Rows->Count};
+
+			int amountRows{0};
+			
 			for each (DataGridViewRow ^ row in dataGridView->Rows){
-				// Pobierz prostok¹t odpowiadaj¹cy wierszowi
-				System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
-				// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
+				amountRows++;
+
+					if (index  != amountRows-1) {
+						continue;
+					}
+
+
+				System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(index, true); // SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
+				
 				if (rect.Contains(e->Location)){
 
-					if (row->Index - 1  == amountRows) {
-						return;
-					}
+					
 					
 					try {
 						// Wybierz wiersz
@@ -752,10 +765,8 @@ private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows:
 private: System::Void editToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) { // edit row
 	logs->Clear();
 	logs->Update();
-
-	int i{0};
 	for each (DataGridViewRow ^ row in dataGridView->Rows) {
-		if (index==i) {
+		if (index==row->Index) { // index = 3 - error
 			
 
 			if (mode == "orders") {
@@ -774,14 +785,11 @@ private: System::Void editToolStripMenuItem_Click(System::Object^ sender, System
 			}
 			displayGrid(dataGridView, mode, tbSearch->Text);
 		}
-		++i;
-		if (i > index) {
+
+		if (row->Index > index) {
 			break;
 		}
 	}
-
-
-
 }
 
 
@@ -1018,7 +1026,7 @@ private: System::Void BalanceMenu_Click(System::Object^ sender, System::EventArg
 	this->Hide();
 	
 	balanceForm form;
-	form.ShowDialog();
+	form.ShowDialog(); // error ?
 
 	this->Show();
 }
