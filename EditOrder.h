@@ -314,6 +314,13 @@ namespace testGUI {
 			cmd.Parameters->AddWithValue("@Id", OrderId);
 			text += Convert::ToString("Changed status to " + tbStatus->Text+".");
 			cmd.ExecuteNonQuery();
+
+			//update equity
+			query = "UPDATE Equity SET Status = @Status WHERE OrderId = @Id";
+			SqlCommand cmd_equity{ query,% conn };
+			cmd_equity.Parameters->AddWithValue("@Status", tbStatus->Text);
+
+			cmd_equity.Parameters->AddWithValue("@Id", OrderId);
 		}
 		if (tbDate->Text != "") {
 			query = "UPDATE Orders SET OrderDate = @Date WHERE OrderId = @Id";
@@ -322,6 +329,13 @@ namespace testGUI {
 			cmd.Parameters->AddWithValue("@Id", OrderId);
 			text += Convert::ToString("Changed date to " + tbDate->Text+".");
 			cmd.ExecuteNonQuery();
+
+			//update equity
+			query = "UPDATE Equity SET Date = @date WHERE OrderId = @Id";
+			SqlCommand cmd_equity{ query,% conn };
+			cmd_equity.Parameters->AddWithValue("@date", tbDate->Text);
+
+			cmd_equity.Parameters->AddWithValue("@Id", OrderId);
 		}
 		if (tbDescription->Text != "") {
 			query = "UPDATE Orders SET Description = @des WHERE OrderId = @Id";
@@ -330,6 +344,14 @@ namespace testGUI {
 			cmd.Parameters->AddWithValue("@Id", OrderId);
 			text += Convert::ToString("Changed description to " + tbDescription->Text + ".");
 			cmd.ExecuteNonQuery();
+
+			//update equity
+			query = "UPDATE Equity SET Sescription = @Description WHERE OrderId = @Id";
+			SqlCommand cmd_equity{ query,% conn };
+			cmd_equity.Parameters->AddWithValue("@Description", tbDescription->Text);
+			cmd_equity.Parameters->AddWithValue("@Id", OrderId);
+
+			cmd_equity.ExecuteNonQuery();
 		}
 		if (tbPrice->Text != "") {
 			query = "UPDATE Orders SET OrderPrice = @Price WHERE OrderId = @Id";
@@ -338,12 +360,15 @@ namespace testGUI {
 			cmd.Parameters->AddWithValue("@Id", OrderId);
 			text += Convert::ToString("Changed price to " + tbPrice->Text + ".");
 			cmd.ExecuteNonQuery();
+
+			//update equity
+			query = "UPDATE Equity SET Price = @Price WHERE OrderId = @Id";
+			SqlCommand cmd_equity{ query,% conn };
+			cmd_equity.Parameters->AddWithValue("@Price", Convert::ToSingle(tbPrice->Text));
+
+			cmd_equity.Parameters->AddWithValue("@Id", OrderId);
 		}
 		
-		
-		if (tbStatus->Text == "Ready") {
-			insertIntoEquity(clientName,clientSurname,OrderId);
-		}
 
 
 		//check if order in equity

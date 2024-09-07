@@ -8,116 +8,116 @@
 
 //need to add configuring datagridViwe with built text searching and checklistbox
 
-static void insertIntoEquity(String^ clientName,String^clientSurname,int^ OrderId) {
-	String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
-	SqlConnection conn{ strConn };
-	conn.Open();
-
-	float^ orderCost{};
-	testGUI::OrderCost form;
-	form.ShowDialog();
-	orderCost = form.cost;
-	String^ ClientEmail{ "" };
-	String^ ClientPhone{ "" };
-	String^ ClientAdress{ "" };
-	String^ DeviceName{ "" };
-	String^ DeviceModel{ "" };
-	String^ Date{ "" };
-	String^ Category{ "" };
-	float^ Price{ 0.0f };
-	float^ Cost{ 0.0f };
-	String^ Description{ "" };
-
-	// get client data from clients having client name and surname
-	String^ query = "SELECT ClientEmail, ClientPhone, ClientAdress FROM Clients WHERE ClientName = @Name AND ClientSurname = @Surname";
-	SqlCommand cmd_clients{ query,% conn };
-	cmd_clients.Parameters->AddWithValue("@Name", clientName);
-	cmd_clients.Parameters->AddWithValue("@Surname", clientSurname);
-
-	SqlDataReader^ reader = cmd_clients.ExecuteReader();
-
-	if (reader->Read()) {
-		ClientEmail = reader->GetString(0);
-		ClientPhone = reader->GetString(1);
-		ClientAdress = reader->GetString(2);
-	}
-	reader->Close();
-
-	//get device data from devices having order id using inner join
-
-	query = "SELECT Devices.DeviceName, Devices.DeviceModel, Orders.OrderDate, Devices.DeviceCategory, Orders.OrderPrice FROM Devices INNER JOIN Orders ON Devices.DeviceId = Orders.DeviceId WHERE Orders.OrderId = @Id";
-	SqlCommand cmd_device{ query,% conn };
-	cmd_device.Parameters->AddWithValue("@Id", OrderId);
-
-	reader = cmd_device.ExecuteReader();
-
-	if (reader->Read()) {
-		DeviceName = reader->GetString(0);
-		DeviceModel = reader->GetString(1);
-		Date = reader->GetString(2);
-		Category = reader->GetString(3);
-		Price = reader->GetFloat(4);
-	}
-	reader->Close();
-	//get order data from orders having order id
-
-	query = "SELECT Description FROM Orders WHERE OrderId = @Id";
-	SqlCommand cmd_order{ query,% conn };
-	cmd_order.Parameters->AddWithValue("@Id", OrderId);
-
-	reader = cmd_order.ExecuteReader();
-
-	if (reader->Read()) {
-		Description = reader->GetString(0);
-	}
-	reader->Close();
-	//insert into equity
-
-
-	//check if current order exist in Equity table
-	int amount{ 0 };
-	query = "SELECT COUNT(*) FROM Equity WHERE OrderId = @Id";
-	SqlCommand cmd_get_amount{ query,% conn };
-
-	cmd_get_amount.Parameters->AddWithValue("@Id", OrderId);
-
-	reader = cmd_get_amount.ExecuteReader();
-
-
-	if (reader->Read()) {
-		amount = reader->GetInt32(0);
-	}
-	reader->Close();
-	//insert into equity
-	if (amount == 0) {
-		query = "INSERT INTO Equity VALUES (@OrderId,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
-		SqlCommand cmd_insert{ query,% conn };
-		cmd_insert.Parameters->AddWithValue("@OrderId", OrderId);
-		cmd_insert.Parameters->AddWithValue("@ClientName", clientName);
-		cmd_insert.Parameters->AddWithValue("@ClientSurname", clientSurname);
-		cmd_insert.Parameters->AddWithValue("@ClientEmail", ClientEmail);
-		cmd_insert.Parameters->AddWithValue("@ClientPhone", ClientPhone);
-		cmd_insert.Parameters->AddWithValue("@ClientAdress", ClientAdress);
-		cmd_insert.Parameters->AddWithValue("@DeviceName", DeviceName);
-		cmd_insert.Parameters->AddWithValue("@DeviceModel", DeviceModel);
-		cmd_insert.Parameters->AddWithValue("@Date",getData() );
-		cmd_insert.Parameters->AddWithValue("@Category", Category);
-		cmd_insert.Parameters->AddWithValue("@Price", Price);
-		cmd_insert.Parameters->AddWithValue("@Cost", orderCost);
-		cmd_insert.Parameters->AddWithValue("@Description", Description);
-
-		cmd_insert.ExecuteNonQuery();
-	}
-	else {
-		query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
-		SqlCommand cmd_update{ query,% conn };
-		cmd_update.Parameters->AddWithValue("@Cost", orderCost);
-		cmd_update.Parameters->AddWithValue("@Id", OrderId);
-
-		cmd_update.ExecuteNonQuery();
-	}
-	conn.Close();
-}
+//static void insertIntoEquity(String^ clientName,String^clientSurname,int^ OrderId) {
+//	String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
+//	SqlConnection conn{ strConn };
+//	conn.Open();
+//
+//	float^ orderCost{};
+//	testGUI::OrderCost form;
+//	form.ShowDialog();
+//	orderCost = form.cost;
+//	String^ ClientEmail{ "" };
+//	String^ ClientPhone{ "" };
+//	String^ ClientAdress{ "" };
+//	String^ DeviceName{ "" };
+//	String^ DeviceModel{ "" };
+//	String^ Date{ "" };
+//	String^ Category{ "" };
+//	float^ Price{ 0.0f };
+//	float^ Cost{ 0.0f };
+//	String^ Description{ "" };
+//
+//	// get client data from clients having client name and surname
+//	String^ query = "SELECT ClientEmail, ClientPhone, ClientAdress FROM Clients WHERE ClientName = @Name AND ClientSurname = @Surname";
+//	SqlCommand cmd_clients{ query,% conn };
+//	cmd_clients.Parameters->AddWithValue("@Name", clientName);
+//	cmd_clients.Parameters->AddWithValue("@Surname", clientSurname);
+//
+//	SqlDataReader^ reader = cmd_clients.ExecuteReader();
+//
+//	if (reader->Read()) {
+//		ClientEmail = reader->GetString(0);
+//		ClientPhone = reader->GetString(1);
+//		ClientAdress = reader->GetString(2);
+//	}
+//	reader->Close();
+//
+//	//get device data from devices having order id using inner join
+//
+//	query = "SELECT Devices.DeviceName, Devices.DeviceModel, Orders.OrderDate, Devices.DeviceCategory, Orders.OrderPrice FROM Devices INNER JOIN Orders ON Devices.DeviceId = Orders.DeviceId WHERE Orders.OrderId = @Id";
+//	SqlCommand cmd_device{ query,% conn };
+//	cmd_device.Parameters->AddWithValue("@Id", OrderId);
+//
+//	reader = cmd_device.ExecuteReader();
+//
+//	if (reader->Read()) {
+//		DeviceName = reader->GetString(0);
+//		DeviceModel = reader->GetString(1);
+//		Date = reader->GetString(2);
+//		Category = reader->GetString(3);
+//		Price = reader->GetFloat(4);
+//	}
+//	reader->Close();
+//	//get order data from orders having order id
+//
+//	query = "SELECT Description FROM Orders WHERE OrderId = @Id";
+//	SqlCommand cmd_order{ query,% conn };
+//	cmd_order.Parameters->AddWithValue("@Id", OrderId);
+//
+//	reader = cmd_order.ExecuteReader();
+//
+//	if (reader->Read()) {
+//		Description = reader->GetString(0);
+//	}
+//	reader->Close();
+//	//insert into equity
+//
+//
+//	//check if current order exist in Equity table
+//	int amount{ 0 };
+//	query = "SELECT COUNT(*) FROM Equity WHERE OrderId = @Id";
+//	SqlCommand cmd_get_amount{ query,% conn };
+//
+//	cmd_get_amount.Parameters->AddWithValue("@Id", OrderId);
+//
+//	reader = cmd_get_amount.ExecuteReader();
+//
+//
+//	if (reader->Read()) {
+//		amount = reader->GetInt32(0);
+//	}
+//	reader->Close();
+//	//insert into equity
+//	if (amount == 0) {
+//		query = "INSERT INTO Equity VALUES (@OrderId,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
+//		SqlCommand cmd_insert{ query,% conn };
+//		cmd_insert.Parameters->AddWithValue("@OrderId", OrderId);
+//		cmd_insert.Parameters->AddWithValue("@ClientName", clientName);
+//		cmd_insert.Parameters->AddWithValue("@ClientSurname", clientSurname);
+//		cmd_insert.Parameters->AddWithValue("@ClientEmail", ClientEmail);
+//		cmd_insert.Parameters->AddWithValue("@ClientPhone", ClientPhone);
+//		cmd_insert.Parameters->AddWithValue("@ClientAdress", ClientAdress);
+//		cmd_insert.Parameters->AddWithValue("@DeviceName", DeviceName);
+//		cmd_insert.Parameters->AddWithValue("@DeviceModel", DeviceModel);
+//		cmd_insert.Parameters->AddWithValue("@Date",getData() );
+//		cmd_insert.Parameters->AddWithValue("@Category", Category);
+//		cmd_insert.Parameters->AddWithValue("@Price", Price);
+//		cmd_insert.Parameters->AddWithValue("@Cost", orderCost);
+//		cmd_insert.Parameters->AddWithValue("@Description", Description);
+//
+//		cmd_insert.ExecuteNonQuery();
+//	}
+//	else {
+//		query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
+//		SqlCommand cmd_update{ query,% conn };
+//		cmd_update.Parameters->AddWithValue("@Cost", orderCost);
+//		cmd_update.Parameters->AddWithValue("@Id", OrderId);
+//
+//		cmd_update.ExecuteNonQuery();
+//	}
+//	conn.Close();
+//}
 
 
 

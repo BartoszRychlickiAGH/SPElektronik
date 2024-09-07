@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+							<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+									xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+							<Worksheet ss:Name="Sheet1">
+							<Table>
+								<Row>
+									<Cell><Data ss:Type="String">Numer zlecenia</Data></Cell>
+									<Cell><Data ss:Type="String">Imie</Data></Cell>
+									<Cell><Data ss:Type="String">Nazwisko</Data></Cell>
+									<Cell><Data ss:Type="String">Nr. telefonu</Data></Cell>
+									<Cell><Data ss:Type="String">E-mail</Data></Cell>
+									<Cell><Data ss:Type="String">Adres</Data></Cell>
+									<Cell><Data ss:Type="String">Nazwa urzadzenia</Data></Cell>
+									<Cell><Data ss:Type="String">Model</Data></Cell>
+									<Cell><Data ss:Type="String">Nr. Seryjny</Data></Cell>
+									<Cell><Data ss:Type="String">Kategoria</Data></Cell>
+									<Cell><Data ss:Type="String">Data przyjecia</Data></Cell>
+									<Cell><Data ss:Type="String">Data oddania</Data></Cell>
+									<Cell><Data ss:Type="String">Status</Data></Cell>
+									<Cell><Data ss:Type="String">Typ realizacji</Data></Cell>
+									<Cell><Data ss:Type="String">Opis</Data></Cell>
+									<Cell><Data ss:Type="String">Okolicznosci</Data></Cell>
+									<Cell><Data ss:Type="String">Uwagi</Data></Cell>
+									<Cell><Data ss:Type="String">Cena</Data></Cell>
+									<Cell><Data ss:Type="String">Koszt</Data></Cell>
+									<Cell><Data ss:Type="String">Przychod</Data></Cell>
+								</Row>
+
+						 <Row><Cell><Data ss:Type="String">37</Data></Cell><Cell><Data ss:Type="String">Bartosz</Data></Cell><Cell><Data ss:Type="String">Rychlicki</Data></Cell><Cell><Data ss:Type="String">b.rychlicki@vp.pl</Data></Cell><Cell><Data ss:Type="String">Rychlicki</Data></Cell><Cell><Data ss:Type="String">538100178</Data></Cell><Cell><Data ss:Type="String">Sierpowa 14a, Radom</Data></Cell><Cell><Data ss:Type="String">Samsung</Data></Cell><Cell><Data ss:Type="String">SGT536273</Data></Cell><Cell><Data ss:Type="String"> 6.9.2024</Data></Cell><Cell><Data ss:Type="String"> 6.9.2024</Data></Cell><Cell><Data ss:Type="String">To fill</Data></Cell><Cell><Data ss:Type="String">Ready</Data></Cell><Cell><Data ss:Type="String">Standard</Data></Cell><Cell><Data ss:Type="String">Monitor LCD</Data></Cell><Cell><Data ss:Type="String">Black screen</Data></Cell><Cell><Data ss:Type="String">Email</Data></Cell><Cell><Data ss:Type="String">89.990000 PLN</Data></Cell><Cell><Data ss:Type="String">45.000000 PLN</Data></Cell><Cell><Data ss:Type="String">44.990000 PLN</Data></Cell></Row></Table> 
+							</Worksheet>
+							</Workbook>
