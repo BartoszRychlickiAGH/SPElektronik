@@ -1,6 +1,6 @@
 #pragma once
 #include "balanceForm.cpp"
-
+#include "newOrderForm.cpp"
 namespace testGUI {
 
 	using namespace System;
@@ -64,6 +64,7 @@ namespace testGUI {
 					}
 				}
 				bool isReaderEmpty{true};
+				String^ date_temp = day + "." + month + "." + year;
 
 				String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
 				SqlConnection conn{strConn};
@@ -72,11 +73,12 @@ namespace testGUI {
 				String^ query{"SELECT Price,Cost From Equity Where Date=@date"};
 				SqlCommand cmd{query,%conn};
 
-				cmd.Parameters->AddWithValue("@date",day+"."+month + "." + year);
+				cmd.Parameters->AddWithValue("@date", getData());
 
 				SqlDataReader^ reader = cmd.ExecuteReader();
 
 				
+
 				while (reader->Read()) {
 
 					isReaderEmpty = false;
@@ -385,6 +387,7 @@ namespace testGUI {
 			this->Controls->Add(this->chartBalance);
 			this->Name = L"balanceForm";
 			this->Text = L"Balance";
+			this->Load += gcnew System::EventHandler(this, &balanceForm::balanceForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chartBalance))->EndInit();
 			this->ResumeLayout(false);
 
@@ -500,23 +503,26 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 
 				
 
-				String^ query{ "SELECT Price,Cost From Equity Where Date=@date" };
-				SqlCommand cmd{ query,% conn };
+                String^ query{"SELECT Price,Cost From Equity Where TRIM(Date)=@date"};
+                SqlCommand cmd{query, %conn};
 
-				cmd.Parameters->AddWithValue("@date", day + "." + month + "." + year);
+                string dayTempDate = msclr::interop::marshal_as<string>(day);
+                dayTempDate.push_back('.');
+                dayTempDate += msclr::interop::marshal_as<string>(month);
+                dayTempDate.push_back('.');
+                dayTempDate += msclr::interop::marshal_as<string>(year);
 
-				SqlDataReader^ reader = cmd.ExecuteReader();
+                cmd.Parameters->AddWithValue("@date", msclr::interop::marshal_as<String^>(dayTempDate));
 
+                SqlDataReader^ reader = cmd.ExecuteReader();
 
-				while (reader->Read()) {
+                while (reader->Read()) {
+                    isReaderEmpty = false;
 
-					isReaderEmpty = false;
-
-					income += static_cast<float>(reader->GetDouble(0)); // errror in static cast
-
-					costs += static_cast<float>(reader->GetDouble(1));
-
-				}
+                    income += static_cast<float>(reader->GetDouble(0));
+                    costs += static_cast<float>(reader->GetDouble(1));
+                }
+				reader->Close();
 
 				if (isReaderEmpty) {
 
@@ -591,19 +597,19 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 
 
 
-                if (month == "1") {
+				if (month == "1") {
 					this->chartBalance->Titles->Add("Monthly balance chart for selected: January");
-                }
-                else if (month == "2") {
+				}
+				else if (month == "2") {
 					this->chartBalance->Titles->Add("Monthly balance chart for selected: February");
-                }
-                else if (month == "3") {
+				}
+				else if (month == "3") {
 					this->chartBalance->Titles->Add("Monthly balance chart for selected: March ");
-                }
-                else if (month == "4") {
+				}
+				else if (month == "4") {
 					this->chartBalance->Titles->Add("Monthly balance chart for selected: April");
-                }
-                else if (month == "5") {
+				}
+				else if (month == "5") {
 					this->chartBalance->Titles->Add("Monthly balance chart for selected: May");
 				}
 				else if (month == "6") {
@@ -626,8 +632,8 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 				}
 				else if (month == "12") {
 					this->chartBalance->Titles->Add("Monthly balance chart for selected: December");
-                }
-				
+				}
+
 
 
 
@@ -644,13 +650,13 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 
 
 
-				
+
 				s->ChartType = SeriesChartType::Pie;
-				
+
 				String^ query{ "SELECT Price,Cost From Equity Where Date like '%'+@date" };
 				SqlCommand cmd{ query,% conn };
 
-				cmd.Parameters->AddWithValue("@date",Convert::ToString(month + "." + year));
+				cmd.Parameters->AddWithValue("@date", month + "."+year);
 
 				SqlDataReader^ reader = cmd.ExecuteReader();
 
@@ -857,6 +863,8 @@ private: System::Void radioMonth_CheckedChanged(System::Object^ sender, System::
 }
 private: System::Void radioYear_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	mode = "year";
+}
+private: System::Void balanceForm_Load(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

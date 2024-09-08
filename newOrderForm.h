@@ -153,6 +153,7 @@ namespace testGUI {
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Make New Order";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->label1->Click += gcnew System::EventHandler(this, &newOrderForm::label1_Click);
 			// 
 			// label2
 			// 
@@ -552,6 +553,7 @@ namespace testGUI {
 			this->Controls->Add(this->label1);
 			this->Name = L"newOrderForm";
 			this->Text = L"New Order";
+			this->Load += gcnew System::EventHandler(this, &newOrderForm::newOrderForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -607,10 +609,6 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	}
 	if (!isText(deviceName)) {
 		MessageBox::Show("Device name should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
-	if (!isEmail(email)) {
-		MessageBox::Show("Email should be email type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
 	}
 	if (isNumber(phoneNumber)) {
@@ -831,7 +829,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		form.ShowDialog();
 		orderCost = form.cost;
 
-		query = "INSERT INTO Equity VALUES (@OrderId,@Status,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
+		query = "INSERT INTO Equity(OrderId,Status,ClientName,ClientSurname, ClientEmail,ClientPhone,ClientAddress, DeviceName,DeviceModel,Date,Category,Price,Cost,Description) VALUES (@OrderId,@Status,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
 		SqlCommand cmd_insert{ query,% conn };
 		cmd_insert.Parameters->AddWithValue("@OrderId", orderId);
 		cmd_insert.Parameters->AddWithValue("@Status", "In progress");
@@ -896,6 +894,10 @@ private: System::Void radioStandard_CheckedChanged(System::Object^ sender, Syste
 }
 private: System::Void radioExpress_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	realizationMode = 1;
+}
+private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void newOrderForm_Load(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

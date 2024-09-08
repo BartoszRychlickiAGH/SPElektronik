@@ -1,126 +1,282 @@
 #include "Includings.h"
 #include "OrderCost.h"
 #include "newOrderForm.cpp"
+#include <vector>
+#include <fstream>
 
 #pragma once
 //add log to table attached to exact order
 
 
 //need to add configuring datagridViwe with built text searching and checklistbox
-
-//static void insertIntoEquity(String^ clientName,String^clientSurname,int^ OrderId) {
-//	String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
-//	SqlConnection conn{ strConn };
-//	conn.Open();
-//
-//	float^ orderCost{};
-//	testGUI::OrderCost form;
-//	form.ShowDialog();
-//	orderCost = form.cost;
-//	String^ ClientEmail{ "" };
-//	String^ ClientPhone{ "" };
-//	String^ ClientAdress{ "" };
-//	String^ DeviceName{ "" };
-//	String^ DeviceModel{ "" };
-//	String^ Date{ "" };
-//	String^ Category{ "" };
-//	float^ Price{ 0.0f };
-//	float^ Cost{ 0.0f };
-//	String^ Description{ "" };
-//
-//	// get client data from clients having client name and surname
-//	String^ query = "SELECT ClientEmail, ClientPhone, ClientAdress FROM Clients WHERE ClientName = @Name AND ClientSurname = @Surname";
-//	SqlCommand cmd_clients{ query,% conn };
-//	cmd_clients.Parameters->AddWithValue("@Name", clientName);
-//	cmd_clients.Parameters->AddWithValue("@Surname", clientSurname);
-//
-//	SqlDataReader^ reader = cmd_clients.ExecuteReader();
-//
-//	if (reader->Read()) {
-//		ClientEmail = reader->GetString(0);
-//		ClientPhone = reader->GetString(1);
-//		ClientAdress = reader->GetString(2);
-//	}
-//	reader->Close();
-//
-//	//get device data from devices having order id using inner join
-//
-//	query = "SELECT Devices.DeviceName, Devices.DeviceModel, Orders.OrderDate, Devices.DeviceCategory, Orders.OrderPrice FROM Devices INNER JOIN Orders ON Devices.DeviceId = Orders.DeviceId WHERE Orders.OrderId = @Id";
-//	SqlCommand cmd_device{ query,% conn };
-//	cmd_device.Parameters->AddWithValue("@Id", OrderId);
-//
-//	reader = cmd_device.ExecuteReader();
-//
-//	if (reader->Read()) {
-//		DeviceName = reader->GetString(0);
-//		DeviceModel = reader->GetString(1);
-//		Date = reader->GetString(2);
-//		Category = reader->GetString(3);
-//		Price = reader->GetFloat(4);
-//	}
-//	reader->Close();
-//	//get order data from orders having order id
-//
-//	query = "SELECT Description FROM Orders WHERE OrderId = @Id";
-//	SqlCommand cmd_order{ query,% conn };
-//	cmd_order.Parameters->AddWithValue("@Id", OrderId);
-//
-//	reader = cmd_order.ExecuteReader();
-//
-//	if (reader->Read()) {
-//		Description = reader->GetString(0);
-//	}
-//	reader->Close();
-//	//insert into equity
-//
-//
-//	//check if current order exist in Equity table
-//	int amount{ 0 };
-//	query = "SELECT COUNT(*) FROM Equity WHERE OrderId = @Id";
-//	SqlCommand cmd_get_amount{ query,% conn };
-//
-//	cmd_get_amount.Parameters->AddWithValue("@Id", OrderId);
-//
-//	reader = cmd_get_amount.ExecuteReader();
-//
-//
-//	if (reader->Read()) {
-//		amount = reader->GetInt32(0);
-//	}
-//	reader->Close();
-//	//insert into equity
-//	if (amount == 0) {
-//		query = "INSERT INTO Equity VALUES (@OrderId,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
-//		SqlCommand cmd_insert{ query,% conn };
-//		cmd_insert.Parameters->AddWithValue("@OrderId", OrderId);
-//		cmd_insert.Parameters->AddWithValue("@ClientName", clientName);
-//		cmd_insert.Parameters->AddWithValue("@ClientSurname", clientSurname);
-//		cmd_insert.Parameters->AddWithValue("@ClientEmail", ClientEmail);
-//		cmd_insert.Parameters->AddWithValue("@ClientPhone", ClientPhone);
-//		cmd_insert.Parameters->AddWithValue("@ClientAdress", ClientAdress);
-//		cmd_insert.Parameters->AddWithValue("@DeviceName", DeviceName);
-//		cmd_insert.Parameters->AddWithValue("@DeviceModel", DeviceModel);
-//		cmd_insert.Parameters->AddWithValue("@Date",getData() );
-//		cmd_insert.Parameters->AddWithValue("@Category", Category);
-//		cmd_insert.Parameters->AddWithValue("@Price", Price);
-//		cmd_insert.Parameters->AddWithValue("@Cost", orderCost);
-//		cmd_insert.Parameters->AddWithValue("@Description", Description);
-//
-//		cmd_insert.ExecuteNonQuery();
-//	}
-//	else {
-//		query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
-//		SqlCommand cmd_update{ query,% conn };
-//		cmd_update.Parameters->AddWithValue("@Cost", orderCost);
-//		cmd_update.Parameters->AddWithValue("@Id", OrderId);
-//
-//		cmd_update.ExecuteNonQuery();
-//	}
-//	conn.Close();
-//}
+using namespace testGUI;
+using std::vector;
 
 
+static void printToFile(DataGridView^ dataGridView) {
+	vector < vector<string>> fileData{};
+	vector<string> data{};
 
+	
+
+	try {
+		String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
+		SqlConnection conn{ strConn };
+		conn.Open();
+
+
+		//client data
+		String^ clientName{ "" };
+		String^ clientSurname{ "" };
+		String^ clientAdress{ "" };
+		String^ clientPhone{ "" };
+		String^ clientEmail{ "" };
+
+		// device data
+		String^ deviceName{ "" };
+		String^ deviceModel{ "" };
+		String^ deviceSerialNumber{ "" };
+		String^ category{ "" };
+
+		//order data
+		int^ orderId{ 0 };
+		int^ realizationType{ 0 };
+		String^ status{ "" };
+		String^ description{ "" };
+		String^ symptoms{ "" };
+		String^ comments{ "" };
+		String^ date{ "" };
+		double orderPrice{ 0.0 };
+		double orderCost{ 0.0 };
+
+		//helping variabels
+		int^ deviceId{ 0 };
+		int k{ 0 };
+		for each (DataGridViewRow ^ row in dataGridView->Rows) {
+			if (k == dataGridView->Rows->Count - 1) {
+				break;
+			}
+
+			for each (DataGridViewCell ^ cell in row->Cells) {
+				if (cell->OwningColumn->Name == "Client Name") {
+					clientName = cell->Value->ToString();
+				}
+				if (cell->OwningColumn->Name == "Client Surname") {
+					clientSurname = cell->Value->ToString();
+				}
+				if (cell->OwningColumn->Name == "Client Name") {
+					clientName = cell->Value->ToString();
+				}
+				if (cell->OwningColumn->Name == "Device ID") {
+					deviceId = Convert::ToInt32(cell->Value->ToString());
+				}
+				if (cell->OwningColumn->Name == "Order Status") {
+					status = cell->Value->ToString();
+				}
+				if (cell->OwningColumn->Name == "Order Date") {
+					date = cell->Value->ToString();
+				}
+				if (cell->OwningColumn->Name == "Order Price") {
+					orderPrice = Convert::ToDouble(cell->Value->ToString());
+				}
+				if (cell->OwningColumn->Name == "Description") {
+					description = cell->Value->ToString();
+				}
+			}
+			int^ clientId{ 0 };
+
+			//get Client
+			String^ query = "SELECT ClientId From Clients Where ClientName = @name and ClientSurname= @surname";
+			SqlCommand cmd_get_ClientId{ query,% conn };
+
+			cmd_get_ClientId.Parameters->AddWithValue("@name", clientName);
+			cmd_get_ClientId.Parameters->AddWithValue("@surname", clientSurname);
+
+			SqlDataReader^ reader = cmd_get_ClientId.ExecuteReader();
+
+			if (reader->Read()) {
+				clientId = reader->GetInt32(0);
+			}
+
+			reader->Close();
+
+			//get orderId
+
+			query = "SELECT OrderId From Orders Where ClientId = @clientId and DeviceId = @ID and OrderStatus = @status and OrderPrice = @Price and Description = @des and OrderDate = @date";
+			SqlCommand cmd_get_OrderId{ query,% conn };
+			cmd_get_OrderId.Parameters->AddWithValue("@clientId", clientId);
+			cmd_get_OrderId.Parameters->AddWithValue("@status", status);
+			cmd_get_OrderId.Parameters->AddWithValue("@price", Convert::ToSingle(orderPrice));
+			cmd_get_OrderId.Parameters->AddWithValue("@des", description);
+			cmd_get_OrderId.Parameters->AddWithValue("@date", date);
+			cmd_get_OrderId.Parameters->AddWithValue("@ID", deviceId);
+
+			reader = cmd_get_OrderId.ExecuteReader();
+
+			if (reader->Read()) {
+				orderId = reader->GetInt32(0);
+			}
+			reader->Close();
+
+			// get symptoms, comment, realization type from orders
+			query = "Select Symptoms,Comments,ExpressRealization From Orders Where OrderId = @ID";
+			SqlCommand cmd{ query,% conn };
+			cmd.Parameters->AddWithValue("@ID", orderId);
+
+			reader = cmd.ExecuteReader();
+
+			if (reader->Read()) {
+				symptoms = reader->GetString(0);
+				comments = reader->GetString(1);
+				realizationType = reader->GetInt32(2);
+			}
+			reader->Close();
+
+
+			// get deviceSerialNumber from devices
+
+			query = "SELECT SerialNumber From Devices WHERE DeviceId = @ID";
+
+			SqlCommand cmd_get_serial{ query,% conn };
+			cmd_get_serial.Parameters->AddWithValue("@ID", deviceId);
+
+			reader = cmd_get_serial.ExecuteReader();
+
+			if (reader->Read()) {
+				deviceSerialNumber = reader->GetString(0);
+			}
+			reader->Close();
+
+			// get deviceName, deviceModel, category, clientAdress,clientPhone,clientEmail, cost from equity
+			query = "SELECT DeviceName,DeviceModel,Category,ClientAddress,ClientPhone,ClientEmail,Cost From Equity WHERE OrderId = @ID";
+			SqlCommand cmd_get_equity{ query,% conn };
+			cmd_get_equity.Parameters->AddWithValue("@ID", orderId);
+
+			reader = cmd_get_equity.ExecuteReader();
+
+			if (reader->Read()) {
+				deviceName = reader->GetString(0);
+				deviceModel = reader->GetString(1);
+				category = reader->GetString(2);
+				clientAdress = reader->GetString(3);
+				clientPhone = reader->GetString(4);
+				clientEmail = reader->GetString(5);
+				orderCost = reader->GetDouble(6);
+			}
+			reader->Close();
+			string realizationTypeStr{ "" };
+
+			if (realizationType) {
+				realizationTypeStr = "Standard";
+			}
+			else {
+				realizationTypeStr = "Express";
+			}
+
+			//variables delcared below are required cause of msclr::interop::marshal_as() throwing exceptions about refering to deleted functions
+			double incomeNum{ orderPrice - orderCost };
+			string income{ std::to_string(incomeNum) + " PLN" };
+			string pickupDate{ "To fill" };
+
+			data.push_back(msclr::interop::marshal_as<string>(Convert::ToString(orderId)));
+
+			data.push_back(msclr::interop::marshal_as<string>(clientName));
+			data.push_back(msclr::interop::marshal_as<string>(clientSurname));
+			data.push_back(msclr::interop::marshal_as<string>(clientPhone));
+			data.push_back(msclr::interop::marshal_as<string>(clientEmail));
+			data.push_back(msclr::interop::marshal_as<string>(clientAdress));
+
+			data.push_back(msclr::interop::marshal_as<string>(deviceName));
+			data.push_back(msclr::interop::marshal_as<string>(deviceModel));
+			data.push_back(msclr::interop::marshal_as<string>(deviceSerialNumber));
+			data.push_back(msclr::interop::marshal_as<string>(category));
+
+			data.push_back(msclr::interop::marshal_as<string>(date));
+			data.push_back(pickupDate);
+			data.push_back(msclr::interop::marshal_as<string>(status));
+			data.push_back(realizationTypeStr);
+			data.push_back(msclr::interop::marshal_as<string>(description));
+			data.push_back(msclr::interop::marshal_as<string>(symptoms));
+			data.push_back(msclr::interop::marshal_as<string>(comments));
+
+			data.push_back(std::to_string(orderPrice) + " PLN");
+			data.push_back(std::to_string(orderCost) + " PLN");
+			data.push_back(income);
+
+			fileData.push_back(data);
+
+			k++;
+		}
+		conn.Close();
+
+		//push data into excel file
+
+		try {
+			// opening for xml file
+			string s{ R"(<?xml version="1.0" encoding="UTF-8"?>
+							<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+									xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+							<Worksheet ss:Name="Sheet1">
+							<Table>
+								<Row>
+									<Cell><Data ss:Type="String">Numer zlecenia</Data></Cell>
+									<Cell><Data ss:Type="String">Imie</Data></Cell>
+									<Cell><Data ss:Type="String">Nazwisko</Data></Cell>
+									<Cell><Data ss:Type="String">Nr. telefonu</Data></Cell>
+									<Cell><Data ss:Type="String">E-mail</Data></Cell>
+									<Cell><Data ss:Type="String">Adres</Data></Cell>
+									<Cell><Data ss:Type="String">Nazwa urzadzenia</Data></Cell>
+									<Cell><Data ss:Type="String">Model</Data></Cell>
+									<Cell><Data ss:Type="String">Nr. Seryjny</Data></Cell>
+									<Cell><Data ss:Type="String">Kategoria</Data></Cell>
+									<Cell><Data ss:Type="String">Data przyjecia</Data></Cell>
+									<Cell><Data ss:Type="String">Data oddania</Data></Cell>
+									<Cell><Data ss:Type="String">Status</Data></Cell>
+									<Cell><Data ss:Type="String">Typ realizacji</Data></Cell>
+									<Cell><Data ss:Type="String">Opis</Data></Cell>
+									<Cell><Data ss:Type="String">Okolicznosci</Data></Cell>
+									<Cell><Data ss:Type="String">Uwagi</Data></Cell>
+									<Cell><Data ss:Type="String">Cena</Data></Cell>
+									<Cell><Data ss:Type="String">Koszt</Data></Cell>
+									<Cell><Data ss:Type="String">Przychod</Data></Cell>
+								</Row>
+
+						 )" };
+			// closer for .xml data
+			string s_end{ R"(</Table> 
+							</Worksheet>
+							</Workbook>)" };
+
+			std::ofstream out{ "Zlecenia.xml",std::ios::out | std::ios::binary }; // opening file
+			out.clear();
+			string pushToFile = s; // delcaring var to be put into file
+
+			for (int i = 0; i <= fileData.size() - 1; i++) { // configuring rows' data to be put into .xml file
+				string temp = R"(<Row>)"; // starting row
+				for (string& text : fileData[i]) {
+					temp += R"(<Cell><Data ss:Type="String">)" + text + R"(</Data></Cell>)";
+				}
+				pushToFile += temp;
+				pushToFile += R"(</Row>)"; // ending file
+			}
+
+			pushToFile += s_end; // adding closers for table and workbook
+
+			out << pushToFile; // pushing data into .xml file
+			out.close(); // closing and saving file
+
+			//MessageBox::Show("File printed to Zlecenia.xlsx", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+		catch (Exception^ ep) {
+			MessageBox::Show(ep->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+	}
+	catch (Exception^ ef) {
+		MessageBox::Show(ef->Message, "Error on sql connection", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+}
 
 static void configureLogs(RichTextBox^ logs, int^ orderId) {
 	//handling logs -> displaying in MyForm
@@ -164,10 +320,10 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 		conn.Open();
 		String^ query;
 		if (search != "") {
-			query = "SELECT Clients.ClientName, Clients.ClientSurname, Orders.EmployeeId, Orders.DeviceId, Orders.OrderStatus, Orders.OrderDate, Orders.OrderPrice, Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId WHERE Clients.ClientName = @text or Clients.ClientSurname = @text or Orders.OrderStatus = @text or Clients.ClientName+' '+Clients.ClientSurname=@text";
+			query = "SELECT Orders.OrderId, Clients.ClientName, Clients.ClientSurname, Orders.EmployeeId, Orders.DeviceId, Orders.OrderStatus, Orders.OrderDate, Orders.OrderPrice, Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId WHERE Clients.ClientName = @text or Clients.ClientSurname = @text or Orders.OrderStatus = @text or Clients.ClientName+' '+Clients.ClientSurname=@text";
 		}
 		else {
-			query = "SELECT Clients.ClientName,Clients.ClientSurname,Orders.EmployeeId,Orders.DeviceId,Orders.OrderStatus,Orders.OrderDate,Orders.OrderPrice,Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId";
+			query = "SELECT Orders.OrderId,Clients.ClientName,Clients.ClientSurname,Orders.EmployeeId,Orders.DeviceId,Orders.OrderStatus,Orders.OrderDate,Orders.OrderPrice,Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId";
 		}
 
 		SqlCommand cmd{ query,% conn };
@@ -179,7 +335,11 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 
 		SqlDataReader^ reader = cmd.ExecuteReader();
 
-		
+		DataGridViewColumn^ column_Order_Id = gcnew DataGridViewTextBoxColumn();
+		column_Order_Id->Name = "Order Id";
+		column_Order_Id->HeaderText = "Order Id";
+		//column_Order_Id->ValueType = System::Int32::typeid;
+		dataView->Columns->Add(column_Order_Id);
 
 		DataGridViewColumn^ column_Client_Name_Orders = gcnew DataGridViewTextBoxColumn();
 		column_Client_Name_Orders->Name = "Client Name";
@@ -237,17 +397,18 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 		while (reader->Read()) {
 			isReaderEmpty = false;
 			DataGridViewRow^ row_color_edit;
-			String^ clientName = reader->GetString(0);
-			String^ clientSurname = reader->GetString(1);
-			int employeeID = reader->GetInt32(2);
-			int deviceID = reader->GetInt32(3);
-			String^ orderStatus = reader->GetString(4);
-			String^ orderDate = reader->GetString(5);
-			float orderPrice = reader->GetFloat(6);
-			String^ description = reader->GetString(7);
+			int^ orderId = reader->GetInt32(0);
+			String^ clientName = reader->GetString(1);
+			String^ clientSurname = reader->GetString(2);
+			int employeeID = reader->GetInt32(3);
+			int deviceID = reader->GetInt32(4);
+			String^ orderStatus = reader->GetString(5);
+			String^ orderDate = reader->GetString(6);
+			float orderPrice = reader->GetFloat(7);
+			String^ description = reader->GetString(8);
 
 
-			dataView->Rows->Add(clientName,clientSurname,Convert::ToInt32(employeeID),Convert::ToInt32(deviceID),
+			dataView->Rows->Add(orderId,clientName,clientSurname,Convert::ToInt32(employeeID),Convert::ToInt32(deviceID),
 				orderStatus,orderDate,Convert::ToSingle(orderPrice),description);
 			
 		}

@@ -22,7 +22,7 @@
 namespace testGUI {
 
 
-	using std::vector,std::cin,std::cout,std::endl;
+	using std::vector;
 	using namespace rapidxml;
 	/// <summary>
 	/// Summary for MyForm
@@ -36,11 +36,13 @@ namespace testGUI {
 			InitializeComponent();
 
 			clearDataGridView(this->dataGridView);
+			
 
 			try {
 				
+
 				configureDataGrid_Orders(this->dataGridView, tbSearch->Text);
-				
+				printToFile(this->dataGridView);
 
 			}catch(Exception^ edy) {
 				MessageBox::Show(edy->Message);
@@ -94,7 +96,7 @@ namespace testGUI {
 	private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ editToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ deleteToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ printFileToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripButton^ btnSearch;
 	private: System::Windows::Forms::ToolStripButton^ BalanceMenu;
 	private: System::Windows::Forms::RichTextBox^ logs;
@@ -164,7 +166,6 @@ namespace testGUI {
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->editToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->deleteToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->printFileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripContainer1->ContentPanel->SuspendLayout();
 			this->toolStripContainer1->TopToolStripPanel->SuspendLayout();
 			this->toolStripContainer1->SuspendLayout();
@@ -231,9 +232,9 @@ namespace testGUI {
 				this->btnSearch, this->toolStripSeparator4,
 					this->tbSearch, this->toolStripSeparator5
 			});
-			this->toolStrip2->Location = System::Drawing::Point(4, 0);
+			this->toolStrip2->Location = System::Drawing::Point(7, 0);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(408, 27);
+			this->toolStrip2->Size = System::Drawing::Size(438, 27);
 			this->toolStrip2->TabIndex = 1;
 			// 
 			// btnSearch
@@ -272,9 +273,9 @@ namespace testGUI {
 				this->newOrderBtn, this->toolStripSeparator1,
 					this->showAllMenu, this->toolStripSeparator2, this->BalanceMenu, this->toolStripSeparator3, this->exitBtn
 			});
-			this->toolStrip1->Location = System::Drawing::Point(1389, 0);
+			this->toolStrip1->Location = System::Drawing::Point(1372, 0);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(322, 27);
+			this->toolStrip1->Size = System::Drawing::Size(352, 27);
 			this->toolStrip1->TabIndex = 0;
 			this->toolStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::toolStrip1_ItemClicked);
 			// 
@@ -368,35 +369,28 @@ namespace testGUI {
 			// contextMenuStrip1
 			// 
 			this->contextMenuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->editToolStripMenuItem,
-					this->deleteToolStripMenuItem, this->printFileToolStripMenuItem
+					this->deleteToolStripMenuItem
 			});
 			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(214, 76);
+			this->contextMenuStrip1->Size = System::Drawing::Size(123, 52);
 			this->contextMenuStrip1->Opening += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::contextMenuStrip1_Opening);
 			this->contextMenuStrip1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip_Hide);
 			// 
 			// editToolStripMenuItem
 			// 
 			this->editToolStripMenuItem->Name = L"editToolStripMenuItem";
-			this->editToolStripMenuItem->Size = System::Drawing::Size(213, 24);
+			this->editToolStripMenuItem->Size = System::Drawing::Size(122, 24);
 			this->editToolStripMenuItem->Text = L"Edit";
 			this->editToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::editToolStripMenuItem_Click);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this->deleteToolStripMenuItem->Name = L"deleteToolStripMenuItem";
-			this->deleteToolStripMenuItem->Size = System::Drawing::Size(213, 24);
+			this->deleteToolStripMenuItem->Size = System::Drawing::Size(122, 24);
 			this->deleteToolStripMenuItem->Text = L"Delete";
 			this->deleteToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::deleteToolStripMenuItem_Click);
-			// 
-			// printFileToolStripMenuItem
-			// 
-			this->printFileToolStripMenuItem->Name = L"printFileToolStripMenuItem";
-			this->printFileToolStripMenuItem->Size = System::Drawing::Size(213, 24);
-			this->printFileToolStripMenuItem->Text = L"Print to Zlecenia.xlsx";
-			this->printFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::printFileToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
@@ -1038,270 +1032,7 @@ private: System::Void deleteToolStripMenuItem_Click(System::Object^ sender, Syst
 
 
 private: System::Void printFileToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) { // print to excel file
-	vector < vector<string>> fileData{};
-	vector<string> data{};
-
-	try {
-		String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
-		SqlConnection conn{ strConn };
-		conn.Open();
-
-
-		//client data
-		String^ clientName{ "" };
-		String^ clientSurname{ "" };
-		String^ clientAdress{ "" };
-		String^ clientPhone{ "" };
-		String^ clientEmail{ "" };
-
-		// device data
-		String^ deviceName{ "" };
-		String^ deviceModel{ "" };
-		String^ deviceSerialNumber{ "" };
-		String^ category{ "" };
-
-		//order data
-		int^ orderId{ 0 };
-		int^ realizationType{ 0 };
-		String^ status{ "" };
-		String^ description{ "" };
-		String^ symptoms{ "" };
-		String^ comments{ "" };
-		String^ date{ "" };
-		double orderPrice{ 0.0 };
-		double orderCost{ 0.0 };
-
-
-
-		//helping variabels
-		int^ deviceId{ 0 };
-		int k{0};
-		for each (DataGridViewRow ^ row in dataGridView->Rows) {
-			if (k == dataGridView->Rows->Count - 1) {
-				break;
-			}
-
-			for each (DataGridViewCell ^ cell in row->Cells) {
-				if (cell->OwningColumn->Name == "Client Name") {
-					clientName = cell->Value->ToString();
-				}
-				if (cell->OwningColumn->Name == "Client Surname") {
-					clientSurname = cell->Value->ToString();
-				}
-				if (cell->OwningColumn->Name == "Client Name") {
-					clientName = cell->Value->ToString();
-				}
-				if (cell->OwningColumn->Name == "Device ID") {
-					deviceId = Convert::ToInt32(cell->Value->ToString());
-				}
-				if (cell->OwningColumn->Name == "Order Status") {
-					status = cell->Value->ToString();
-				}
-				if (cell->OwningColumn->Name == "Order Date") {
-					date = cell->Value->ToString();
-				}
-				if (cell->OwningColumn->Name == "Order Price") {
-					orderPrice = Convert::ToDouble(cell->Value->ToString());
-				}
-				if (cell->OwningColumn->Name == "Description") {
-					description = cell->Value->ToString();
-				}
-			}
-			int^ clientId{0};
-
-			//get Client
-			String^ query = "SELECT ClientId From Clients Where ClientName = @name and ClientSurname= @surname";
-			SqlCommand cmd_get_ClientId{query, %conn};
-
-			cmd_get_ClientId.Parameters->AddWithValue("@name", clientName);
-			cmd_get_ClientId.Parameters->AddWithValue("@surname", clientSurname);
-
-			SqlDataReader^ reader = cmd_get_ClientId.ExecuteReader();
-
-			if (reader->Read()) {
-				clientId= reader->GetInt32(0);
-			}
-
-			reader->Close();
-
-			//get orderId
-
-			query = "SELECT OrderId From Orders Where ClientId = @clientId and DeviceId = @ID and OrderStatus = @status and OrderPrice = @Price and Description = @des and OrderDate = @date";
-			SqlCommand cmd_get_OrderId{query,%conn};
-			cmd_get_OrderId.Parameters->AddWithValue("@clientId",clientId);
-			cmd_get_OrderId.Parameters->AddWithValue("@status", status);
-			cmd_get_OrderId.Parameters->AddWithValue("@price", Convert::ToSingle(orderPrice));
-			cmd_get_OrderId.Parameters->AddWithValue("@des", description);
-			cmd_get_OrderId.Parameters->AddWithValue("@date", date);
-			cmd_get_OrderId.Parameters->AddWithValue("@ID", deviceId);
-
-			reader = cmd_get_OrderId.ExecuteReader();
-
-			if (reader->Read()) {
-				orderId = reader->GetInt32(0);
-			}
-			reader->Close();
-
-			// get symptoms, comment, realization type from orders
-			query = "Select Symptoms,Comments,ExpressRealization From Orders Where OrderId = @ID"  ;
-			SqlCommand cmd{ query,% conn };
-			cmd.Parameters->AddWithValue("@ID", orderId);
-
-			reader = cmd.ExecuteReader();
-
-			if (reader->Read()) {
-				symptoms = reader->GetString(0);
-				comments = reader->GetString(1);
-				realizationType = reader->GetInt32(2);
-			}
-			reader->Close();
-
-
-			// get deviceSerialNumber from devices
-
-			query = "SELECT SerialNumber From Devices WHERE DeviceId = @ID";
-
-			SqlCommand cmd_get_serial{ query,% conn };
-			cmd_get_serial.Parameters->AddWithValue("@ID", deviceId);
-
-			reader = cmd_get_serial.ExecuteReader();
-
-			if (reader->Read()) {
-				deviceSerialNumber = reader->GetString(0);
-			}
-			reader->Close();
-
-			// get deviceName, deviceModel, category, clientAdress,clientPhone,clientEmail, cost from equity
-			query = "SELECT DeviceName,DeviceModel,Category,ClientAddress,ClientPhone,ClientEmail,Cost From Equity WHERE OrderId = @ID";
-			SqlCommand cmd_get_equity{ query,% conn };
-			cmd_get_equity.Parameters->AddWithValue("@ID", orderId);
-
-			reader = cmd_get_equity.ExecuteReader();
-
-			if (reader->Read()) {
-				deviceName = reader->GetString(0);
-				deviceModel = reader->GetString(1);
-				category = reader->GetString(2);
-				clientAdress = reader->GetString(3);
-				clientPhone = reader->GetString(4);
-				clientEmail = reader->GetString(5);
-				orderCost = reader->GetDouble(6);
-			}
-			reader->Close();
-			string realizationTypeStr{ "" };
-
-			if (realizationType) {
-				realizationTypeStr = "Standard";
-			}else{
-				realizationTypeStr = "Express";
-			}
-			
-			//variables delcared below are required cause of msclr::interop::marshal_as() throwing exceptions about refering to deleted functions
-			double incomeNum{orderPrice-orderCost};
-			string income{std::to_string(incomeNum) + " PLN"};
-			string pickupDate{"To fill"};
-
-			data.push_back(msclr::interop::marshal_as<string>(Convert::ToString(orderId)));
-
-			data.push_back(msclr::interop::marshal_as<string>(clientName));
-			data.push_back(msclr::interop::marshal_as<string>(clientSurname));
-			data.push_back(msclr::interop::marshal_as<string>(clientPhone));
-			data.push_back(msclr::interop::marshal_as<string>(clientEmail));
-			data.push_back(msclr::interop::marshal_as<string>(clientAdress));
-
-			data.push_back(msclr::interop::marshal_as<string>(deviceName));
-			data.push_back(msclr::interop::marshal_as<string>(deviceModel));
-			data.push_back(msclr::interop::marshal_as<string>(deviceSerialNumber));
-			data.push_back(msclr::interop::marshal_as<string>(category));
-
-			data.push_back(msclr::interop::marshal_as<string>(date));
-			data.push_back(pickupDate);
-			data.push_back(msclr::interop::marshal_as<string>(status));
-			data.push_back(realizationTypeStr);
-			data.push_back(msclr::interop::marshal_as<string>(description));
-			data.push_back(msclr::interop::marshal_as<string>(symptoms));
-			data.push_back(msclr::interop::marshal_as<string>(comments));
-
-			data.push_back(std::to_string(orderPrice) + " PLN");
-			data.push_back(std::to_string(orderCost) + " PLN");
-			data.push_back(income);
-
-			fileData.push_back(data);
-
-			k++;
-		}
-		conn.Close();
-
-			//push data into excel file
-
-			try {
-				xml_document<> doc;
-
-				doc.clear();
-				 // opening for xml file
-				string s{ R"(<?xml version="1.0" encoding="UTF-8"?>
-							<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-									xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
-							<Worksheet ss:Name="Sheet1">
-							<Table>
-								<Row>
-									<Cell><Data ss:Type="String">Numer zlecenia</Data></Cell>
-									<Cell><Data ss:Type="String">Imie</Data></Cell>
-									<Cell><Data ss:Type="String">Nazwisko</Data></Cell>
-									<Cell><Data ss:Type="String">Nr. telefonu</Data></Cell>
-									<Cell><Data ss:Type="String">E-mail</Data></Cell>
-									<Cell><Data ss:Type="String">Adres</Data></Cell>
-									<Cell><Data ss:Type="String">Nazwa urzadzenia</Data></Cell>
-									<Cell><Data ss:Type="String">Model</Data></Cell>
-									<Cell><Data ss:Type="String">Nr. Seryjny</Data></Cell>
-									<Cell><Data ss:Type="String">Kategoria</Data></Cell>
-									<Cell><Data ss:Type="String">Data przyjecia</Data></Cell>
-									<Cell><Data ss:Type="String">Data oddania</Data></Cell>
-									<Cell><Data ss:Type="String">Status</Data></Cell>
-									<Cell><Data ss:Type="String">Typ realizacji</Data></Cell>
-									<Cell><Data ss:Type="String">Opis</Data></Cell>
-									<Cell><Data ss:Type="String">Okolicznosci</Data></Cell>
-									<Cell><Data ss:Type="String">Uwagi</Data></Cell>
-									<Cell><Data ss:Type="String">Cena</Data></Cell>
-									<Cell><Data ss:Type="String">Koszt</Data></Cell>
-									<Cell><Data ss:Type="String">Przychod</Data></Cell>
-								</Row>
-
-						 )"};
-				// closer for .xml data
-				string s_end{ R"(</Table> 
-							</Worksheet>
-							</Workbook>)" };
-
-				std::ofstream out{"Zlecenia.xml",std::ios::out | std::ios::binary}; // opening file
-				out.clear();
-				string pushToFile = s; // delcaring var to be put into file
-
-				for (int i = 0; i <= fileData.size() - 1; i++) { // configuring rows' data to be put into .xml file
-					string temp = R"(<Row>)"; // starting row
-					for (string& text : fileData[i]) {
-						temp += R"(<Cell><Data ss:Type="String">)" + text + R"(</Data></Cell>)";
-					}
-					pushToFile += temp;
-					pushToFile += R"(</Row>)"; // ending file
-				}
-
-				pushToFile += s_end; // adding closers for table and workbook
-
-				out << pushToFile; // pushing data into .xml file
-				out.close(); // closing and saving file
-
-				MessageBox::Show("File printed to Zlecenia.xlsx", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			catch (Exception^ ep) {
-				MessageBox::Show(ep->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				return;
-			}
-	}
-	catch (Exception^ ef) {
-		MessageBox::Show(ef->Message, "Error on sql connection", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
+	
 
 }
 private: System::Void btnSearch_Click(System::Object^ sender, System::EventArgs^ e) {
