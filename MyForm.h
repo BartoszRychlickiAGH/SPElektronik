@@ -931,7 +931,7 @@ private: System::Void deleteToolStripMenuItem_Click(System::Object^ sender, Syst
 		else if (mode == "clients") {
 
 			//getting OrderID to delete all logs attached to client's orders - vector of IDs
-			query = "SELECT Orders.OrderId FROM Orders WHERE Orders.ClientId = @ID";
+			query = "SELECT OrderId FROM Orders WHERE ClientId = @ID";
 			SqlCommand cmd_get{ query,% conn };
 			cmd_get.Parameters->AddWithValue("@ID", ID);
 
@@ -944,11 +944,13 @@ private: System::Void deleteToolStripMenuItem_Click(System::Object^ sender, Syst
 			reader->Close();
 			//delete logs for exact orders from logs table
 
-			query = "DELETE FROM logs Where OrderId = @ID";
-			SqlCommand cmd_delete_log(query, % conn);
+			
 
 			for (int^ i : IDs) {
+				query = "DELETE FROM logs Where OrderId = @ID";
+				SqlCommand cmd_delete_log(query, % conn);
 				cmd_delete_log.Parameters->AddWithValue("@ID",i);
+
 				cmd_delete_log.ExecuteNonQuery();
 			}
 

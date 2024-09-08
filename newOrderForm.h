@@ -646,15 +646,17 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		SqlConnection conn{strConn};
 		conn.Open();
 
-		if (clientExist(clientName, clientSurname)) {
+		SqlDataReader^ reader{};
+
+		if (clientExist(clientName, clientSurname,phoneNumber)) {
 
 
-			query =  "SELECT ClientId From CLients Where ClientName = @name AND ClientSurname = @surname AND ClientEmail = @email";
+			query =  "SELECT ClientId From CLients Where ClientName = @name AND ClientSurname = @surname and ClientPhone = @Phone";
 
 			SqlCommand cmd_get_Id{ query,% conn };
 			cmd_get_Id.Parameters->AddWithValue("@name", clientName);
 			cmd_get_Id.Parameters->AddWithValue("@surname", clientSurname);
-			cmd_get_Id.Parameters->AddWithValue("@email", email);
+			cmd_get_Id.Parameters->AddWithValue("@Phone",phoneNumber);
 
 			SqlDataReader^ reader = cmd_get_Id.ExecuteReader();
 
@@ -682,7 +684,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 			cmd_get_Id.Parameters->AddWithValue("@surname", clientSurname);
 			cmd_get_Id.Parameters->AddWithValue("@email", email);
 
-			SqlDataReader^ reader = cmd_get_Id.ExecuteReader();
+			reader = cmd_get_Id.ExecuteReader();
 
 				if (reader->Read()) {
 					clientId = reader->GetInt32(0);
@@ -691,42 +693,38 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 
 		}
 
-		bool idInColumn{false};
 		int^ clientId_Devices{0};
 		vector<int> IDs;
 
 
-		if (deviceExist(deviceName, deviceModel)) {
-			query = "SELECT ClientId From Devices Where DeviceName = @name and DeviceModel = @model";
-			SqlCommand cmd_get_clientId{query,%conn};
+		query = "SELECT Count(DeviceId) From Devices Where ClientId = @ClientId and DeviceName = @name and DeviceModel = @model and SerialNumber = @serial";
+		SqlCommand cmd_get_clientId{query,%conn};
 
-			cmd_get_clientId.Parameters->AddWithValue("@name", deviceName);
-			cmd_get_clientId.Parameters->AddWithValue("@model",deviceModel);
+		cmd_get_clientId.Parameters->AddWithValue("@name", deviceName);
+		cmd_get_clientId.Parameters->AddWithValue("@model",deviceModel);
+		cmd_get_clientId.Parameters->AddWithValue("@ClientId", clientId);
+		cmd_get_clientId.Parameters->AddWithValue("@serial", serialNumber);
 
-			SqlDataReader^ reader = cmd_get_clientId.ExecuteReader();
-			int i{ 0 };
-			while (reader->Read()) {
-				IDs.push_back(reader->GetInt32(i));
-				i++;
-			}
-			reader->Close();
-			for (int^ j : IDs) {
-				if (clientId == j) {
-					idInColumn = true;
-				}
-			}
 
+
+		reader = cmd_get_clientId.ExecuteReader();
+		int i{};
+		if (reader->Read()) {
+			i = reader->GetInt32(0);
 		}
+		reader->Close();
 
 
+	
 
-
-		if (idInColumn) {
+		if ( i > 0) {
 			int quantity{};
-			query = "SELECT DeviceId From Devices Where DeviceName = @deviceName AND DeviceModel = @deviceModel";
+			query = "SELECT DeviceId From Devices Where DeviceName = @deviceName AND DeviceModel = @deviceModel and SerialNumber = @serial";
 			SqlCommand cmd_get_deviceId{ query,% conn };
 			cmd_get_deviceId.Parameters->AddWithValue("@deviceName", deviceName);
 			cmd_get_deviceId.Parameters->AddWithValue("@deviceModel", deviceModel);
+			cmd_get_deviceId.Parameters->AddWithValue("@serial", serialNumber);
+
 
 			SqlDataReader^ reader = cmd_get_deviceId.ExecuteReader();
 
@@ -814,7 +812,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		cmd_get_orderId.Parameters->AddWithValue("@DeviceId", deviceId);
 		cmd_get_orderId.Parameters->AddWithValue("@OrderDate", date);
 
-		SqlDataReader^ reader = cmd_get_orderId.ExecuteReader();
+		reader = cmd_get_orderId.ExecuteReader();
 
 		if (reader->Read()) {
 			orderId = reader->GetInt32(0);
@@ -825,10 +823,32 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		
 
 		float^ orderCost{};
-		testGUI::OrderCost form;
+		OrderCost form;
 		form.ShowDialog();
 		orderCost = form.cost;
 
+
+		query = "SELECT Count(OrderId) From Equity Where ClientName = @ClientName and ClientSurname = @ClientSurname and ClientPhone = @phone and DeviceName = @DeviceName and DeviceModel = @DeviceModel and Date = @Date and Description = @Descriptiom";
+		SqlCommand cmd_check_equity{query,%conn};
+
+		cmd_check_equity.Parameters->AddWithValue("@ClientName",clientName);
+		cmd_check_equity.Parameters->AddWithValue("@ClientSurname", clientSurname);
+		cmd_check_equity.Parameters->AddWithValue("@ClientPone", phoneNumber);
+		cmd_check_equity.Parameters->AddWithValue("@DeviceName",deviceName);
+		cmd_check_equity.Parameters->AddWithValue("@deviceModel", deviceModel);
+		cmd_check_equity.Parameters->AddWithValue("@Date", date);
+		cmd_check_equity.Parameters->AddWithValue("@Description", errorDescription);
+
+		reader = cmd_check_equity.ExecuteReader();
+		
+		int amount{};
+		
+		if (reader->Read()) {
+			amount = reader->GetInt32(0);
+		}
+		reader->Close();
+
+		if(amount == 0)
 		query = "INSERT INTO Equity(OrderId,Status,ClientName,ClientSurname, ClientEmail,ClientPhone,ClientAddress, DeviceName,DeviceModel,Date,Category,Price,Cost,Description) VALUES (@OrderId,@Status,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
 		SqlCommand cmd_insert{ query,% conn };
 		cmd_insert.Parameters->AddWithValue("@OrderId", orderId);

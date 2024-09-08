@@ -93,7 +93,7 @@ static bool employeeIDExist(String^ employeeId) {
 	return !exist;
 }
 
-static bool deviceExist(String^ deviceName, String^ deviceModel) {
+static bool deviceExist(String^ deviceName, String^ deviceModel,String^ serialNumber="") {
 	int number{};
 	bool exist{};
 	try {
@@ -101,10 +101,11 @@ static bool deviceExist(String^ deviceName, String^ deviceModel) {
 		SqlConnection conn{ strConn };
 		conn.Open();
 
-		String^ query = "SELECT Count(DeviceId) FROM Devices WHERE DeviceName = @deviceName AND DeviceModel = @deviceModel";
+		String^ query = "SELECT Count(DeviceId) FROM Devices WHERE DeviceName = @deviceName AND DeviceModel = @deviceModel AND SerialNumber = @Number";
 		SqlCommand cmd{ query,% conn };
 		cmd.Parameters->AddWithValue("@deviceName", deviceName);
 		cmd.Parameters->AddWithValue("@deviceModel", deviceModel);
+		cmd.Parameters->AddWithValue("@Number", serialNumber);
 
 		SqlDataReader^ reader = cmd.ExecuteReader();
 
@@ -130,7 +131,7 @@ static bool deviceExist(String^ deviceName, String^ deviceModel) {
 	return exist;
 }
 
-static bool clientExist( String^ name = "", String^ surname = "") {
+static bool clientExist( String^ name = "", String^ surname = "", String^ phoneNumber="") {
 
 	try {
 		String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
@@ -143,11 +144,12 @@ static bool clientExist( String^ name = "", String^ surname = "") {
 		int amount{ 0 };
 
 		if (name != "" && surname != "") {
-			query = "SELECT Count(ClientAdress) From Clients Where ClientName = @Name AND ClientSurname = @Surname";
+			query = "SELECT Count(ClientAdress) From Clients Where ClientName = @Name AND ClientSurname = @Surname and ClientPhone = @phone";
 			SqlCommand cmd{query,%conn};
 
 			cmd.Parameters->AddWithValue("@Name", name);
 			cmd.Parameters->AddWithValue("@Surname", surname);
+			cmd.Parameters->AddWithValue("@phone",phoneNumber);
 
 			reader = cmd.ExecuteReader();
 		}
@@ -158,7 +160,10 @@ static bool clientExist( String^ name = "", String^ surname = "") {
 		if (amount == 0) {
 			return false;
 		}
-
+		else {
+			return true;
+		}
+		
 		reader->Close();
 		conn.Close();
 	}

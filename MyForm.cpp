@@ -570,11 +570,16 @@ static void configureDataGrid_Devices(DataGridView^ dataView,String^ s) {
 	column_Device_Quantity->HeaderText = "Quantity";
 	dataView->Columns->Add(column_Device_Quantity);
 
+	DataGridViewColumn^ column_Device_Serial = gcnew DataGridViewTextBoxColumn();
+	column_Device_Serial->Name = "Serial Number";
+	column_Device_Serial->HeaderText = "Serial Number";
+	dataView->Columns->Add(column_Device_Serial);
+
 	if (s != "") {
-		query = "SELECT DeviceId,ClientId,DeviceName,DeviceModel,DeviceCategory,Quantity FROM Devices WHERE DeviceName = @text or DeviceModel = @text or DeviceCategory = @text or DeviceName+' '+DeviceModel=@text";
+		query = "SELECT DeviceId,ClientId,DeviceName,DeviceModel,DeviceCategory,Quantity,SerialNumber FROM Devices WHERE DeviceName = @text or DeviceModel = @text or DeviceCategory = @text or DeviceName+' '+DeviceModel=@text";
 	}
 	else {
-		query = "SELECT DeviceId,ClientId,DeviceName,DeviceModel,DeviceCategory,Quantity FROM Devices";
+		query = "SELECT DeviceId,ClientId,DeviceName,DeviceModel,DeviceCategory,Quantity, SerialNumber FROM Devices";
 	}
 	
 	// device iD like s+"%" or devicename like s+"%"
@@ -598,9 +603,9 @@ static void configureDataGrid_Devices(DataGridView^ dataView,String^ s) {
 		String^ deviceModel = reader->GetString(3);
 		String^ deviceCategory = reader->GetString(4);
 		int^ deviceQuantity = reader->GetInt32(5);
+		String^ serialNumber = reader->GetString(6);
 
-
-		dataView->Rows->Add(deviceId,clientId,deviceName,deviceModel,deviceCategory,deviceQuantity);
+		dataView->Rows->Add(deviceId,clientId,deviceName,deviceModel,deviceCategory,deviceQuantity,serialNumber);
 
 	}
 	if (isReaderEmpty && s != "") {
