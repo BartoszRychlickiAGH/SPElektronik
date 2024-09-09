@@ -1,0 +1,9 @@
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.vcxproj.AssemblyReference.cache
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.balanceForm.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.EditClient.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.EditDevice.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.EditOrder.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.MyForm.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.newOrderForm.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.OrderCost.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Release\testGUI.vcxproj.GenerateResource.cache

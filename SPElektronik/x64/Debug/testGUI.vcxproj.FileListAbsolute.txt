@@ -1,0 +1,9 @@
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.vcxproj.AssemblyReference.cache
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.balanceForm.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.EditClient.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.EditDevice.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.EditOrder.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.MyForm.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.newOrderForm.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.OrderCost.resources
+C:\Users\brych\OneDrive\Pulpit\PROJEKTY\C++\GUI_Projects\testGUI\SPElektronik\x64\Debug\testGUI.vcxproj.GenerateResource.cache
