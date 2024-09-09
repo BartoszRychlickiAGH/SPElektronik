@@ -17,7 +17,9 @@ static void printToFile(DataGridView^ dataGridView) {
 	vector < vector<string>> fileData{};
 	vector<string> data{};
 
-	
+	if (dataGridView->Rows->Count == 1) {
+		return;
+	}
 
 	try {
 		String^ strConn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
@@ -53,10 +55,11 @@ static void printToFile(DataGridView^ dataGridView) {
 		int^ deviceId{ 0 };
 		int k{ 0 };
 		for each (DataGridViewRow ^ row in dataGridView->Rows) {
+			
 			if (k == dataGridView->Rows->Count - 1) {
 				break;
 			}
-
+			
 			for each (DataGridViewCell ^ cell in row->Cells) {
 				if (cell->OwningColumn->Name == "Client Name") {
 					clientName = cell->Value->ToString();
