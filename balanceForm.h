@@ -206,6 +206,7 @@ namespace testGUI {
 	private: System::Windows::Forms::RadioButton^ radioMonth;
 	private: System::Windows::Forms::RadioButton^ radioYear;
 	private: System::Windows::Forms::Label^ llNetIncome;
+private: System::Windows::Forms::Button^ btnReset;
 
 
 	private:
@@ -234,6 +235,7 @@ namespace testGUI {
 			this->radioMonth = (gcnew System::Windows::Forms::RadioButton());
 			this->radioYear = (gcnew System::Windows::Forms::RadioButton());
 			this->llNetIncome = (gcnew System::Windows::Forms::Label());
+			this->btnReset = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chartBalance))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -297,7 +299,7 @@ namespace testGUI {
 			this->btnExit->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 22.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnExit->Location = System::Drawing::Point(970, 624);
+			this->btnExit->Location = System::Drawing::Point(970, 631);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(262, 85);
 			this->btnExit->TabIndex = 7;
@@ -311,7 +313,7 @@ namespace testGUI {
 			this->btnOK->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 22.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnOK->Location = System::Drawing::Point(970, 510);
+			this->btnOK->Location = System::Drawing::Point(970, 463);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(262, 77);
 			this->btnOK->TabIndex = 8;
@@ -369,12 +371,26 @@ namespace testGUI {
 			this->llNetIncome->Text = L"Net Income:";
 			this->llNetIncome->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
+			// btnReset
+			// 
+			this->btnReset->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->btnReset->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 22.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->btnReset->Location = System::Drawing::Point(970, 546);
+			this->btnReset->Name = L"btnReset";
+			this->btnReset->Size = System::Drawing::Size(262, 79);
+			this->btnReset->TabIndex = 13;
+			this->btnReset->Text = L"Reset";
+			this->btnReset->UseVisualStyleBackColor = false;
+			this->btnReset->Click += gcnew System::EventHandler(this, &balanceForm::btnReset_Click);
+			// 
 			// balanceForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::GradientInactiveCaption;
 			this->ClientSize = System::Drawing::Size(1264, 731);
+			this->Controls->Add(this->btnReset);
 			this->Controls->Add(this->llNetIncome);
 			this->Controls->Add(this->radioYear);
 			this->Controls->Add(this->radioMonth);
@@ -865,6 +881,18 @@ private: System::Void radioYear_CheckedChanged(System::Object^ sender, System::E
 	mode = "year";
 }
 private: System::Void balanceForm_Load(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e) {
+	SqlConnection conn{ "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False" };
+	conn.Open();
+
+
+	String^ query = "Delete From Equity";
+	SqlCommand cmd{ query,% conn };
+
+	cmd.ExecuteNonQuery();
+
+	conn.Close();
 }
 };
 }

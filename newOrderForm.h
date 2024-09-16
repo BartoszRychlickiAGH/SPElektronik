@@ -599,23 +599,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		MessageBox::Show("Please fill all textboxes", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
 	}
-	if(!isText(clientName)) {
-		MessageBox::Show("Client name should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
-	if (!isText(clientSurname)) {
-		MessageBox::Show("Client surname should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
-	if (!isText(deviceName)) {
-		MessageBox::Show("Device name should be text type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
-	if (isNumber(phoneNumber)) {
-		MessageBox::Show("Phone number should be integer", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
-	
+
 	{	// checking if number is 9 digit length
 		string text{ msclr::interop::marshal_as<string>(phoneNumber) };
 		if (text.length() != 9) {
@@ -828,12 +812,12 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		orderCost = form.cost;
 
 
-		query = "SELECT Count(OrderId) From Equity Where ClientName = @ClientName and ClientSurname = @ClientSurname and ClientPhone = @phone and DeviceName = @DeviceName and DeviceModel = @DeviceModel and Date = @Date and Description = @Descriptiom";
+		query = "SELECT Count(OrderId) From Equity Where ClientName = @ClientName and ClientSurname = @ClientSurname and ClientPhone = @phone and DeviceName = @DeviceName and DeviceModel = @DeviceModel and Date = @Date and Description = @Description";
 		SqlCommand cmd_check_equity{query,%conn};
 
 		cmd_check_equity.Parameters->AddWithValue("@ClientName",clientName);
 		cmd_check_equity.Parameters->AddWithValue("@ClientSurname", clientSurname);
-		cmd_check_equity.Parameters->AddWithValue("@ClientPone", phoneNumber);
+		cmd_check_equity.Parameters->AddWithValue("@phone", phoneNumber);
 		cmd_check_equity.Parameters->AddWithValue("@DeviceName",deviceName);
 		cmd_check_equity.Parameters->AddWithValue("@deviceModel", deviceModel);
 		cmd_check_equity.Parameters->AddWithValue("@Date", date);
