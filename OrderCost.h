@@ -109,9 +109,9 @@ namespace testGUI {
 	public: static float^ cost{0.0f};
 	private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (tbCost->Text == "") {
-			MessageBox::Show("Please enter the cost", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			return;
+			cost = 0.0f;
 		}
+
 	{
 		string check{ msclr::interop::marshal_as<string>(tbCost->Text) };
 		if (!regex_match(check, regex("[0-9]+\.[0-9]{2}$"))) {

@@ -144,16 +144,14 @@ static bool clientExist( String^ name = "", String^ surname = "", String^ phoneN
 		int amount{ 0 };
 
 		if (name != "" && surname != "") {
-			query = "SELECT Count(ClientAdress) From Clients Where ClientName = @Name AND ClientSurname = @Surname and ClientPhone = @phone";
+			query = "SELECT Count(ClientAdress) From Clients Where ClientPhone = @phone";
 			SqlCommand cmd{query,%conn};
 
-			cmd.Parameters->AddWithValue("@Name", name);
-			cmd.Parameters->AddWithValue("@Surname", surname);
 			cmd.Parameters->AddWithValue("@phone",phoneNumber);
 
 			reader = cmd.ExecuteReader();
 		}
-		if (reader->Read()) {
+		if (reader->Read()) { 
 			amount = reader->GetInt32(0);
 		}
 

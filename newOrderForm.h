@@ -564,6 +564,44 @@ namespace testGUI {
 //ok button
 private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 	
+	//swap blank textBoxes to none
+
+	if (tbCLientAdress->Text == "") {
+		tbCLientAdress->Text = "None";
+	}
+	if (tbEmail->Text == "") {
+		tbEmail->Text = "None";
+	}
+	if (tbComments->Text == "") {
+		tbComments->Text = "None";
+	}
+	if (tbSymptoms->Text == "") {
+		tbSymptoms->Text = "None";
+	}
+	if (tbSerialNumber->Text == "") {
+		tbSerialNumber->Text = "None";
+	}
+	if (tbErrorDescription->Text == "") {
+		tbErrorDescription->Text = "None";
+	}
+	if (tbEmployeeId->Text == "") {
+		MessageBox::Show("Must enter employee ID","Wrong Input of Employee ID",MessageBoxButtons::OK,MessageBoxIcon::Error);
+		return;
+	}
+	if (tbPhoneNumber->Text == "") {
+		MessageBox::Show("Must enter Phone Number", "Wrong Input of Phone Number!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	if (tbPrice->Text == "") {
+		tbPrice->Text = "0.00";
+	}
+	if (comboBox1->Text == "") {
+		comboBox1->Text = "Inne";
+	}
+
+	
+
+
 	//get data from textboxes
 	String^ clientName = tbClientName->Text;
 	String^ clientSurname = tbClientSurname->Text;
@@ -590,15 +628,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	//check if all textboxes are filled
 	//check if name,surname,device name, device model are text type variabels
 	//check if phonenumber is integer of length 9 digits
-	//check if email is email type -> +[@]+[.]+ (regex)
-
-	if (clientName == "" || clientSurname == "" || deviceName == "" || deviceModel == "" || errorDescription == "" ||
-		employeeStringID == "" || phoneNumber == "" || email == "" 
-		|| category == "" || clientAdress == ""  || category=="" || symptoms == "" || comments == "") {
-		
-		MessageBox::Show("Please fill all textboxes", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
+	//check if email is email type -> +[@]+[.]+ (regex)	
 
 	{	// checking if number is 9 digit length
 		string text{ msclr::interop::marshal_as<string>(phoneNumber) };
