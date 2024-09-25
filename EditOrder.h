@@ -371,7 +371,7 @@ namespace testGUI {
 		if (tbDescription->Text != "") {
 			query = "UPDATE Orders SET Description = @des WHERE OrderId = @Id";
 			SqlCommand cmd{ query,% conn };
-			cmd.Parameters->AddWithValue("@Sdes", tbDescription->Text);
+			cmd.Parameters->AddWithValue("@des", tbDescription->Text);
 			cmd.Parameters->AddWithValue("@Id", OrderId);
 			text += Convert::ToString("Changed description to " + tbDescription->Text + ".");
 			cmd.ExecuteNonQuery();
