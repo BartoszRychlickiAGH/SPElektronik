@@ -399,7 +399,7 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 		bool isReaderEmpty{true};
 		while (reader->Read()) {
 			isReaderEmpty = false;
-			DataGridViewRow^ row_color_edit;
+			DataGridViewRow^ row_color_edit{};
 			int^ orderId = reader->GetInt32(0);
 			String^ clientName = reader->GetString(1);
 			String^ clientSurname = reader->GetString(2);

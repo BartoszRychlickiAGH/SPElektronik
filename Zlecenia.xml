@@ -1,31 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?>
-							<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-									xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
-							<Worksheet ss:Name="Sheet1">
-							<Table>
-								<Row>
-									<Cell><Data ss:Type="String">Numer zlecenia</Data></Cell>
-									<Cell><Data ss:Type="String">Imie</Data></Cell>
-									<Cell><Data ss:Type="String">Nazwisko</Data></Cell>
-									<Cell><Data ss:Type="String">Nr. telefonu</Data></Cell>
-									<Cell><Data ss:Type="String">E-mail</Data></Cell>
-									<Cell><Data ss:Type="String">Adres</Data></Cell>
-									<Cell><Data ss:Type="String">Nazwa urzadzenia</Data></Cell>
-									<Cell><Data ss:Type="String">Model</Data></Cell>
-									<Cell><Data ss:Type="String">Nr. Seryjny</Data></Cell>
-									<Cell><Data ss:Type="String">Kategoria</Data></Cell>
-									<Cell><Data ss:Type="String">Data przyjecia</Data></Cell>
-									<Cell><Data ss:Type="String">Data oddania</Data></Cell>
-									<Cell><Data ss:Type="String">Status</Data></Cell>
-									<Cell><Data ss:Type="String">Typ realizacji</Data></Cell>
-									<Cell><Data ss:Type="String">Opis</Data></Cell>
-									<Cell><Data ss:Type="String">Okolicznosci</Data></Cell>
-									<Cell><Data ss:Type="String">Uwagi</Data></Cell>
-									<Cell><Data ss:Type="String">Cena</Data></Cell>
-									<Cell><Data ss:Type="String">Koszt</Data></Cell>
-									<Cell><Data ss:Type="String">Przychod</Data></Cell>
-								</Row>
-
-						 <Row><Cell><Data ss:Type="String">53</Data></Cell><Cell><Data ss:Type="String">Bogdan</Data></Cell><Cell><Data ss:Type="String">Konieczny</Data></Cell><Cell><Data ss:Type="String">503990092</Data></Cell><Cell><Data ss:Type="String">konieczny.bogdan@gmail.com</Data></Cell><Cell><Data ss:Type="String">None</Data></Cell><Cell><Data ss:Type="String">TASCAM</Data></Cell><Cell><Data ss:Type="String">None</Data></Cell><Cell><Data ss:Type="String">dr-44wl</Data></Cell><Cell><Data ss:Type="String">Inne</Data></Cell><Cell><Data ss:Type="String">24.9.2024</Data></Cell><Cell><Data ss:Type="String">To fill</Data></Cell><Cell><Data ss:Type="String">In progress</Data></Cell><Cell><Data ss:Type="String">Standard</Data></Cell><Cell><Data ss:Type="String">Wymiana vgniazda miniJack</Data></Cell><Cell><Data ss:Type="String">None</Data></Cell><Cell><Data ss:Type="String">None</Data></Cell><Cell><Data ss:Type="String">0.000000 PLN</Data></Cell><Cell><Data ss:Type="String">0.000000 PLN</Data></Cell><Cell><Data ss:Type="String">0.000000 PLN</Data></Cell></Row></Table> 
-							</Worksheet>
-							</Workbook>
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>5736</WindowHeight>
+  <WindowWidth>17064</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>32767</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Aptos Narrow" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="20" ss:ExpandedRowCount="2" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="14.4">
+   <Column ss:Index="15" ss:AutoFitWidth="0" ss:Width="105"/>
+   <Column ss:Index="18" ss:AutoFitWidth="0" ss:Width="100.19999999999999"/>
+   <Column ss:AutoFitWidth="0" ss:Width="109.8"/>
+   <Column ss:AutoFitWidth="0" ss:Width="134.4"/>
+   <Row>
+    <Cell><Data ss:Type="String">Numer zlecenia</Data></Cell>
+    <Cell><Data ss:Type="String">Imie</Data></Cell>
+    <Cell><Data ss:Type="String">Nazwisko</Data></Cell>
+    <Cell><Data ss:Type="String">Nr. telefonu</Data></Cell>
+    <Cell><Data ss:Type="String">E-mail</Data></Cell>
+    <Cell><Data ss:Type="String">Adres</Data></Cell>
+    <Cell><Data ss:Type="String">Nazwa urzadzenia</Data></Cell>
+    <Cell><Data ss:Type="String">Model</Data></Cell>
+    <Cell><Data ss:Type="String">Nr. Seryjny</Data></Cell>
+    <Cell><Data ss:Type="String">Kategoria</Data></Cell>
+    <Cell><Data ss:Type="String">Data przyjecia</Data></Cell>
+    <Cell><Data ss:Type="String">Data oddania</Data></Cell>
+    <Cell><Data ss:Type="String">Status</Data></Cell>
+    <Cell><Data ss:Type="String">Typ realizacji</Data></Cell>
+    <Cell><Data ss:Type="String">Opis</Data></Cell>
+    <Cell><Data ss:Type="String">Okolicznosci</Data></Cell>
+    <Cell><Data ss:Type="String">Uwagi</Data></Cell>
+    <Cell><Data ss:Type="String">Cena</Data></Cell>
+    <Cell><Data ss:Type="String">Koszt</Data></Cell>
+    <Cell><Data ss:Type="String">Przychod</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">53</Data></Cell>
+    <Cell><Data ss:Type="String">Bogdan</Data></Cell>
+    <Cell><Data ss:Type="String">Konieczny</Data></Cell>
+    <Cell><Data ss:Type="String">503990092</Data></Cell>
+    <Cell><Data ss:Type="String">konieczny.bogdan@gmail.com</Data></Cell>
+    <Cell><Data ss:Type="String">None</Data></Cell>
+    <Cell><Data ss:Type="String">TASCAM</Data></Cell>
+    <Cell><Data ss:Type="String">None</Data></Cell>
+    <Cell><Data ss:Type="String">dr-44wl</Data></Cell>
+    <Cell><Data ss:Type="String">Inne</Data></Cell>
+    <Cell><Data ss:Type="String">24.9.2024</Data></Cell>
+    <Cell><Data ss:Type="String">To fill</Data></Cell>
+    <Cell><Data ss:Type="String">In progress</Data></Cell>
+    <Cell><Data ss:Type="String">Standard</Data></Cell>
+    <Cell><Data ss:Type="String">Wymiana vgniazda miniJack</Data></Cell>
+    <Cell><Data ss:Type="String">None</Data></Cell>
+    <Cell><Data ss:Type="String">None</Data></Cell>
+    <Cell><Data ss:Type="String">0.000000 PLN</Data></Cell>
+    <Cell><Data ss:Type="String">0.000000 PLN</Data></Cell>
+    <Cell><Data ss:Type="String">0.000000 PLN</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
