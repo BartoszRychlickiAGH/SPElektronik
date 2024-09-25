@@ -288,12 +288,6 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 			break;
 		}
 	}
-
-	if(tbPhone->Text != "" && tbPhone->TextLength != 9) {
-		MessageBox::Show("Invalid phone number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
-
 	
 	string check{msclr::interop::marshal_as<string>(tbPhone->Text)};
 
@@ -302,15 +296,6 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		MessageBox::Show("Given phone number is not a number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
 	}
-
-	check = msclr::interop::marshal_as<string>(tbEmail->Text);
-
-	if (!regex_match(check,regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))) {
-		MessageBox::Show("Wrong email!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-
-	}
-	
 
 	if (tbName->Text != "") {
 		query = "UPDATE Clients SET ClientName = @name WHERE ClientId = @Id";

@@ -42,7 +42,6 @@ namespace testGUI {
 				
 
 				configureDataGrid_Orders(this->dataGridView, tbSearch->Text);
-				printToFile(this->dataGridView);
 
 			}catch(Exception^ edy) {
 				MessageBox::Show(edy->Message);
@@ -100,6 +99,7 @@ namespace testGUI {
 	private: System::Windows::Forms::ToolStripButton^ btnSearch;
 	private: System::Windows::Forms::ToolStripButton^ BalanceMenu;
 	private: System::Windows::Forms::RichTextBox^ logs;
+	private: System::Windows::Forms::ToolStripMenuItem^ printToolStripMenuItem;
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -166,6 +166,7 @@ namespace testGUI {
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->editToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->deleteToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->printToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripContainer1->ContentPanel->SuspendLayout();
 			this->toolStripContainer1->TopToolStripPanel->SuspendLayout();
 			this->toolStripContainer1->SuspendLayout();
@@ -185,7 +186,7 @@ namespace testGUI {
 			// 
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->logs);
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->dataGridView);
-			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1724, 907);
+			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1724, 880);
 			this->toolStripContainer1->Location = System::Drawing::Point(12, 12);
 			this->toolStripContainer1->Name = L"toolStripContainer1";
 			this->toolStripContainer1->Size = System::Drawing::Size(1724, 934);
@@ -195,8 +196,8 @@ namespace testGUI {
 			// toolStripContainer1.TopToolStripPanel
 			// 
 			this->toolStripContainer1->TopToolStripPanel->BackColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip2);
 			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip1);
+			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip2);
 			this->toolStripContainer1->TopToolStripPanel->Click += gcnew System::EventHandler(this, &MyForm::toolStripContainer1_TopToolStripPanel_Click);
 			// 
 			// logs
@@ -232,9 +233,9 @@ namespace testGUI {
 				this->btnSearch, this->toolStripSeparator4,
 					this->tbSearch, this->toolStripSeparator5
 			});
-			this->toolStrip2->Location = System::Drawing::Point(7, 0);
+			this->toolStrip2->Location = System::Drawing::Point(4, 27);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(438, 27);
+			this->toolStrip2->Size = System::Drawing::Size(527, 27);
 			this->toolStrip2->TabIndex = 1;
 			// 
 			// btnSearch
@@ -273,9 +274,9 @@ namespace testGUI {
 				this->newOrderBtn, this->toolStripSeparator1,
 					this->showAllMenu, this->toolStripSeparator2, this->BalanceMenu, this->toolStripSeparator3, this->exitBtn
 			});
-			this->toolStrip1->Location = System::Drawing::Point(1372, 0);
+			this->toolStrip1->Location = System::Drawing::Point(1252, 0);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(352, 27);
+			this->toolStrip1->Size = System::Drawing::Size(322, 27);
 			this->toolStrip1->TabIndex = 0;
 			this->toolStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::toolStrip1_ItemClicked);
 			// 
@@ -369,12 +370,12 @@ namespace testGUI {
 			// contextMenuStrip1
 			// 
 			this->contextMenuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->editToolStripMenuItem,
-					this->deleteToolStripMenuItem
+					this->deleteToolStripMenuItem, this->printToolStripMenuItem
 			});
 			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(123, 52);
+			this->contextMenuStrip1->Size = System::Drawing::Size(123, 76);
 			this->contextMenuStrip1->Opening += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::contextMenuStrip1_Opening);
 			this->contextMenuStrip1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip_Hide);
 			// 
@@ -391,6 +392,13 @@ namespace testGUI {
 			this->deleteToolStripMenuItem->Size = System::Drawing::Size(122, 24);
 			this->deleteToolStripMenuItem->Text = L"Delete";
 			this->deleteToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::deleteToolStripMenuItem_Click);
+			// 
+			// printToolStripMenuItem
+			// 
+			this->printToolStripMenuItem->Name = L"printToolStripMenuItem";
+			this->printToolStripMenuItem->Size = System::Drawing::Size(122, 24);
+			this->printToolStripMenuItem->Text = L"Print";
+			this->printToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::printToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
@@ -1053,6 +1061,11 @@ private: System::Void BalanceMenu_Click(System::Object^ sender, System::EventArg
 	form.ShowDialog(); // error ?
 
 	this->Show();
+}
+private: System::Void printToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	printToFile(this->dataGridView, index);
+
 }
 };
 }

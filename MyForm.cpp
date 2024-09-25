@@ -13,7 +13,7 @@ using namespace testGUI;
 using std::vector;
 
 
-static void printToFile(DataGridView^ dataGridView) {
+static void printToFile(DataGridView^ dataGridView, int index) {
 	vector < vector<string>> fileData{};
 	vector<string> data{};
 
@@ -56,8 +56,9 @@ static void printToFile(DataGridView^ dataGridView) {
 		int k{ 0 };
 		for each (DataGridViewRow ^ row in dataGridView->Rows) {
 			
-			if (k == dataGridView->Rows->Count - 1) {
-				break;
+			if (k != index) {
+				k++;
+				continue;
 			}
 			
 			for each (DataGridViewCell ^ cell in row->Cells) {
@@ -207,8 +208,8 @@ static void printToFile(DataGridView^ dataGridView) {
 			data.push_back(income);
 
 			fileData.push_back(data);
+			break;
 
-			k++;
 		}
 		conn.Close();
 
