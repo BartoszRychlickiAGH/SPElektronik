@@ -540,28 +540,19 @@ private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Wind
 				System::Drawing::Rectangle rect = dataGridView->GetRowDisplayRectangle(row->Index, true);
 				if(rect.Contains(e->Location)){
 					index = row->Index;
+					if (index == amountRows) {
+								return;
+					}
+
 					if (e->Button == System::Windows::Forms::MouseButtons::Right) {
 						logs->Text = "";
 						logs->Update();
 
-					
-
 
 						// Pobierz prostok¹t odpowiadaj¹cy wierszowi
 						// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
-						if (rect.Contains(e->Location)) {
-							// Wybierz wiersz
-							dataGridView->ClearSelection();
-							row->Selected = true;
+						if (rect.Contains(e->Location)) {						
 						
-							int index_row{ row->Index };
-
-							if (index_row == amountRows) {
-								return;
-							}
-						
-						
-							index = row->Index;
 							// Poka¿ ContextMenuStrip w miejscu klikniêcia
 							contextMenuStrip1->Show(dataGridView, e->Location);
 
@@ -570,12 +561,6 @@ private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Wind
 						}
 
 					}else if (e->Button == System::Windows::Forms::MouseButtons::Left) {
-
-						int index_row{ row->Index };
-
-						if (index_row == amountRows) {
-							return;
-						}
 
 						if (mode != "orders") {
 							return;
@@ -587,14 +572,10 @@ private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Wind
 						String^ surname{""};
 						int^ orderId{};
 
-					
-					
 
 						String^ strCOnn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
 						SqlConnection conn{ strCOnn };
 						conn.Open();
-
-
 
 
 						for each (DataGridViewCell ^ cell in row->Cells) {
