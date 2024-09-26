@@ -655,6 +655,8 @@ private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows:
 						String^ surname{ "" };
 						int^ deviceId{ 0 };
 						int^ orderId{0};
+						int^ price{ 0 };
+
 
 						for each (DataGridViewCell ^ cell in row->Cells) {
 							if (cell->OwningColumn->Name == "Client Name") {
@@ -671,6 +673,9 @@ private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows:
 							}
 							else if (cell->OwningColumn->Name == "Device ID") {
 								deviceId = Convert::ToInt32(cell->Value);
+							}
+							else if (cell->OwningColumn->Name == "Price") {
+								price = Convert::ToInt32(cell->Value);
 							}
 						}
 
@@ -741,6 +746,124 @@ private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows:
 						cmd_equity.Parameters->AddWithValue("@ID", orderId);
 
 						cmd_equity.ExecuteNonQuery();
+
+
+
+						//search for client details
+
+							// mail
+							// phone
+							// adress
+
+						query = "SELECT ClientEmail,ClientPhone,ClientAdress From Clients Where ClientName = @ClientName and ClientSurname = @ClientSurname";
+						SqlCommand cmd_check_client{ query,% conn };
+
+						cmd_check_client.Parameters->AddWithValue("@ClientName", name);
+						cmd_check_client.Parameters->AddWithValue("@ClientSurname", surname);
+
+						reader = cmd_check_client.ExecuteReader();
+
+						String^ email;
+						String^ phoneNumber;
+						String^ clientAdress;
+
+						if (reader->Read()) {
+							email = reader->GetString(0);
+							phoneNumber = reader->GetString(1);
+							clientAdress = reader->GetString(2);
+						}
+
+						reader->Close();
+
+
+						// search for device details
+
+							// name
+							// model
+							// category
+						query = "SELECT DeviceName,DeviceModel,DeviceCategory From Devices Where DeviceId = @ID";
+
+						SqlCommand cmd_check_device{ query,% conn };
+
+						cmd_check_device.Parameters->AddWithValue("@ID", deviceId);
+
+						reader = cmd_check_device.ExecuteReader();
+
+						String^ deviceName;
+						String^ deviceModel;
+						String^ category;
+
+						if (reader->Read()) {
+							deviceName = reader->GetString(0);
+							deviceModel = reader->GetString(1);
+							category = reader->GetString(2);
+						}
+
+						reader->Close();
+
+
+						//search for order details
+
+							// cost
+						query = "SELECT Cost From Orders Where OrderId = @ID";
+
+						SqlCommand cmd_check_order{ query,% conn };
+
+						cmd_check_order.Parameters->AddWithValue("@ID", orderId);
+
+						reader = cmd_check_order.ExecuteReader();
+
+						float^ orderCost{0.0f};
+
+						if (reader->Read()) {
+							orderCost = reader->GetFloat(0);
+						}
+
+						reader->Close();
+
+						
+						query = "SELECT Count(OrderId) From Equity Where ClientName = @ClientName and ClientSurname = @ClientSurname and ClientPhone = @phone and DeviceName = @DeviceName and DeviceModel = @DeviceModel and Date = @Date and Description = @Description";
+						SqlCommand cmd_check_equity{ query,% conn };
+
+						cmd_check_equity.Parameters->AddWithValue("@ClientName", name);
+						cmd_check_equity.Parameters->AddWithValue("@ClientSurname", surname);
+						cmd_check_equity.Parameters->AddWithValue("@phone", phoneNumber);
+						cmd_check_equity.Parameters->AddWithValue("@DeviceName", deviceName);
+						cmd_check_equity.Parameters->AddWithValue("@deviceModel", deviceModel);
+						cmd_check_equity.Parameters->AddWithValue("@Date", getData());
+						cmd_check_equity.Parameters->AddWithValue("@Description", descruption);
+
+						reader = cmd_check_equity.ExecuteReader();
+
+						int amount{};
+
+						if (reader->Read()) {
+							amount = reader->GetInt32(0);
+						}
+						reader->Close();
+
+						if (amount == 0 && status == "Ready") {
+							query = "INSERT INTO Equity(OrderId,Status,ClientName,ClientSurname, ClientEmail,ClientPhone,ClientAddress, DeviceName,DeviceModel,Date,Category,Price,Cost,Description) VALUES (@OrderId,@Status,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
+							SqlCommand cmd_insert{ query,% conn };
+							cmd_insert.Parameters->AddWithValue("@OrderId", orderId);
+							cmd_insert.Parameters->AddWithValue("@Status", "In progress");
+							cmd_insert.Parameters->AddWithValue("@ClientName", name);
+							cmd_insert.Parameters->AddWithValue("@ClientSurname", surname);
+							cmd_insert.Parameters->AddWithValue("@ClientEmail", email);
+							cmd_insert.Parameters->AddWithValue("@ClientPhone", phoneNumber);
+							cmd_insert.Parameters->AddWithValue("@ClientAdress", clientAdress);
+							cmd_insert.Parameters->AddWithValue("@DeviceName", deviceName);
+							cmd_insert.Parameters->AddWithValue("@DeviceModel", deviceModel);
+							cmd_insert.Parameters->AddWithValue("@Date", getData());
+							cmd_insert.Parameters->AddWithValue("@Category", category);
+							cmd_insert.Parameters->AddWithValue("@Price", price);
+							cmd_insert.Parameters->AddWithValue("@Cost", orderCost);
+							cmd_insert.Parameters->AddWithValue("@Description", descruption);
+
+							cmd_insert.ExecuteNonQuery();
+						}
+
+
 
 						conn.Close();
 					}

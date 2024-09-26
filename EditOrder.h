@@ -402,7 +402,7 @@ namespace testGUI {
 
 		if (tbCost->Text != "") {
 			//update equity
-			query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
+			query = "UPDATE Orders SET Cost = @Cost WHERE OrderId = @Id";
 			SqlCommand cmd_equity{ query,% conn };
 			cmd_equity.Parameters->AddWithValue("@Cost", Convert::ToSingle(tbCost->Text));
 
@@ -451,6 +451,15 @@ namespace testGUI {
 
 				SqlCommand cmd_equity{ query,% conn };
 				cmd_equity.Parameters->AddWithValue("@Date", tbDate->Text);
+				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
+
+				cmd_equity.ExecuteNonQuery();
+			}
+			if (tbCost->Text != "") {
+				query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
+
+				SqlCommand cmd_equity{ query,% conn };
+				cmd_equity.Parameters->AddWithValue("@Cost", Convert::ToSingle(tbCost->Text));
 				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
 
 				cmd_equity.ExecuteNonQuery();

@@ -84,6 +84,7 @@ namespace testGUI {
 	private: System::Windows::Forms::Label^ label15;
 	private: System::Windows::Forms::RichTextBox^ tbSymptoms;
 	private: System::Windows::Forms::Label^ label16;
+	private: System::Windows::Forms::CheckBox^ boxStudentDiscount;
 
 
 
@@ -139,6 +140,7 @@ namespace testGUI {
 			this->label15 = (gcnew System::Windows::Forms::Label());
 			this->tbSymptoms = (gcnew System::Windows::Forms::RichTextBox());
 			this->label16 = (gcnew System::Windows::Forms::Label());
+			this->boxStudentDiscount = (gcnew System::Windows::Forms::CheckBox());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -510,12 +512,25 @@ namespace testGUI {
 			this->label16->TabIndex = 39;
 			this->label16->Text = L"Symptoms:";
 			// 
+			// boxStudentDiscount
+			// 
+			this->boxStudentDiscount->AutoSize = true;
+			this->boxStudentDiscount->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
+			this->boxStudentDiscount->Location = System::Drawing::Point(20, 876);
+			this->boxStudentDiscount->Name = L"boxStudentDiscount";
+			this->boxStudentDiscount->Size = System::Drawing::Size(253, 36);
+			this->boxStudentDiscount->TabIndex = 43;
+			this->boxStudentDiscount->Text = L"Student Discount";
+			this->boxStudentDiscount->UseVisualStyleBackColor = true;
+			// 
 			// newOrderForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
 			this->ClientSize = System::Drawing::Size(1333, 933);
+			this->Controls->Add(this->boxStudentDiscount);
 			this->Controls->Add(this->tbComments);
 			this->Controls->Add(this->label15);
 			this->Controls->Add(this->tbSymptoms);
@@ -653,6 +668,11 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	else {
 		price = Convert::ToSingle(priceStr);
 		price = round(price * 100) / 100;	//rounding to 2 decimal places
+	}
+
+	if (boxStudentDiscount->Checked == true) {
+		price *= 0.9;
+		price = round(price * 100) / 100;
 	}
 
 	try{
@@ -798,10 +818,15 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 				}
 				reader->Close();	
 		}
+
+		float^ orderCost{};
+		OrderCost form;
+		form.ShowDialog();
+		orderCost = form.cost;
 		// inserting order
 		String^ date = getData();
 		//error in query - addi g null values to command
-		query = "Insert into orders(clientId,EmployeeId,DeviceId,Symptoms,Comments,ExpressRealization,OrderStatus,OrderDate,OrderPrice,Description) VALUES (@clientId,@EmployeeId,@DeviceId,@Symptoms,@Comments,@ExpressRealization,@OrderStatus,@OrderDate,@OrderPrice,@Description)";//insert int orders
+		query = "Insert into orders(clientId,EmployeeId,DeviceId,Symptoms,Comments,ExpressRealization,OrderStatus,OrderDate,OrderPrice,Description,Cost) VALUES (@clientId,@EmployeeId,@DeviceId,@Symptoms,@Comments,@ExpressRealization,@OrderStatus,@OrderDate,@OrderPrice,@Description,@cost)";//insert int orders
 		SqlCommand cmd_insert_order{ query,% conn };
 		cmd_insert_order.Parameters->AddWithValue("@clientId", clientId);
 		cmd_insert_order.Parameters->AddWithValue("@EmployeeId", employeeId);
@@ -813,6 +838,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		cmd_insert_order.Parameters->AddWithValue("@Description", errorDescription);
 		cmd_insert_order.Parameters->AddWithValue("@Symptoms", symptoms);
 		cmd_insert_order.Parameters->AddWithValue("@Comments", comments);
+		cmd_insert_order.Parameters->AddWithValue("@cost", orderCost);
 
 		cmd_insert_order.ExecuteNonQuery();
 
@@ -836,13 +862,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		reader->Close();
 		
 
-		float^ orderCost{};
-		OrderCost form;
-		form.ShowDialog();
-		orderCost = form.cost;
-
-
-		query = "SELECT Count(OrderId) From Equity Where ClientName = @ClientName and ClientSurname = @ClientSurname and ClientPhone = @phone and DeviceName = @DeviceName and DeviceModel = @DeviceModel and Date = @Date and Description = @Description";
+		/*query = "SELECT Count(OrderId) From Equity Where ClientName = @ClientName and ClientSurname = @ClientSurname and ClientPhone = @phone and DeviceName = @DeviceName and DeviceModel = @DeviceModel and Date = @Date and Description = @Description";
 		SqlCommand cmd_check_equity{query,%conn};
 
 		cmd_check_equity.Parameters->AddWithValue("@ClientName",clientName);
@@ -862,26 +882,26 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		}
 		reader->Close();
 
-		if(amount == 0)
-		query = "INSERT INTO Equity(OrderId,Status,ClientName,ClientSurname, ClientEmail,ClientPhone,ClientAddress, DeviceName,DeviceModel,Date,Category,Price,Cost,Description) VALUES (@OrderId,@Status,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
-		SqlCommand cmd_insert{ query,% conn };
-		cmd_insert.Parameters->AddWithValue("@OrderId", orderId);
-		cmd_insert.Parameters->AddWithValue("@Status", "In progress");
-		cmd_insert.Parameters->AddWithValue("@ClientName", clientName);
-		cmd_insert.Parameters->AddWithValue("@ClientSurname", clientSurname);
-		cmd_insert.Parameters->AddWithValue("@ClientEmail", email);
-		cmd_insert.Parameters->AddWithValue("@ClientPhone", phoneNumber);
-		cmd_insert.Parameters->AddWithValue("@ClientAdress", clientAdress);
-		cmd_insert.Parameters->AddWithValue("@DeviceName", deviceName);
-		cmd_insert.Parameters->AddWithValue("@DeviceModel", deviceModel);
-		cmd_insert.Parameters->AddWithValue("@Date", getData());
-		cmd_insert.Parameters->AddWithValue("@Category", category);
-		cmd_insert.Parameters->AddWithValue("@Price", price);
-		cmd_insert.Parameters->AddWithValue("@Cost", orderCost);
-		cmd_insert.Parameters->AddWithValue("@Description", errorDescription);
+		if (amount == 0) {
+			query = "INSERT INTO Equity(OrderId,Status,ClientName,ClientSurname, ClientEmail,ClientPhone,ClientAddress, DeviceName,DeviceModel,Date,Category,Price,Cost,Description) VALUES (@OrderId,@Status,@ClientName,@ClientSurname,@ClientEmail,@ClientPhone,@ClientAdress,@DeviceName,@DeviceModel,@Date,@Category,@Price,@Cost,@Description)";
+			SqlCommand cmd_insert{ query,% conn };
+			cmd_insert.Parameters->AddWithValue("@OrderId", orderId);
+			cmd_insert.Parameters->AddWithValue("@Status", "In progress");
+			cmd_insert.Parameters->AddWithValue("@ClientName", clientName);
+			cmd_insert.Parameters->AddWithValue("@ClientSurname", clientSurname);
+			cmd_insert.Parameters->AddWithValue("@ClientEmail", email);
+			cmd_insert.Parameters->AddWithValue("@ClientPhone", phoneNumber);
+			cmd_insert.Parameters->AddWithValue("@ClientAdress", clientAdress);
+			cmd_insert.Parameters->AddWithValue("@DeviceName", deviceName);
+			cmd_insert.Parameters->AddWithValue("@DeviceModel", deviceModel);
+			cmd_insert.Parameters->AddWithValue("@Date", getData());
+			cmd_insert.Parameters->AddWithValue("@Category", category);
+			cmd_insert.Parameters->AddWithValue("@Price", price);
+			cmd_insert.Parameters->AddWithValue("@Cost", orderCost);
+			cmd_insert.Parameters->AddWithValue("@Description", errorDescription);
 
-		cmd_insert.ExecuteNonQuery();
-
+			cmd_insert.ExecuteNonQuery();
+		}*/
 
 		// insert into logs - new logs
 		query = "Insert into Logs(OrderId,EmployeeId,Date,Log) VALUES(@OrderId,@EmployeeId,@LogDate,@LogDescription)";
@@ -917,6 +937,9 @@ private: System::Void btnClear_Click(System::Object^ sender, System::EventArgs^ 
 	comboBox1->Text ="";
 	tbCLientAdress->Clear();
 	tbPrice->Clear();
+	boxStudentDiscount->Checked = false;
+
+	boxStudentDiscount->Update();
 }
 
 //exit button
