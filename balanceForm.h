@@ -38,8 +38,8 @@ namespace testGUI {
 				String^ day{""};
 				String^ month{""};
 				String^ year{ "" };
-				float income{0.0f};
-				float costs{0.0f};
+				int income{0};
+				int costs{0};
 				
 				//MessageBox::Show(today,"Info",MessageBoxButtons::OK,MessageBoxIcon::Information);
 				// MM/D/YYYY
@@ -83,9 +83,9 @@ namespace testGUI {
 
 					isReaderEmpty = false;
 
-					income += static_cast<float>(reader->GetDouble(0)); // errror in static cast
+					income += static_cast<int>(reader->GetInt32(0)); // errror in static cast
 					
-					costs += static_cast<float>(reader->GetDouble(1));
+					costs += static_cast<int>(reader->GetInt32(1));
 					
 				}
 
@@ -492,7 +492,7 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 		SqlConnection conn{ strConn };
 		conn.Open();
 		i = 0;
-		float income{ 0.0f }, costs{ 0.0f };
+		int income{ 0 }, costs{ 0 };
 		bool isReaderEmpty{ true };
 
 
@@ -535,8 +535,8 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
                 while (reader->Read()) {
                     isReaderEmpty = false;
 
-                    income += static_cast<float>(reader->GetDouble(0));
-                    costs += static_cast<float>(reader->GetDouble(1));
+                    income += static_cast<int>(reader->GetInt32(0));
+                    costs += static_cast<int>(reader->GetInt32(1));
                 }
 				reader->Close();
 
@@ -681,9 +681,9 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 
 					isReaderEmpty = false;
 
-					income += static_cast<float>(reader->GetDouble(0)); // errror in static cast
+					income += static_cast<int>(reader->GetInt32(0)); // errror in static cast
 
-					costs += static_cast<float>(reader->GetDouble(1));
+					costs += static_cast<int>(reader->GetInt32(1));
 
 				}
 
@@ -781,9 +781,9 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 
 					isReaderEmpty = false;
 
-					income += static_cast<float>(reader->GetDouble(0)); // errror in static cast
+					income += static_cast<int>(reader->GetInt32(0)); // errror in static cast
 
-					costs += static_cast<float>(reader->GetDouble(1));
+					costs += static_cast<int>(reader->GetInt32(1));
 
 				}
 
