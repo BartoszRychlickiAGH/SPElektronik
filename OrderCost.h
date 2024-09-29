@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef ORDERCOST_H_
+#define ORDERCOST_H_
+
 #include "includings.h"
 namespace testGUI {
 
@@ -106,21 +110,27 @@ namespace testGUI {
 	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
-	public: static float^ cost{0.0f};
+	public: static int cost{0};
 	private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (tbCost->Text == "") {
-			cost = 0.0f;
+			cost = 0;
 		}
 
-	{
-		string check{ msclr::interop::marshal_as<string>(tbCost->Text) };
-		if (!regex_match(check, regex("[0-9]+\.[0-9]{2}$"))) {
-			MessageBox::Show("Please enter the cost in format: 0.00", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			return;
+		{
+			string check{ msclr::interop::marshal_as<string>(tbCost->Text) };
+			for (char& c : check) {
+				if (!isdigit(c)) {
+					MessageBox::Show("Cost mus be int type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					return;
+				}
+			}
 		}
+		cost = Convert::ToInt32(tbCost->Text);
+		this->Close();
 	}
-	cost = Convert::ToSingle(tbCost->Text);
-	this->Close();
-}
 };
 }
+
+
+
+#endif // !ORDERCOST_H_

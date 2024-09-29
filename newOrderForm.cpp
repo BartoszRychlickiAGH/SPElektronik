@@ -28,8 +28,10 @@ static bool isMoney(String^ input) {
 	string text{ msclr::interop::marshal_as<string>(input) };
 
 
-	if (regex_match(text, regex("^[0-9]+\.[0-9]{2}$"))) {
-		return true;
+	for (char& c : text) {
+		if (!isdigit(c)) {
+			return true;
+		}
 	}
 
 	return false;
@@ -144,10 +146,12 @@ static bool clientExist( String^ name = "", String^ surname = "", String^ phoneN
 		int amount{ 0 };
 
 		if (name != "" && surname != "") {
-			query = "SELECT Count(ClientAdress) From Clients Where ClientPhone = @phone";
+			query = "SELECT Count(ClientAdress) From Clients Where ClientName = @name and ClientSurname = @surname and ClientPhone = @phone";
 			SqlCommand cmd{query,%conn};
 
 			cmd.Parameters->AddWithValue("@phone",phoneNumber);
+			cmd.Parameters->AddWithValue("@name", name);
+			cmd.Parameters->AddWithValue("@surname", surname);
 
 			reader = cmd.ExecuteReader();
 		}

@@ -553,10 +553,7 @@ private: System::Void ContextMenuStrip_Hide(System::Object^ sender, System::Wind
 						// SprawdŸ, czy punkt klikniêcia znajduje siê w prostok¹cie wiersza
 						if (rect.Contains(e->Location)) {						
 						
-							// Poka¿ ContextMenuStrip w miejscu klikniêcia
 							contextMenuStrip1->Show(dataGridView, e->Location);
-
-							displayGrid(dataGridView, mode, tbSearch->Text);
 							return;
 						}
 
@@ -813,10 +810,10 @@ private: System::Void ContextMenuStrip1(System::Object^ sender, System::Windows:
 
 						reader = cmd_check_order.ExecuteReader();
 
-						float^ orderCost{0.0f};
+						int^ orderCost{0};
 
 						if (reader->Read()) {
-							orderCost = reader->GetFloat(0);
+							orderCost = reader->GetInt32(0);
 						}
 
 						reader->Close();
@@ -940,16 +937,10 @@ private: System::Void deleteToolStripMenuItem_Click(System::Object^ sender, Syst
 
 		}
 
-		String^ clientName;
-		String^ clientSurname;
-
 		for each (DataGridViewCell ^ cell in row_get_id->Cells) {
 			if (mode == "orders") { // doeasnt have ID
-				if (cell->OwningColumn->Name == "Client Name") {
-					clientName = Convert::ToString(cell->Value);
-				}
-				if (cell->OwningColumn->Name == "Client Surname") {
-					clientSurname = Convert::ToString(cell->Value);
+				if (cell->OwningColumn->Name == "Order Id") {
+					ID = Convert::ToInt32(cell->Value);
 				}
 			}
 			else if (mode == "clients") {
@@ -965,22 +956,6 @@ private: System::Void deleteToolStripMenuItem_Click(System::Object^ sender, Syst
 			}
 			
 		}
-		if (clientName != "" && clientSurname != "" && mode == "orders") { // error below
-			query = "SELECT Orders.OrderId FROM Orders INNER JOIN Clients ON Orders.ClientId = Clients.ClientId WHERE Clients.ClientName = @name AND Clients.ClientSurname = @surname";
-			SqlCommand cmd{query,%conn};
-
-			cmd.Parameters->AddWithValue("@name",clientName);
-			cmd.Parameters->AddWithValue("@surname",clientSurname);
-
-			SqlDataReader^ reader = cmd.ExecuteReader();
-
-			if (reader->Read()) {
-				ID = reader->GetInt32(0);
-			}
-			reader->Close();
-		}
-		
-
 		if (mode == "orders") {
 			int quantity{0};
 			

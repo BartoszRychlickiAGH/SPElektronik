@@ -608,7 +608,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		return;
 	}
 	if (tbPrice->Text == "") {
-		tbPrice->Text = "0.00";
+		tbPrice->Text = "0";
 	}
 	if (comboBox1->Text == "") {
 		comboBox1->Text = "Inne";
@@ -639,7 +639,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	int employeeId{};
 	int deviceId{};
 	
-	double price{};
+	int price{};
 	//check if all textboxes are filled
 	//check if name,surname,device name, device model are text type variabels
 	//check if phonenumber is integer of length 9 digits
@@ -661,12 +661,13 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		employeeId = Convert::ToInt32(employeeStringID);
 	}
 
-	if (!isMoney(priceStr)) {
-		MessageBox::Show("Price should be float type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+
+	if (isMoney(priceStr)) {
+		MessageBox::Show("Price should be int type","Error",MessageBoxButtons::OK,MessageBoxIcon::Error);
 		return;
 	}
 	else {
-		price = Convert::ToSingle(priceStr);
+		price = Convert::ToInt32(priceStr);
 		price = round(price * 100) / 100;	//rounding to 2 decimal places
 	}
 
@@ -819,10 +820,11 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 				reader->Close();	
 		}
 
-		float^ orderCost{};
-		OrderCost form;
-		form.ShowDialog();
-		orderCost = form.cost;
+		int orderCost{0};
+		OrderCost^ form = gcnew OrderCost();
+		form->ShowDialog();
+		orderCost = form->cost;
+
 		// inserting order
 		String^ date = getData();
 		//error in query - addi g null values to command
