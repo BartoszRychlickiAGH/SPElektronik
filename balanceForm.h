@@ -84,7 +84,7 @@ namespace testGUI {
 					isReaderEmpty = false;
 
 					income += static_cast<int>(reader->GetInt32(0)); // errror in static cast
-					
+
 					costs += static_cast<int>(reader->GetInt32(1));
 					
 				}
@@ -535,8 +535,9 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
                 while (reader->Read()) {
                     isReaderEmpty = false;
 
-                    income += static_cast<int>(reader->GetInt32(0));
-                    costs += static_cast<int>(reader->GetInt32(1));
+					income += static_cast<int>(reader->GetInt32(0)); // errror in static cast
+
+					costs += static_cast<int>(reader->GetInt32(1));
                 }
 				reader->Close();
 

@@ -1,8 +1,4 @@
 #pragma once
-
-#ifndef ORDERCOST_H_
-#define ORDERCOST_H_
-
 #include "includings.h"
 namespace testGUI {
 
@@ -116,21 +112,8 @@ namespace testGUI {
 			cost = 0;
 		}
 
-		{
-			string check{ msclr::interop::marshal_as<string>(tbCost->Text) };
-			for (char& c : check) {
-				if (!isdigit(c)) {
-					MessageBox::Show("Cost mus be int type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-					return;
-				}
-			}
-		}
-		cost = Convert::ToInt32(tbCost->Text);
-		this->Close();
-	}
+	cost = Convert::ToInt32(tbCost->Text);
+	this->Close();
+}
 };
 }
-
-
-
-#endif // !ORDERCOST_H_

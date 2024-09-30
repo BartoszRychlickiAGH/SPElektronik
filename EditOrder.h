@@ -321,12 +321,12 @@ namespace testGUI {
 		}
 
 		//check if price is in correct format
-		if (tbPrice->Text != "" && !isMoney(tbPrice->Text)) {
+		if (tbPrice->Text != "" && isMoney(tbPrice->Text)) {
 			MessageBox::Show("Price must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return;
 		}
-		if (tbCost->Text != "" && !isMoney(tbCost->Text)) {
-			MessageBox::Show("Price must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		if (tbCost->Text != "" && isMoney(tbCost->Text)) {
+			MessageBox::Show("Cost must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return;
 		}
 
@@ -377,7 +377,7 @@ namespace testGUI {
 			cmd.ExecuteNonQuery();
 
 			//update equity
-			query = "UPDATE Equity SET Sescription = @Description WHERE OrderId = @Id";
+			query = "UPDATE Equity SET Description = @Description WHERE OrderId = @Id";
 			SqlCommand cmd_equity{ query,% conn };
 			cmd_equity.Parameters->AddWithValue("@Description", tbDescription->Text);
 			cmd_equity.Parameters->AddWithValue("@Id", OrderId);
@@ -402,7 +402,7 @@ namespace testGUI {
 
 		if (tbCost->Text != "") {
 			//update equity
-			query = "UPDATE Orders SET Cost = @Cost WHERE OrderId = @Id";
+			query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
 			SqlCommand cmd_equity{ query,% conn };
 			cmd_equity.Parameters->AddWithValue("@Cost", Convert::ToSingle(tbCost->Text));
 
@@ -432,7 +432,7 @@ namespace testGUI {
 				query = "UPDATE Equity SET Price = @Price WHERE OrderId = @Id";
 
 				SqlCommand cmd_equity{ query,% conn };
-				cmd_equity.Parameters->AddWithValue("@Price", Convert::ToSingle(tbPrice->Text));
+				cmd_equity.Parameters->AddWithValue("@Price", Convert::ToInt32(tbPrice->Text));
 				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
 
 				cmd_equity.ExecuteNonQuery();
@@ -451,15 +451,6 @@ namespace testGUI {
 
 				SqlCommand cmd_equity{ query,% conn };
 				cmd_equity.Parameters->AddWithValue("@Date", tbDate->Text);
-				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
-
-				cmd_equity.ExecuteNonQuery();
-			}
-			if (tbCost->Text != "") {
-				query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
-
-				SqlCommand cmd_equity{ query,% conn };
-				cmd_equity.Parameters->AddWithValue("@Cost", Convert::ToSingle(tbCost->Text));
 				cmd_equity.Parameters->AddWithValue("@Id", OrderId);
 
 				cmd_equity.ExecuteNonQuery();

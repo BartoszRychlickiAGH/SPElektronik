@@ -48,8 +48,8 @@ static void printToFile(DataGridView^ dataGridView, int index) {
 		String^ symptoms{ "" };
 		String^ comments{ "" };
 		String^ date{ "" };
-		int orderPrice{ 0 };
-		int orderCost{ 0 };
+		double orderPrice{ 0.0 };
+		double orderCost{ 0.0 };
 
 		//helping variabels
 		int^ deviceId{ 0 };
@@ -81,7 +81,7 @@ static void printToFile(DataGridView^ dataGridView, int index) {
 					date = cell->Value->ToString();
 				}
 				if (cell->OwningColumn->Name == "Order Price") {
-					orderPrice = Convert::ToInt32(cell->Value->ToString());
+					orderPrice = Convert::ToDouble(cell->Value->ToString());
 				}
 				if (cell->OwningColumn->Name == "Description") {
 					description = cell->Value->ToString();
@@ -165,7 +165,7 @@ static void printToFile(DataGridView^ dataGridView, int index) {
 				clientAdress = reader->GetString(3);
 				clientPhone = reader->GetString(4);
 				clientEmail = reader->GetString(5);
-				orderCost = reader->GetInt32(6);
+				orderCost = reader->GetDouble(6);
 			}
 			reader->Close();
 			string realizationTypeStr{ "" };
@@ -178,7 +178,7 @@ static void printToFile(DataGridView^ dataGridView, int index) {
 			}
 
 			//variables delcared below are required cause of msclr::interop::marshal_as() throwing exceptions about refering to deleted functions
-			int incomeNum{ orderPrice - orderCost };
+			double incomeNum{ orderPrice - orderCost };
 			string income{ std::to_string(incomeNum) + " PLN" };
 			string pickupDate{ "To fill" };
 
@@ -324,7 +324,7 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 		conn.Open();
 		String^ query;
 		if (search != "") {
-			query = "SELECT Orders.OrderId, Clients.ClientName, Clients.ClientSurname, Orders.EmployeeId, Orders.DeviceId, Orders.OrderStatus, Orders.OrderDate, Orders.OrderPrice, Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId WHERE Clients.ClientName = @text or Clients.ClientSurname = @text or Orders.OrderStatus = @text or Clients.ClientName+' '+Clients.ClientSurname=@text or Clients.ClientEmail = @text or ClientPhone = @text";
+			query = "SELECT Orders.OrderId, Clients.ClientName, Clients.ClientSurname, Orders.EmployeeId, Orders.DeviceId, Orders.OrderStatus, Orders.OrderDate, Orders.OrderPrice, Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId WHERE Clients.ClientName = @text or Clients.ClientSurname = @text or Orders.OrderStatus = @text or Clients.ClientName+' '+Clients.ClientSurname=@text";
 		}
 		else {
 			query = "SELECT Orders.OrderId,Clients.ClientName,Clients.ClientSurname,Orders.EmployeeId,Orders.DeviceId,Orders.OrderStatus,Orders.OrderDate,Orders.OrderPrice,Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId";
@@ -413,7 +413,7 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 
 
 			dataView->Rows->Add(orderId,clientName,clientSurname,Convert::ToInt32(employeeID),Convert::ToInt32(deviceID),
-				orderStatus,orderDate,Convert::ToSingle(orderPrice),description);
+				orderStatus,orderDate,orderPrice,description);
 			
 		}
 		if (isReaderEmpty && search != "") {

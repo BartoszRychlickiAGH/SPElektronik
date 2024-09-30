@@ -288,15 +288,15 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 			break;
 		}
 	}
-	if (tbPhone->Text != "") {
-		string check{ msclr::interop::marshal_as<string>(tbPhone->Text) };
+	
+	string check{msclr::interop::marshal_as<string>(tbPhone->Text)};
 
 
-		if (!regex_match(check, regex("[0-9]{9}"))) {
-			MessageBox::Show("Given phone number is not a number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			return;
-		}
+	if (!regex_match(check,regex("[0-9]{9}"))) {
+		MessageBox::Show("Given phone number is not a number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
 	}
+
 	if (tbName->Text != "") {
 		query = "UPDATE Clients SET ClientName = @name WHERE ClientId = @Id";
 		SqlCommand cmd{ query,% conn };
