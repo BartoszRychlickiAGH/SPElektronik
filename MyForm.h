@@ -146,11 +146,6 @@ namespace testGUI {
 			this->toolStripContainer1 = (gcnew System::Windows::Forms::ToolStripContainer());
 			this->logs = (gcnew System::Windows::Forms::RichTextBox());
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
-			this->toolStrip2 = (gcnew System::Windows::Forms::ToolStrip());
-			this->btnSearch = (gcnew System::Windows::Forms::ToolStripButton());
-			this->toolStripSeparator4 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->tbSearch = (gcnew System::Windows::Forms::ToolStripTextBox());
-			this->toolStripSeparator5 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->newOrderBtn = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
@@ -163,6 +158,11 @@ namespace testGUI {
 			this->BalanceMenu = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->exitBtn = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStrip2 = (gcnew System::Windows::Forms::ToolStrip());
+			this->btnSearch = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripSeparator4 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->tbSearch = (gcnew System::Windows::Forms::ToolStripTextBox());
+			this->toolStripSeparator5 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->editToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->deleteToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -171,8 +171,8 @@ namespace testGUI {
 			this->toolStripContainer1->TopToolStripPanel->SuspendLayout();
 			this->toolStripContainer1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
-			this->toolStrip2->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
+			this->toolStrip2->SuspendLayout();
 			this->contextMenuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -186,7 +186,7 @@ namespace testGUI {
 			// 
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->logs);
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->dataGridView);
-			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1724, 880);
+			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1724, 907);
 			this->toolStripContainer1->Location = System::Drawing::Point(12, 12);
 			this->toolStripContainer1->Name = L"toolStripContainer1";
 			this->toolStripContainer1->Size = System::Drawing::Size(1724, 934);
@@ -224,46 +224,6 @@ namespace testGUI {
 			this->dataGridView->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip1);
 			this->dataGridView->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip_Hide);
 			// 
-			// toolStrip2
-			// 
-			this->toolStrip2->AutoSize = false;
-			this->toolStrip2->Dock = System::Windows::Forms::DockStyle::None;
-			this->toolStrip2->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
-				this->btnSearch, this->toolStripSeparator4,
-					this->tbSearch, this->toolStripSeparator5
-			});
-			this->toolStrip2->Location = System::Drawing::Point(4, 27);
-			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(527, 27);
-			this->toolStrip2->TabIndex = 1;
-			// 
-			// btnSearch
-			// 
-			this->btnSearch->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-			this->btnSearch->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSearch.Image")));
-			this->btnSearch->ImageTransparentColor = System::Drawing::Color::Magenta;
-			this->btnSearch->Name = L"btnSearch";
-			this->btnSearch->Size = System::Drawing::Size(60, 24);
-			this->btnSearch->Text = L"Search:";
-			this->btnSearch->Click += gcnew System::EventHandler(this, &MyForm::btnSearch_Click);
-			// 
-			// toolStripSeparator4
-			// 
-			this->toolStripSeparator4->Name = L"toolStripSeparator4";
-			this->toolStripSeparator4->Size = System::Drawing::Size(6, 27);
-			// 
-			// tbSearch
-			// 
-			this->tbSearch->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->tbSearch->Name = L"tbSearch";
-			this->tbSearch->Size = System::Drawing::Size(180, 27);
-			// 
-			// toolStripSeparator5
-			// 
-			this->toolStripSeparator5->Name = L"toolStripSeparator5";
-			this->toolStripSeparator5->Size = System::Drawing::Size(6, 27);
-			// 
 			// toolStrip1
 			// 
 			this->toolStrip1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
@@ -274,9 +234,9 @@ namespace testGUI {
 				this->newOrderBtn, this->toolStripSeparator1,
 					this->showAllMenu, this->toolStripSeparator2, this->BalanceMenu, this->toolStripSeparator3, this->exitBtn
 			});
-			this->toolStrip1->Location = System::Drawing::Point(1252, 0);
+			this->toolStrip1->Location = System::Drawing::Point(1289, 0);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(322, 27);
+			this->toolStrip1->Size = System::Drawing::Size(332, 27);
 			this->toolStrip1->TabIndex = 0;
 			this->toolStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::toolStrip1_ItemClicked);
 			// 
@@ -367,6 +327,46 @@ namespace testGUI {
 			this->exitBtn->Text = L"Exit";
 			this->exitBtn->Click += gcnew System::EventHandler(this, &MyForm::exitBtn_Click);
 			// 
+			// toolStrip2
+			// 
+			this->toolStrip2->AutoSize = false;
+			this->toolStrip2->Dock = System::Windows::Forms::DockStyle::None;
+			this->toolStrip2->ImageScalingSize = System::Drawing::Size(20, 20);
+			this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+				this->btnSearch, this->toolStripSeparator4,
+					this->tbSearch, this->toolStripSeparator5
+			});
+			this->toolStrip2->Location = System::Drawing::Point(4, 0);
+			this->toolStrip2->Name = L"toolStrip2";
+			this->toolStrip2->Size = System::Drawing::Size(287, 27);
+			this->toolStrip2->TabIndex = 1;
+			// 
+			// btnSearch
+			// 
+			this->btnSearch->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->btnSearch->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSearch.Image")));
+			this->btnSearch->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->btnSearch->Name = L"btnSearch";
+			this->btnSearch->Size = System::Drawing::Size(60, 24);
+			this->btnSearch->Text = L"Search:";
+			this->btnSearch->Click += gcnew System::EventHandler(this, &MyForm::btnSearch_Click);
+			// 
+			// toolStripSeparator4
+			// 
+			this->toolStripSeparator4->Name = L"toolStripSeparator4";
+			this->toolStripSeparator4->Size = System::Drawing::Size(6, 27);
+			// 
+			// tbSearch
+			// 
+			this->tbSearch->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
+			this->tbSearch->Name = L"tbSearch";
+			this->tbSearch->Size = System::Drawing::Size(180, 27);
+			// 
+			// toolStripSeparator5
+			// 
+			this->toolStripSeparator5->Name = L"toolStripSeparator5";
+			this->toolStripSeparator5->Size = System::Drawing::Size(6, 27);
+			// 
 			// contextMenuStrip1
 			// 
 			this->contextMenuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
@@ -414,10 +414,10 @@ namespace testGUI {
 			this->toolStripContainer1->ResumeLayout(false);
 			this->toolStripContainer1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
-			this->toolStrip2->ResumeLayout(false);
-			this->toolStrip2->PerformLayout();
 			this->toolStrip1->ResumeLayout(false);
 			this->toolStrip1->PerformLayout();
+			this->toolStrip2->ResumeLayout(false);
+			this->toolStrip2->PerformLayout();
 			this->contextMenuStrip1->ResumeLayout(false);
 			this->ResumeLayout(false);
 
@@ -1030,7 +1030,7 @@ private: System::Void btnSearch_Click(System::Object^ sender, System::EventArgs^
 	logs->Clear();
 	logs->Update();
 
-	displayGrid(dataGridView, mode, tbSearch->Text);
+	displayGrid(dataGridView, mode, Convert::ToString(tbSearch->Text));
 
 }
 private: System::Void BalanceMenu_Click(System::Object^ sender, System::EventArgs^ e) { // blalance

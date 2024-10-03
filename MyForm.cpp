@@ -324,10 +324,10 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 		conn.Open();
 		String^ query;
 		if (search != "") {
-			query = "SELECT Orders.OrderId, Clients.ClientName, Clients.ClientSurname, Orders.EmployeeId, Orders.DeviceId, Orders.OrderStatus, Orders.OrderDate, Orders.OrderPrice, Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId WHERE Clients.ClientName = @text or Clients.ClientSurname = @text or Orders.OrderStatus = @text or Clients.ClientName+' '+Clients.ClientSurname=@text";
+			query = "SELECT Orders.OrderId, Clients.ClientName, Clients.ClientSurname, Orders.EmployeeId, Orders.DeviceId, Orders.OrderStatus, Orders.OrderDate, Orders.OrderPrice, Orders.Description, Orders.Symptoms, Orders.Comments, Orders.ServiceProcess FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId WHERE Clients.ClientName = @text or Clients.ClientSurname=@text or Orders.OrderStatus = @text or Clients.ClientName+' '+ Clients.ClientSurname = @text or Clients.ClientPhone = @text";
 		}
 		else {
-			query = "SELECT Orders.OrderId,Clients.ClientName,Clients.ClientSurname,Orders.EmployeeId,Orders.DeviceId,Orders.OrderStatus,Orders.OrderDate,Orders.OrderPrice,Orders.Description FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId";
+			query = "SELECT Orders.OrderId,Clients.ClientName,Clients.ClientSurname,Orders.EmployeeId,Orders.DeviceId,Orders.OrderStatus,Orders.OrderDate,Orders.OrderPrice,Orders.Description, Orders.Symptoms, Orders.Comments, Orders.ServiceProcess FROM Orders INNER JOIN Clients ON Clients.ClientId = Orders.ClientId";
 		}
 
 		SqlCommand cmd{ query,% conn };
@@ -394,6 +394,25 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 		//column_Description->ValueType = System::String::typeid;
 		dataView->Columns->Add(column_Description);
 
+		DataGridViewColumn^ column_Symptoms = gcnew DataGridViewTextBoxColumn();
+		column_Symptoms->Name = "Symptoms";
+		column_Symptoms->HeaderText = "Symptoms";
+		//column_Description->ValueType = System::String::typeid;
+		dataView->Columns->Add(column_Symptoms);
+
+		DataGridViewColumn^ column_Comments = gcnew DataGridViewTextBoxColumn();
+		column_Comments->Name = "Comments";
+		column_Comments->HeaderText = "Comments";
+		//column_Description->ValueType = System::String::typeid;
+		dataView->Columns->Add(column_Comments);
+
+		DataGridViewColumn^ column_Service_Process = gcnew DataGridViewTextBoxColumn();
+		column_Service_Process->Name = "Service Process";
+		column_Service_Process->HeaderText = "Service Process";
+		//column_Description->ValueType = System::String::typeid;
+		dataView->Columns->Add(column_Service_Process);
+
+
 		// modify to allow searching via texbox in MyForm
 		int i{ 0 };
 		int j {0};
@@ -410,10 +429,12 @@ static void configureDataGrid_Orders(DataGridView^ dataView, String^ search) {
 			String^ orderDate = reader->GetString(6);
 			int orderPrice = reader->GetInt32(7);
 			String^ description = reader->GetString(8);
-
+			String^ symptoms = reader->GetString(9);
+			String^ comments = reader->GetString(10);
+			String^ serviceProcess = reader->GetString(11);
 
 			dataView->Rows->Add(orderId,clientName,clientSurname,Convert::ToInt32(employeeID),Convert::ToInt32(deviceID),
-				orderStatus,orderDate,orderPrice,description);
+				orderStatus,orderDate,orderPrice,description, symptoms, comments, serviceProcess);
 			
 		}
 		if (isReaderEmpty && search != "") {

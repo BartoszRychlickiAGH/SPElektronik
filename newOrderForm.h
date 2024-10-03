@@ -84,6 +84,9 @@ namespace testGUI {
 	private: System::Windows::Forms::Label^ label15;
 	private: System::Windows::Forms::RichTextBox^ tbSymptoms;
 	private: System::Windows::Forms::Label^ label16;
+	private: System::Windows::Forms::CheckBox^ boxDiscount;
+	private: System::Windows::Forms::RichTextBox^ tbServiceProcess;
+	private: System::Windows::Forms::Label^ label17;
 
 
 
@@ -139,6 +142,9 @@ namespace testGUI {
 			this->label15 = (gcnew System::Windows::Forms::Label());
 			this->tbSymptoms = (gcnew System::Windows::Forms::RichTextBox());
 			this->label16 = (gcnew System::Windows::Forms::Label());
+			this->boxDiscount = (gcnew System::Windows::Forms::CheckBox());
+			this->tbServiceProcess = (gcnew System::Windows::Forms::RichTextBox());
+			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -219,7 +225,7 @@ namespace testGUI {
 			// 
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnOK->Location = System::Drawing::Point(497, 826);
+			this->btnOK->Location = System::Drawing::Point(491, 887);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(242, 94);
 			this->btnOK->TabIndex = 13;
@@ -231,7 +237,7 @@ namespace testGUI {
 			// 
 			this->btnClear->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnClear->Location = System::Drawing::Point(768, 826);
+			this->btnClear->Location = System::Drawing::Point(762, 887);
 			this->btnClear->Name = L"btnClear";
 			this->btnClear->Size = System::Drawing::Size(242, 94);
 			this->btnClear->TabIndex = 14;
@@ -243,7 +249,7 @@ namespace testGUI {
 			// 
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnExit->Location = System::Drawing::Point(1032, 826);
+			this->btnExit->Location = System::Drawing::Point(1026, 887);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(242, 94);
 			this->btnExit->TabIndex = 15;
@@ -355,7 +361,7 @@ namespace testGUI {
 			// 
 			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label10->Location = System::Drawing::Point(10, 773);
+			this->label10->Location = System::Drawing::Point(4, 834);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(240, 50);
 			this->label10->TabIndex = 27;
@@ -407,7 +413,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->comboBox1->FormattingEnabled = true;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Laptop", L"Konsola", L"Smartfon/Tablet", L"Inne" });
-			this->comboBox1->Location = System::Drawing::Point(16, 826);
+			this->comboBox1->Location = System::Drawing::Point(10, 887);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(216, 39);
 			this->comboBox1->TabIndex = 33;
@@ -416,7 +422,7 @@ namespace testGUI {
 			// 
 			this->label13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label13->Location = System::Drawing::Point(286, 773);
+			this->label13->Location = System::Drawing::Point(280, 834);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(240, 50);
 			this->label13->TabIndex = 34;
@@ -427,7 +433,7 @@ namespace testGUI {
 			this->radioStandard->AutoSize = true;
 			this->radioStandard->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->radioStandard->Location = System::Drawing::Point(292, 826);
+			this->radioStandard->Location = System::Drawing::Point(286, 887);
 			this->radioStandard->Name = L"radioStandard";
 			this->radioStandard->Size = System::Drawing::Size(151, 36);
 			this->radioStandard->TabIndex = 35;
@@ -441,7 +447,7 @@ namespace testGUI {
 			this->radioExpress->AutoSize = true;
 			this->radioExpress->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->radioExpress->Location = System::Drawing::Point(292, 868);
+			this->radioExpress->Location = System::Drawing::Point(286, 929);
 			this->radioExpress->Name = L"radioExpress";
 			this->radioExpress->Size = System::Drawing::Size(137, 36);
 			this->radioExpress->TabIndex = 36;
@@ -484,7 +490,7 @@ namespace testGUI {
 			// 
 			this->label15->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label15->Location = System::Drawing::Point(19, 723);
+			this->label15->Location = System::Drawing::Point(19, 732);
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(261, 50);
 			this->label15->TabIndex = 41;
@@ -510,12 +516,46 @@ namespace testGUI {
 			this->label16->TabIndex = 39;
 			this->label16->Text = L"Symptoms:";
 			// 
+			// boxDiscount
+			// 
+			this->boxDiscount->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->boxDiscount->Location = System::Drawing::Point(10, 944);
+			this->boxDiscount->Name = L"boxDiscount";
+			this->boxDiscount->Size = System::Drawing::Size(270, 37);
+			this->boxDiscount->TabIndex = 43;
+			this->boxDiscount->Text = L"Student Discount";
+			this->boxDiscount->UseVisualStyleBackColor = true;
+			// 
+			// tbServiceProcess
+			// 
+			this->tbServiceProcess->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
+			this->tbServiceProcess->Location = System::Drawing::Point(286, 779);
+			this->tbServiceProcess->Name = L"tbServiceProcess";
+			this->tbServiceProcess->Size = System::Drawing::Size(1019, 44);
+			this->tbServiceProcess->TabIndex = 45;
+			this->tbServiceProcess->Text = L"";
+			// 
+			// label17
+			// 
+			this->label17->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->label17->Location = System::Drawing::Point(19, 782);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(261, 50);
+			this->label17->TabIndex = 44;
+			this->label17->Text = L"Service Process:";
+			// 
 			// newOrderForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(1333, 933);
+			this->ClientSize = System::Drawing::Size(1333, 1021);
+			this->Controls->Add(this->tbServiceProcess);
+			this->Controls->Add(this->label17);
+			this->Controls->Add(this->boxDiscount);
 			this->Controls->Add(this->tbComments);
 			this->Controls->Add(this->label15);
 			this->Controls->Add(this->tbSymptoms);
@@ -569,6 +609,9 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	if (tbCLientAdress->Text == "") {
 		tbCLientAdress->Text = "None";
 	}
+	if (tbServiceProcess->Text == "") {
+		tbServiceProcess->Text = "None";
+	}
 	if (tbEmail->Text == "") {
 		tbEmail->Text = "None";
 	}
@@ -593,12 +636,13 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		return;
 	}
 	if (tbPrice->Text == "") {
-		tbPrice->Text = "0.00";
+		tbPrice->Text = "0";
 	}
 	if (comboBox1->Text == "") {
 		comboBox1->Text = "Inne";
 	}
 
+	
 	
 
 
@@ -618,17 +662,24 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	String^ serialNumber{tbSerialNumber->Text};
 	String^ symptoms{tbSymptoms->Text};
 	String^ comments{ tbComments->Text };
-	int^ realizationType{ realizationMode };
+	String^ serviceProcess{ tbServiceProcess->Text };
 
+	int^ realizationType{ realizationMode };
 	int^ clientId{};
 	int employeeId{};
 	int deviceId{};
+	
+	bool hasDiscount{ false };
 	
 	int price{};
 	//check if all textboxes are filled
 	//check if name,surname,device name, device model are text type variabels
 	//check if phonenumber is integer of length 9 digits
 	//check if email is email type -> +[@]+[.]+ (regex)	
+
+	
+
+
 
 	{	// checking if number is 9 digit length
 		string text{ msclr::interop::marshal_as<string>(phoneNumber) };
@@ -646,14 +697,14 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		employeeId = Convert::ToInt32(employeeStringID);
 	}
 
-	if (!isMoney(priceStr)) {
-		MessageBox::Show("Price should be float type", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
+	price = Convert::ToInt32(priceStr);
+	price = round(price * 100) / 100;	//rounding to 2 decimal places
+
+	if (boxDiscount->Checked == true) {
+		hasDiscount = true;
+		price *= 0.9;
 	}
-	else {
-		price = Convert::ToInt32(priceStr);
-		price = round(price * 100) / 100;	//rounding to 2 decimal places
-	}
+
 
 	try{
 		String^ strConn{"Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False"};
@@ -681,7 +732,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 			reader->Close();
 
 		}else{
-			query = "INSERT INTO Clients(ClientName,ClientSurname,ClientPhone,ClientEmail,ClientAdress) VALUES(@clientName,@clientSurname,@clientPhone,@clientemail,@clientAdress)";	//insert new client
+			query = "INSERT INTO Clients(ClientName,ClientSurname,ClientPhone,ClientEmail,ClientAdress,hasDiscount) VALUES(@clientName,@clientSurname,@clientPhone,@clientemail,@clientAdress,@discount)";	//insert new client
 
 			SqlCommand cmd_insert_client{ query,% conn };
 			cmd_insert_client.Parameters->AddWithValue("@clientName",clientName);
@@ -689,6 +740,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 			cmd_insert_client.Parameters->AddWithValue("@clientPhone",phoneNumber);
 			cmd_insert_client.Parameters->AddWithValue("@clientEmail",email);
 			cmd_insert_client.Parameters->AddWithValue("@clientAdress",clientAdress);
+			cmd_insert_client.Parameters->AddWithValue("@discount", hasDiscount);
 
 			cmd_insert_client.ExecuteNonQuery();
 
@@ -801,7 +853,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		// inserting order
 		String^ date = getData();
 		//error in query - addi g null values to command
-		query = "Insert into orders(clientId,EmployeeId,DeviceId,Symptoms,Comments,ExpressRealization,OrderStatus,OrderDate,OrderPrice,Description) VALUES (@clientId,@EmployeeId,@DeviceId,@Symptoms,@Comments,@ExpressRealization,@OrderStatus,@OrderDate,@OrderPrice,@Description)";//insert int orders
+		query = "Insert into orders(clientId,EmployeeId,DeviceId,Symptoms,Comments,ExpressRealization,OrderStatus,OrderDate,OrderPrice,Description,ServiceProcess) VALUES (@clientId,@EmployeeId,@DeviceId,@Symptoms,@Comments,@ExpressRealization,@OrderStatus,@OrderDate,@OrderPrice,@Description,@process)";//insert int orders
 		SqlCommand cmd_insert_order{ query,% conn };
 		cmd_insert_order.Parameters->AddWithValue("@clientId", clientId);
 		cmd_insert_order.Parameters->AddWithValue("@EmployeeId", employeeId);
@@ -813,6 +865,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 		cmd_insert_order.Parameters->AddWithValue("@Description", errorDescription);
 		cmd_insert_order.Parameters->AddWithValue("@Symptoms", symptoms);
 		cmd_insert_order.Parameters->AddWithValue("@Comments", comments);
+		cmd_insert_order.Parameters->AddWithValue("@process", serviceProcess);
 
 		cmd_insert_order.ExecuteNonQuery();
 
@@ -917,6 +970,7 @@ private: System::Void btnClear_Click(System::Object^ sender, System::EventArgs^ 
 	comboBox1->Text ="";
 	tbCLientAdress->Clear();
 	tbPrice->Clear();
+	tbServiceProcess->Clear();
 }
 
 //exit button

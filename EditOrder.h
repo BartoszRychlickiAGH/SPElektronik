@@ -36,6 +36,9 @@ namespace testGUI {
 	private: System::Windows::Forms::RichTextBox^ tbCost;
 
 	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::RichTextBox^ tbServiceProcess;
+
+	private: System::Windows::Forms::Label^ label7;
 		   DataGridViewRow^ row;
 	public:
 		MyForm1(DataGridViewRow^ row)
@@ -101,13 +104,15 @@ namespace testGUI {
 			this->tbDescription = (gcnew System::Windows::Forms::RichTextBox());
 			this->tbCost = (gcnew System::Windows::Forms::RichTextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->tbServiceProcess = (gcnew System::Windows::Forms::RichTextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// btnOK
 			// 
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnOK->Location = System::Drawing::Point(14, 431);
+			this->btnOK->Location = System::Drawing::Point(48, 503);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(181, 70);
 			this->btnOK->TabIndex = 0;
@@ -119,7 +124,7 @@ namespace testGUI {
 			// 
 			this->btnClear->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnClear->Location = System::Drawing::Point(220, 431);
+			this->btnClear->Location = System::Drawing::Point(254, 503);
 			this->btnClear->Name = L"btnClear";
 			this->btnClear->Size = System::Drawing::Size(181, 70);
 			this->btnClear->TabIndex = 1;
@@ -131,7 +136,7 @@ namespace testGUI {
 			// 
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->btnExit->Location = System::Drawing::Point(427, 431);
+			this->btnExit->Location = System::Drawing::Point(461, 503);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(181, 70);
 			this->btnExit->TabIndex = 2;
@@ -157,7 +162,7 @@ namespace testGUI {
 				static_cast<System::Byte>(238)));
 			this->label2->Location = System::Drawing::Point(12, 9);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(594, 56);
+			this->label2->Size = System::Drawing::Size(672, 56);
 			this->label2->TabIndex = 4;
 			this->label2->Text = L"Edit Order";
 			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -196,7 +201,7 @@ namespace testGUI {
 			// 
 			this->tbStatus->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->tbStatus->Location = System::Drawing::Point(182, 87);
+			this->tbStatus->Location = System::Drawing::Point(254, 84);
 			this->tbStatus->Name = L"tbStatus";
 			this->tbStatus->Size = System::Drawing::Size(424, 46);
 			this->tbStatus->TabIndex = 8;
@@ -206,7 +211,7 @@ namespace testGUI {
 			// 
 			this->tbDate->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->tbDate->Location = System::Drawing::Point(182, 152);
+			this->tbDate->Location = System::Drawing::Point(254, 149);
 			this->tbDate->Name = L"tbDate";
 			this->tbDate->Size = System::Drawing::Size(424, 46);
 			this->tbDate->TabIndex = 9;
@@ -216,7 +221,7 @@ namespace testGUI {
 			// 
 			this->tbPrice->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->tbPrice->Location = System::Drawing::Point(182, 221);
+			this->tbPrice->Location = System::Drawing::Point(254, 218);
 			this->tbPrice->Name = L"tbPrice";
 			this->tbPrice->Size = System::Drawing::Size(424, 46);
 			this->tbPrice->TabIndex = 10;
@@ -226,7 +231,7 @@ namespace testGUI {
 			// 
 			this->tbDescription->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->tbDescription->Location = System::Drawing::Point(182, 278);
+			this->tbDescription->Location = System::Drawing::Point(254, 275);
 			this->tbDescription->Name = L"tbDescription";
 			this->tbDescription->Size = System::Drawing::Size(424, 46);
 			this->tbDescription->TabIndex = 11;
@@ -236,7 +241,7 @@ namespace testGUI {
 			// 
 			this->tbCost->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->tbCost->Location = System::Drawing::Point(182, 342);
+			this->tbCost->Location = System::Drawing::Point(254, 339);
 			this->tbCost->Name = L"tbCost";
 			this->tbCost->Size = System::Drawing::Size(424, 46);
 			this->tbCost->TabIndex = 13;
@@ -252,11 +257,34 @@ namespace testGUI {
 			this->label6->TabIndex = 12;
 			this->label6->Text = L"Cost:";
 			// 
+			// tbServiceProcess
+			// 
+			this->tbServiceProcess->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
+			this->tbServiceProcess->Location = System::Drawing::Point(254, 404);
+			this->tbServiceProcess->Name = L"tbServiceProcess";
+			this->tbServiceProcess->Size = System::Drawing::Size(424, 46);
+			this->tbServiceProcess->TabIndex = 15;
+			this->tbServiceProcess->Text = L"";
+			this->tbServiceProcess->TextChanged += gcnew System::EventHandler(this, &MyForm1::richTextBox1_TextChanged);
+			// 
+			// label7
+			// 
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->label7->Location = System::Drawing::Point(13, 407);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(229, 93);
+			this->label7->TabIndex = 14;
+			this->label7->Text = L"Service Process:";
+			// 
 			// MyForm1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(618, 526);
+			this->ClientSize = System::Drawing::Size(696, 630);
+			this->Controls->Add(this->tbServiceProcess);
+			this->Controls->Add(this->label7);
 			this->Controls->Add(this->tbCost);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->tbDescription);
@@ -282,6 +310,8 @@ namespace testGUI {
 	}
 	private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
 		// get current data from row
+		bool hasDiscount{false};
+		
 		int^ OrderId{};
 		String^ query;
 		String^ strConn = "Data Source=(localdb)\\ProjectModels;Initial Catalog=constructionDB;Integrated Security=True;Encrypt=False";
@@ -314,19 +344,28 @@ namespace testGUI {
 		reader->Close();
 
 
+		//check if given client has Discount
+		
+		query = "SELECT hasDiscount FROM Clients WHERE ClientName = @Name AND ClientSurname = @Surname";
+		SqlCommand cmd_discount{ query,% conn };
+
+		cmd_discount.Parameters->AddWithValue("@Name", clientName);
+		cmd_discount.Parameters->AddWithValue("@Surname", clientSurname);
+
+		reader = cmd_discount.ExecuteReader();
+
+		if (reader->Read()) {
+			hasDiscount = reader->GetBoolean(0);
+		}
+		reader->Close();
+
+
+		
+
+
 		//check if date is in correct format
 		if (tbDate->Text != "" && !isDate(tbDate->Text)) {
 			MessageBox::Show("Date must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			return;
-		}
-
-		//check if price is in correct format
-		if (tbPrice->Text != "" && isMoney(tbPrice->Text)) {
-			MessageBox::Show("Price must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			return;
-		}
-		if (tbCost->Text != "" && isMoney(tbCost->Text)) {
-			MessageBox::Show("Cost must be in correct format!!!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return;
 		}
 
@@ -385,9 +424,15 @@ namespace testGUI {
 			cmd_equity.ExecuteNonQuery();
 		}
 		if (tbPrice->Text != "") {
+			int price = Convert::ToInt32(tbPrice->Text);
+			if (hasDiscount) {
+				price *= 0.9;
+			}
+
+
 			query = "UPDATE Orders SET OrderPrice = @Price WHERE OrderId = @Id";
 			SqlCommand cmd{ query,% conn };
-			cmd.Parameters->AddWithValue("@Price", Convert::ToSingle(tbPrice -> Text));
+			cmd.Parameters->AddWithValue("@Price", price);
 			cmd.Parameters->AddWithValue("@Id", OrderId);
 			text += Convert::ToString("Changed price to " + tbPrice->Text + ".");
 			cmd.ExecuteNonQuery();
@@ -395,7 +440,7 @@ namespace testGUI {
 			//update equity
 			query = "UPDATE Equity SET Price = @Price WHERE OrderId = @Id";
 			SqlCommand cmd_equity{ query,% conn };
-			cmd_equity.Parameters->AddWithValue("@Price", Convert::ToSingle(tbPrice->Text));
+			cmd_equity.Parameters->AddWithValue("@Price", price);
 
 			cmd_equity.Parameters->AddWithValue("@Id", OrderId);
 		}
@@ -404,9 +449,19 @@ namespace testGUI {
 			//update equity
 			query = "UPDATE Equity SET Cost = @Cost WHERE OrderId = @Id";
 			SqlCommand cmd_equity{ query,% conn };
-			cmd_equity.Parameters->AddWithValue("@Cost", Convert::ToSingle(tbCost->Text));
+			cmd_equity.Parameters->AddWithValue("@Cost", Convert::ToInt32(tbCost->Text));
 
 			cmd_equity.Parameters->AddWithValue("@Id", OrderId);
+		}
+		if (tbServiceProcess->Text != "") {
+			//update equity
+			query = "UPDATE Orders SET ServiceProcess = @ServiceProcess WHERE OrderId = @Id";
+			SqlCommand cmd_orders{ query,% conn };
+			cmd_orders.Parameters->AddWithValue("@ServiceProcess", Convert::ToString(tbServiceProcess->Text));
+
+			cmd_orders.Parameters->AddWithValue("@Id", OrderId);
+
+			cmd_orders.ExecuteNonQuery();
 		}
 		
 
@@ -498,6 +553,9 @@ private: System::Void btnClear_Click(System::Object^ sender, System::EventArgs^ 
 	tbDate->Text = "";
 	tbPrice->Text = "";
 	tbDescription->Text = "";
+	tbServiceProcess->Text = "";
+}
+private: System::Void richTextBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }
