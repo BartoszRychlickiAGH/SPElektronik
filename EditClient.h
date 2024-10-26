@@ -292,7 +292,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	string check{msclr::interop::marshal_as<string>(tbPhone->Text)};
 
 
-	if (!regex_match(check,regex("[0-9]{9}"))) {
+	if ( tbPhone->Text != "" && !regex_match(check, regex("[0-9]{9}"))) {
 		MessageBox::Show("Given phone number is not a number!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
 	}

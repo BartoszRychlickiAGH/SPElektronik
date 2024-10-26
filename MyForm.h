@@ -186,18 +186,18 @@ namespace testGUI {
 			// 
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->logs);
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->dataGridView);
-			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1724, 907);
+			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(1808, 992);
 			this->toolStripContainer1->Location = System::Drawing::Point(12, 12);
 			this->toolStripContainer1->Name = L"toolStripContainer1";
-			this->toolStripContainer1->Size = System::Drawing::Size(1724, 934);
+			this->toolStripContainer1->Size = System::Drawing::Size(1808, 1046);
 			this->toolStripContainer1->TabIndex = 0;
 			this->toolStripContainer1->Text = L"toolStripContainer1";
 			// 
 			// toolStripContainer1.TopToolStripPanel
 			// 
 			this->toolStripContainer1->TopToolStripPanel->BackColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip1);
 			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip2);
+			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip1);
 			this->toolStripContainer1->TopToolStripPanel->Click += gcnew System::EventHandler(this, &MyForm::toolStripContainer1_TopToolStripPanel_Click);
 			// 
 			// logs
@@ -218,7 +218,7 @@ namespace testGUI {
 			this->dataGridView->Name = L"dataGridView";
 			this->dataGridView->RowHeadersWidth = 51;
 			this->dataGridView->RowTemplate->Height = 24;
-			this->dataGridView->Size = System::Drawing::Size(1430, 894);
+			this->dataGridView->Size = System::Drawing::Size(1514, 979);
 			this->dataGridView->TabIndex = 0;
 			this->dataGridView->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip_Hide);
 			this->dataGridView->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::ContextMenuStrip1);
@@ -234,9 +234,9 @@ namespace testGUI {
 				this->newOrderBtn, this->toolStripSeparator1,
 					this->showAllMenu, this->toolStripSeparator2, this->BalanceMenu, this->toolStripSeparator3, this->exitBtn
 			});
-			this->toolStrip1->Location = System::Drawing::Point(1289, 0);
+			this->toolStrip1->Location = System::Drawing::Point(4, 0);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(332, 27);
+			this->toolStrip1->Size = System::Drawing::Size(146, 27);
 			this->toolStrip1->TabIndex = 0;
 			this->toolStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::toolStrip1_ItemClicked);
 			// 
@@ -336,9 +336,9 @@ namespace testGUI {
 				this->btnSearch, this->toolStripSeparator4,
 					this->tbSearch, this->toolStripSeparator5
 			});
-			this->toolStrip2->Location = System::Drawing::Point(4, 0);
+			this->toolStrip2->Location = System::Drawing::Point(4, 27);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(287, 27);
+			this->toolStrip2->Size = System::Drawing::Size(146, 27);
 			this->toolStrip2->TabIndex = 1;
 			// 
 			// btnSearch
@@ -405,7 +405,7 @@ namespace testGUI {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->ClientSize = System::Drawing::Size(1737, 958);
+			this->ClientSize = System::Drawing::Size(1821, 1070);
 			this->Controls->Add(this->toolStripContainer1);
 			this->Name = L"MyForm";
 			this->Text = L"Main Interface";
